@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pracovný list č. 1 – Základy programovania v Pythone</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Roboto, sans-serif;
+        background-color: #f7f8fa;
+        color: #222;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+      }
+
+      header {
+        background-color: #2d87ef97;
+        color: white;
+        padding: 20px 40px;
+        text-align: center;
+        border-bottom: 4px solid #1b5cb8;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 1.8rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      h1 img {
+        margin-right: 16px;
+        width: 32px;
+        height: 32px;
+      }
+
+      h2 {
+        color: #1b5cb8;
+        margin-top: 40px;
+        border-bottom: 2px solid #1b5cb8;
+        padding-bottom: 5px;
+      }
+
+      section {
+        padding: 20px 40px;
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      code,
+      pre {
+        background-color: #f0f3f9;
+        border-radius: 6px;
+        padding: 10px;
+        display: block;
+        font-family: "Fira Code", monospace;
+        white-space: pre-wrap;
+      }
+
+      .task {
+        background: #e8f4ff;
+        border-left: 6px solid #2d89ef;
+        padding: 12px 16px;
+        margin: 20px 0;
+        border-radius: 4px;
+      }
+
+      .bonus {
+        background: #fff9e6;
+        border-left: 6px solid #ffc107;
+        padding: 12px 16px;
+        margin: 20px 0;
+        border-radius: 4px;
+      }
+
+      .homework {
+        background: #e9f9eb;
+        border-left: 6px solid #28a745;
+        padding: 14px 18px;
+        margin: 30px 0;
+        border-radius: 6px;
+      }
+
+      footer {
+        text-align: center;
+        font-size: 0.9rem;
+        color: #666;
+        padding: 20px;
+      }
+
+      ul.checklist {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      ul.checklist li::before {
+        content: "✔ ";
+        color: #2d89ef;
+      }
+
+      @media (max-width: 600px) {
+        section {
+          padding: 15px 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>
+        <img src="../logo.png" alt="python" /> Pracovný list č. 1 – Základy
+        programovania v Pythone
+      </h1>
+      <p>9. ročník ZŠ – Informatika</p>
+      <!-- Odkaz späť na index.html -->
+      <p style="text-align: start">
+        <a href="../index.html" style="color: #fff; text-decoration: underline"
+          >🏠 Späť na zoznam pracovných listov</a
+        >
+      </p>
+    </header>
+
+    <section>
+      <h2>1️⃣ Čo je program?</h2>
+      <p>
+        Program je <strong>séria príkazov</strong>, ktoré počítač vykonáva v
+        poradí, v akom sú napísané. Python číta príkazy zhora nadol.
+      </p>
+
+      <h2>2️⃣ Výstup – funkcia <code>print()</code></h2>
+      <pre><code>print("Ahoj svet!")
+print("Moje meno je Michal.")</code></pre>
+
+      <div class="task">
+        <strong>Úlohy:</strong>
+        <ol>
+          <li>
+            Napíš program, ktorý vypíše:
+            <pre><code>Ahoj, ja som &lt;tvoje meno&gt;!
+Dnes sa učím programovať v Pythone.</code></pre>
+          </li>
+          <li>Zmeň text tak, aby si vypísal/a tri tvoje obľúbené veci.</li>
+        </ol>
+      </div>
+
+      <h2>3️⃣ Premenné a vstup používateľa</h2>
+      <pre><code>meno = input("Ako sa voláš? ")
+print("Ahoj", meno, "!")</code></pre>
+
+      <div class="task">
+        <strong>Úlohy:</strong>
+        <ol>
+          <li>Vypýtaj si meno a vek používateľa.</li>
+          <li>
+            Vypíš vetu:
+            <pre><code>Ahoj, &lt;meno&gt;! Máš &lt;vek&gt; rokov.</code></pre>
+          </li>
+          <li>
+            Pridaj výpočet roku narodenia:
+            <pre><code>rok_narodenia = 2025 - int(vek)
+print("Narodil si sa v roku", rok_narodenia)</code></pre>
+          </li>
+        </ol>
+      </div>
+
+      <h2>4️⃣ Mini výzva 💪</h2>
+      <div class="task">
+        Napíš program, ktorý:
+        <ul>
+          <li>sa opýta na dve čísla,</li>
+          <li>spočíta ich súčet,</li>
+          <li>vypíše vetu: <code>Súčet čísel 4 a 7 je 11.</code></li>
+        </ul>
+      </div>
+
+      <div class="bonus">
+        <strong>💡 Bonus:</strong>
+        <ul>
+          <li>Napíš program, ktorý vypočíta tvoj vek o 10 rokov.</li>
+          <li>
+            Skús pridať emoji do výpisu, napríklad: <code>print("😊")</code>
+          </li>
+        </ul>
+      </div>
+
+      <h2>✔ Na konci hodiny by si mal/a vedieť:</h2>
+      <ul class="checklist">
+        <li>spustiť program v IDLE,</li>
+        <li>používať <code>print()</code> a <code>input()</code>,</li>
+        <li>pracovať s číslami a textom v premenných.</li>
+      </ul>
+
+      <h2>🏠 Domáca úloha</h2>
+      <div class="homework">
+        <p><strong>Téma:</strong> Základy vstupu, výstupu a počítania</p>
+        <p>Vyber si <em>aspoň jednu</em> z týchto úloh:</p>
+        <ol>
+          <li>
+            Napíš program <strong>"Môj deň"</strong>, ktorý sa opýta:
+            <ul>
+              <li>Na tvoje meno</li>
+              <li>Koľko hodín si dnes spal/a</li>
+              <li>Koľko času si strávil/a na mobile</li>
+            </ul>
+            A vypíše napríklad:
+            <pre><code>Ahoj, Karol! Dnes si spal 8 hodín a bol si 3 hodiny na mobile.
+Dúfam, že zajtra necháš mobil trochu oddýchnuť! 😄</code></pre>
+          </li>
+          <li>
+            Napíš program <strong>"Premena jednotiek"</strong>, ktorý:
+            <ul>
+              <li>zistí dĺžku v centimetroch,</li>
+              <li>prepočíta ju na metre (delené 100),</li>
+              <li>vypíše výsledok v tvare: <code>150 cm = 1.5 m</code></li>
+            </ul>
+          </li>
+        </ol>
+        <p>
+          💾 Program ulož ako <code>domaca1_meno.priezvisko.py</code> a pošli
+          učiteľovi <a href="mailto:michal.puskel@gmail.com">e-mailom</a>.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      Súkromná základná škola waldorfská · Informatika 9. ročník 2025/2026 ·
+      Michal Puškel · Pracovný list vytvorený s pomocou ChatGPT
+    </footer>
+  </body>
+</html>
