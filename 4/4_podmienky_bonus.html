@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pracovný list č. 4 – Zložené podmienky v Pythone</title>
+
+    <style>
+      body {
+        font-family: "Segoe UI", Roboto, sans-serif;
+        background-color: #f7f8fa;
+        color: #222;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+      }
+
+      header {
+        background-color: #2d87ef97;
+        color: white;
+        padding: 20px 40px;
+        text-align: center;
+        border-bottom: 4px solid #1b5cb8;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 1.8rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      h1 img {
+        margin-right: 16px;
+        width: 32px;
+        height: 32px;
+      }
+
+      h2 {
+        color: #1b5cb8;
+        margin-top: 40px;
+        border-bottom: 2px solid #1b5cb8;
+        padding-bottom: 5px;
+      }
+
+      section {
+        padding: 20px 40px;
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      code,
+      pre {
+        background-color: #f0f3f9;
+        border-radius: 6px;
+        padding: 10px;
+        display: block;
+        font-family: "Fira Code", monospace;
+        white-space: pre-wrap;
+      }
+
+      .task {
+        background: #e8f4ff;
+        border-left: 6px solid #2d89ef;
+        padding: 12px 16px;
+        margin: 20px 0;
+        border-radius: 4px;
+      }
+
+      .bonus {
+        background: #fff9e6;
+        border-left: 6px solid #ffc107;
+        padding: 12px 16px;
+        margin: 20px 0;
+        border-radius: 4px;
+      }
+
+      footer {
+        text-align: center;
+        font-size: 0.9rem;
+        color: #666;
+        padding: 20px;
+      }
+
+      table {
+        border-collapse: collapse;
+        margin: 15px 0;
+        width: 100%;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: center;
+      }
+
+      table th {
+        background: #f0f3f9;
+      }
+
+      ul.checklist {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      ul.checklist li::before {
+        content: "✔ ";
+        color: #2d89ef;
+      }
+
+      @media (max-width: 600px) {
+        section {
+          padding: 15px 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>
+        <img src="../logo.png" alt="python" />
+        Pracovný list č. 4 – Zložené podmienky v Pythone
+      </h1>
+      <p>9. ročník ZŠ – Informatika</p>
+      <p style="text-align: start">
+        <a href="../index.html" style="color: #fff; text-decoration: underline">
+          🏠 Späť na zoznam pracovných listov
+        </a>
+      </p>
+    </header>
+
+    <section>
+      <h2>1️⃣ Logické operátory</h2>
+      <p>
+        V Pythone môžeme spájať viac podmienok pomocou
+        <strong>logických operátorov</strong>.
+      </p>
+
+      <ul>
+        <li><code>and</code> – všetky podmienky musia byť pravdivé</li>
+        <li><code>or</code> – aspoň jedna podmienka musí byť pravdivá</li>
+        <li><code>not</code> – neguje (otáča) hodnotu podmienky</li>
+      </ul>
+
+      <pre><code>vek >= 18 and vek <= 65
+je_student or je_dochodca
+not je_blokovany</code></pre>
+
+      <h2>2️⃣ Pravdivostné tabuľky</h2>
+
+      <strong>Operátor <code>and</code></strong>
+      <table>
+        <tr>
+          <th>A</th>
+          <th>B</th>
+          <th>A and B</th>
+        </tr>
+        <tr>
+          <td>True</td>
+          <td>True</td>
+          <td>True</td>
+        </tr>
+        <tr>
+          <td>True</td>
+          <td>False</td>
+          <td>False</td>
+        </tr>
+        <tr>
+          <td>False</td>
+          <td>True</td>
+          <td>False</td>
+        </tr>
+        <tr>
+          <td>False</td>
+          <td>False</td>
+          <td>False</td>
+        </tr>
+      </table>
+
+      <strong>Operátor <code>or</code></strong>
+      <table>
+        <tr>
+          <th>A</th>
+          <th>B</th>
+          <th>A or B</th>
+        </tr>
+        <tr>
+          <td>True</td>
+          <td>True</td>
+          <td>True</td>
+        </tr>
+        <tr>
+          <td>True</td>
+          <td>False</td>
+          <td>True</td>
+        </tr>
+        <tr>
+          <td>False</td>
+          <td>True</td>
+          <td>True</td>
+        </tr>
+        <tr>
+          <td>False</td>
+          <td>False</td>
+          <td>False</td>
+        </tr>
+      </table>
+
+      <strong>Operátor <code>not</code></strong>
+      <table>
+        <tr>
+          <th>A</th>
+          <th>not A</th>
+        </tr>
+        <tr>
+          <td>True</td>
+          <td>False</td>
+        </tr>
+        <tr>
+          <td>False</td>
+          <td>True</td>
+        </tr>
+      </table>
+
+      <h2>3️⃣ Zložené podmienky</h2>
+      <p>
+        Podmienky môžeme kombinovať do zložitejších výrazov. Zátvorky
+        <strong>menia poradie vyhodnocovania</strong>.
+      </p>
+
+      <pre><code>if vek >= 18 and (ma_vodicsky or ma_suhlas_rodica):
+    print("Môžeš šoférovať")</code></pre>
+
+      <h2>4️⃣ Úlohy</h2>
+
+      <div class="task">
+        <ol>
+          <li>Skontroluj, či má osoba vek <strong>18 až 30 rokov</strong>.</li>
+          <li>
+            Zákazník dostane zľavu, ak je
+            <strong>študent alebo dôchodca</strong> a má vernostnú kartu.
+          </li>
+          <li>
+            Používateľ sa môže prihlásiť, ak má správne heslo a
+            <strong>nie je zablokovaný</strong>.
+          </li>
+          <li>
+            Osoba môže vstúpiť na podujatie, ak má lístok alebo VIP pozvánku a
+            <strong>nie je pod vplyvom alkoholu</strong>.
+          </li>
+          <li>
+            Študent test prejde, ak má aspoň 50 bodov a
+            <strong>nepodvádzal</strong> alebo má výnimku.
+          </li>
+        </ol>
+      </div>
+
+      <div class="bonus">
+        <strong>💡 Bonus – Zamysli sa:</strong>
+        <pre><code>A and B or C
+A and (B or C)</code></pre>
+        <p>Sú tieto podmienky rovnaké? Vysvetli vlastnými slovami.</p>
+      </div>
+
+      <h2>✔ Na konci hodiny by si mal/a vedieť:</h2>
+      <ul class="checklist">
+        <li>používať <code>and</code>, <code>or</code>, <code>not</code>,</li>
+        <li>čítať a vytvárať pravdivostné tabuľky,</li>
+        <li>správne používať zátvorky v podmienkach.</li>
+      </ul>
+    </section>
+
+    <footer>
+      Súkromná základná škola waldorfská · Informatika 9. ročník 2025/2026 ·
+      Michal Puškel · Pracovný list vytvorený s pomocou ChatGPT
+    </footer>
+  </body>
+</html>
