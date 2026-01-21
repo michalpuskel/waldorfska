@@ -106,7 +106,8 @@
         margin: 15px 0;
         border-radius: 4px;
         font-family: monospace;
-        text-align: center;
+        text-align: left;
+        line-height: 1.8;
       }
 
       .comparison {
@@ -173,6 +174,12 @@
         color: #1b5cb8;
       }
 
+      .highlight {
+        background: #fffde7;
+        padding: 2px 4px;
+        border-radius: 3px;
+      }
+
       @media (max-width: 600px) {
         section {
           padding: 15px 20px;
@@ -219,44 +226,78 @@
         </p>
       </div>
 
-      <h2>✅ Riešenie (vnorené if-else podmienky)</h2>
+      <h2>🧠 Analýza problému</h2>
+      <p>
+        Máme tri čísla <code>a</code>, <code>b</code>, <code>c</code>. Chceme
+        nájsť to najväčšie. Ako na to?
+      </p>
 
-      <h3>1. Krok – Pochopenie logiky</h3>
-      <p>Potrebujeme porovnávať 3 čísla. Základná idea:</p>
-      <ul>
+      <div class="bonus">
+        <strong>Kľúčová myšlienka:</strong> Porovnávame čísla postupne, jedno po
+        druhom. Najprv zistíme, či je <code>a</code> väčšie ako <code>b</code>.
+        Podľa výsledku potom porovnáme víťaza s číslom <code>c</code>.
+      </div>
+
+      <h2>✅ Vzorové riešenie (vnorené if-elif-else)</h2>
+
+      <h3>1. Krok – Logika riešenia</h3>
+      <p>Riešenie má <strong>4 jednoduché porovnania</strong>:</p>
+      <ol>
         <li>
-          Ak je <strong>číslo 1</strong> väčšie ako číslo 2 a väčšie ako číslo 3
-          → maximum je číslo 1
+          Najprv porovnáme <code>a</code> a <code>b</code>: Je
+          <code>a > b</code>?
         </li>
         <li>
-          Inak, ak je <strong>číslo 2</strong> väčšie ako číslo 1 a väčšie ako
-          číslo 3 → maximum je číslo 2
+          Ak áno, porovnáme <code>a</code> s <code>c</code>: Je
+          <code>a > c</code>?
         </li>
-        <li>Inak → maximum musí byť <strong>číslo 3</strong></li>
-      </ul>
+        <li>
+          Ak nie (teda <code>b >= a</code>), porovnáme <code>b</code> s
+          <code>c</code>: Je <code>b > c</code>?
+        </li>
+        <li>Podľa výsledkov vieme určiť maximum</li>
+      </ol>
 
-      <h3>2. Krok – Diagram toku rozhodovania</h3>
+      <h3>2. Krok – Diagram rozhodovania</h3>
       <div class="diagram">
-        Máme 3 čísla: a, b, c<br />
-        ↓<br />
-        Je <strong>a > b AND a > c</strong> ?<br />
-        ├─ AÑO → <strong>maximum = a</strong> ✓<br />
-        └─ NIE<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;↓<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;Je <strong>b > c</strong> ?<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;├─ AÑO → <strong>maximum = b</strong> ✓<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;└─ NIE → <strong>maximum = c</strong> ✓
+        <pre>
+                    Máme 3 čísla: a, b, c
+                            │
+                            ▼
+                    ┌───────────────┐
+                    │   a > b ?     │
+                    └───────┬───────┘
+                      ÁNO   │   NIE
+                    ┌───────┴───────┐
+                    ▼               ▼
+            ┌───────────────┐ ┌───────────────┐
+            │   a > c ?     │ │   b > c ?     │
+            └───────┬───────┘ └───────┬───────┘
+              ÁNO   │   NIE     ÁNO   │   NIE
+            ┌───────┴───────┐ ┌───────┴───────┐
+            ▼               ▼ ▼               ▼
+        max = a         max = c  max = b     max = c
+        </pre>
       </div>
 
       <h3>3. Krok – Kompletný Python kód</h3>
       <div class="solution">
-        <pre><code>a = int(input("Zadaj prvé číslo: "))
+        <pre><code># Načítanie troch čísel od používateľa
+a = int(input("Zadaj prvé číslo: "))
 b = int(input("Zadaj druhé číslo: "))
 c = int(input("Zadaj tretie číslo: "))
 
-if a > b and a > c:
-    maximum = a
+# Nájdenie maxima pomocou vnorených podmienok
+if a > b:
+    # Vieme, že a je väčšie ako b
+    # Teraz porovnáme a s c
+    if a > c:
+        maximum = a
+    else:
+        maximum = c
 else:
+    # Vieme, že b >= a
+    # Teraz porovnáme b s c
     if b > c:
         maximum = b
     else:
@@ -265,79 +306,134 @@ else:
 print(f"Maximálne číslo je {maximum}")</code></pre>
       </div>
 
-      <h3>4. Krok – Krok za krokom vysvetlenie</h3>
+      <h3>4. Krok – Podrobné vysvetlenie</h3>
 
       <div class="step">
-        <strong>Riadok 1-3:</strong> Čítame tri čísla od používateľa a
-        konvertujeme ich na typ <code>int</code> (celé číslo).
+        <strong>Riadok 2-4:</strong> Načítame tri čísla od používateľa a
+        prevedieme ich na celé čísla pomocou <code>int()</code>.
       </div>
 
       <div class="step">
-        <strong>Riadok 5:</strong> Hlavná podmienka:
-        <code>if a > b and a > c:</code>
+        <strong>Riadok 7: <code>if a > b:</code></strong>
+        <ul>
+          <li>Prvé porovnanie – je <code>a</code> väčšie ako <code>b</code>?</li>
+          <li>Ak áno, vstúpime do prvého bloku (riadky 8-12)</li>
+          <li>Ak nie, preskočíme na <code>else</code> (riadok 13)</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <strong>Riadok 10: <code>if a > c:</code></strong> (vnorená podmienka)
         <ul>
           <li>
-            Skontrolujeme, či je číslo <code>a</code> väčšie než všetci ostatní
+            Už vieme, že <code>a > b</code>. Teraz zisťujeme, či
+            <code>a > c</code>.
           </li>
-          <li>Ak áno, vieme, že <code>a</code> je určite maximum</li>
           <li>
-            Operátor <code>and</code> znamená, že
-            <strong>obe podmienky</strong> musia byť pravdivé
+            Ak <code>a > c</code>, potom <code>a</code> je väčšie ako obe
+            ostatné čísla → <span class="highlight">maximum = a</span>
+          </li>
+          <li>
+            Ak <code>a <= c</code>, potom <code>c</code> je najväčšie →
+            <span class="highlight">maximum = c</span>
           </li>
         </ul>
       </div>
 
       <div class="step">
-        <strong>Riadok 6:</strong> Ak je podmienka pravdivá, priradíme:
-        <code>maximum = a</code>
-      </div>
-
-      <div class="step">
-        <strong>Riadok 7-11:</strong> Vnorené <code>if-else</code> (vykonáme len
-        ak riadok 5 bol nepravdivý)
+        <strong>Riadok 13: <code>else:</code></strong>
         <ul>
           <li>
-            <code>if b > c:</code> → Ak je <code>b</code> väčšie ako
-            <code>c</code>, potom <code>b</code> je maximum
-          </li>
-          <li>
-            <code>else:</code> → V opačnom prípade musí byť maximum
-            <code>c</code>
+            Sem sa dostaneme, keď <code>a <= b</code> (teda <code>b</code> je
+            väčšie alebo rovné ako <code>a</code>)
           </li>
         </ul>
       </div>
 
       <div class="step">
-        <strong>Riadok 13:</strong> Vypíšeme výsledok pomocou f-stringu
-        (formátovaného reťazca): <code>f"Maximálne číslo je {maximum}"</code>
+        <strong>Riadok 16: <code>if b > c:</code></strong> (vnorená podmienka)
+        <ul>
+          <li>
+            Vieme, že <code>b >= a</code>. Teraz porovnáme <code>b</code> a
+            <code>c</code>.
+          </li>
+          <li>
+            Ak <code>b > c</code>, potom <code>b</code> je najväčšie →
+            <span class="highlight">maximum = b</span>
+          </li>
+          <li>
+            Ak <code>b <= c</code>, potom <code>c</code> je najväčšie →
+            <span class="highlight">maximum = c</span>
+          </li>
+        </ul>
       </div>
 
-      <h3>5. Krok – Testovanie s príkladmi</h3>
+      <h3>5. Krok – Prečo to funguje?</h3>
+      <div class="bonus">
+        <p><strong>Logika za riešením:</strong></p>
+        <ul>
+          <li>
+            Keď porovnáme <code>a</code> a <code>b</code>, vylúčime jedno z nich
+            ako možné maximum
+          </li>
+          <li>
+            Potom stačí porovnať "víťaza" s tretím číslom <code>c</code>
+          </li>
+          <li>
+            Celkovo potrebujeme iba <strong>2 porovnania</strong> (nie 3!), aby
+            sme našli maximum
+          </li>
+          <li>
+            Vnorené podmienky nám umožňujú "zapamätať si" výsledok prvého
+            porovnania
+          </li>
+        </ul>
+      </div>
+
+      <h3>6. Krok – Testovanie s príkladmi</h3>
 
       <table>
         <tr>
           <th>Vstup (a, b, c)</th>
-          <th>Vykonanie kódu</th>
+          <th>Priebeh vykonávania</th>
           <th>Výstup</th>
         </tr>
         <tr>
           <td>5, 12, 8</td>
-          <td>5 > 12? NIE → 12 > 8? AÑO → maximum = 12</td>
+          <td>
+            5 > 12? <strong>NIE</strong> → 12 > 8? <strong>ÁNO</strong> → max =
+            12
+          </td>
           <td>Maximálne číslo je 12</td>
         </tr>
         <tr>
           <td>20, 10, 5</td>
-          <td>20 > 10 AND 20 > 5? AÑO → maximum = 20</td>
+          <td>
+            20 > 10? <strong>ÁNO</strong> → 20 > 5? <strong>ÁNO</strong> → max =
+            20
+          </td>
           <td>Maximálne číslo je 20</td>
         </tr>
         <tr>
           <td>3, 7, 15</td>
-          <td>3 > 7? NIE → 7 > 15? NIE → maximum = 15</td>
+          <td>
+            3 > 7? <strong>NIE</strong> → 7 > 15? <strong>NIE</strong> → max = 15
+          </td>
+          <td>Maximálne číslo je 15</td>
+        </tr>
+        <tr>
+          <td>10, 5, 15</td>
+          <td>
+            10 > 5? <strong>ÁNO</strong> → 10 > 15? <strong>NIE</strong> → max =
+            15
+          </td>
           <td>Maximálne číslo je 15</td>
         </tr>
         <tr>
           <td>8, 8, 8</td>
-          <td>8 > 8? NIE → 8 > 8? NIE → maximum = 8</td>
+          <td>
+            8 > 8? <strong>NIE</strong> → 8 > 8? <strong>NIE</strong> → max = 8
+          </td>
           <td>Maximálne číslo je 8</td>
         </tr>
       </table>
@@ -346,16 +442,18 @@ print(f"Maximálne číslo je {maximum}")</code></pre>
 
       <div class="comparison">
         <div class="comparison-box">
-          <h4>1️⃣ Pomocou vnorených if-else (náš kód)</h4>
+          <h4>1️⃣ So zloženými podmienkami (and)</h4>
           <pre><code>if a > b and a > c:
     maximum = a
+elif b > a and b > c:
+    maximum = b
 else:
-    if b > c:
-        maximum = b
-    else:
-        maximum = c</code></pre>
-          <p><strong>Výhody:</strong> Jasné, ľahko pochopiteľné</p>
-          <p><strong>Nevýhody:</strong> Viac riadkov kódu</p>
+    maximum = c</code></pre>
+          <p><strong>Výhody:</strong> Menej vnorenia, kratší kód</p>
+          <p>
+            <strong>Nevýhody:</strong> Používa <code>and</code>, robí viac
+            porovnaní
+          </p>
         </div>
 
         <div class="comparison-box">
@@ -366,35 +464,42 @@ c = int(input("Číslo 3: "))
 
 maximum = max(a, b, c)
 print(f"Maximum je {maximum}")</code></pre>
-          <p><strong>Výhody:</strong> Krátky a elegantný kód</p>
-          <p><strong>Nevýhody:</strong> Netrénujem logiku s podmienkami</p>
+          <p><strong>Výhody:</strong> Najkratší a najelegantnejší kód</p>
+          <p><strong>Nevýhody:</strong> Nenaučíme sa logiku podmienok</p>
         </div>
       </div>
 
       <div class="comparison">
         <div class="comparison-box">
-          <h4>3️⃣ Pomocou reťazených porovnaní</h4>
-          <pre><code>if a > b and a > c:
-    maximum = a
-elif b > a and b > c:
+          <h4>3️⃣ Postupná aktualizácia maxima</h4>
+          <pre><code>a = int(input("Číslo 1: "))
+b = int(input("Číslo 2: "))
+c = int(input("Číslo 3: "))
+
+maximum = a  # predpokladáme, že a je max
+if b > maximum:
     maximum = b
-else:
-    maximum = c</code></pre>
-          <p>
-            <strong>Výhody:</strong> Jasnejší kód, <code>elif</code> je
-            modernejší
-          </p>
-          <p><strong>Nevýhody:</strong> Podobný ako prvý spôsob</p>
+if c > maximum:
+    maximum = c
+
+print(f"Maximum je {maximum}")</code></pre>
+          <p><strong>Výhody:</strong> Ľahko rozšíriteľné na viac čísel</p>
+          <p><strong>Nevýhody:</strong> Nepoužíva vnorené podmienky</p>
         </div>
 
         <div class="comparison-box">
-          <h4>4️⃣ Pomocou zoznamu a funkcie <code>sorted()</code></h4>
-          <pre><code>cisla = [a, b, c]
+          <h4>4️⃣ Pomocou zoznamu a <code>sorted()</code></h4>
+          <pre><code>a = int(input("Číslo 1: "))
+b = int(input("Číslo 2: "))
+c = int(input("Číslo 3: "))
+
+cisla = [a, b, c]
 cisla_zoradene = sorted(cisla)
 maximum = cisla_zoradene[-1]
+
 print(f"Maximum je {maximum}")</code></pre>
           <p><strong>Výhody:</strong> Funguje pre ľubovolný počet čísel</p>
-          <p><strong>Nevýhody:</strong> Zložitejšie, menej efektívne</p>
+          <p><strong>Nevýhody:</strong> Zbytočne zložité pre 3 čísla</p>
         </div>
       </div>
 
@@ -404,18 +509,19 @@ print(f"Maximum je {maximum}")</code></pre>
         <ul>
           <li>
             <strong>Pedagogický dôvod:</strong> Cvičíme logické myslenie a
-            pochopenie podmienok
+            pochopenie štruktúry podmienok
+          </li>
+          <li>
+            <strong>Efektívnosť:</strong> Stačia nám iba 2 porovnania (nie 4 ako
+            pri <code>and</code> riešení)
           </li>
           <li>
             <strong>Jasnosť:</strong> Vidíme presne, ako sa rozhodovací proces
-            vyvíja
+            vyvíja krok za krokom
           </li>
           <li>
-            <strong>Základy:</strong> V programe sa bez vnorených podmienok
-            neobídeme
-          </li>
-          <li>
-            <strong>Porovnanie:</strong> Vidíme rozdiely medzi rôznymi prístupmi
+            <strong>Základ:</strong> Vnorené podmienky sú základný stavebný
+            kameň programovania
           </li>
         </ul>
       </div>
@@ -425,41 +531,41 @@ print(f"Maximum je {maximum}")</code></pre>
       <div class="task">
         <ol>
           <li>
-            <strong>Modifikuj kód:</strong> Vyskúšaj namiesto
-            <code>and</code> použiť <code>or</code>. Čo sa zmení?
+            <strong>Otestuj kód:</strong> Zadaj hodnoty 10, 10, 5. Aký je
+            výsledok? Je správny?
           </li>
           <li>
-            <strong>Rozšírenie:</strong> Napíš program na nájdenie maxima pre 4
-            čísla
-          </li>
-          <li>
-            <strong>Obrátená logika:</strong> Napíš program, ktorý nájde
+            <strong>Minimum:</strong> Uprav kód tak, aby namiesto maxima hľadal
             <strong>minimum</strong> z 3 čísel
           </li>
           <li>
-            <strong>Komplexná úloha:</strong> Nájdi minimum a maximum z 3 čísel
-            v jednom programe
+            <strong>Rozšírenie:</strong> Napíš program na nájdenie maxima z
+            <strong>4 čísel</strong> pomocou vnorených podmienok
           </li>
           <li>
-            <strong>Porovnanie:</strong> Napíš program dvoma spôsobmi – s
-            vnoreným if-else a s funkciou <code>max()</code>
+            <strong>Oba výsledky:</strong> Napíš program, ktorý nájde minimum aj
+            maximum z 3 čísel naraz
+          </li>
+          <li>
+            <strong>Porovnanie:</strong> Prepíš vzorové riešenie pomocou funkcie
+            <code>max()</code> a porovnaj dĺžku kódu
           </li>
         </ol>
       </div>
 
       <h2>✔ Na konci hodiny by si mal/a vedieť:</h2>
       <ul class="checklist">
-        <li>pochopiť logiku vnorených podmienok,</li>
-        <li>nájsť maximum/minimum z viacerých čísel,</li>
-        <li>ovládať operátor <code>and</code> v reálnej aplikácii,</li>
-        <li>poznať alternatívne spôsoby riešenia v Pythone,</li>
-        <li>naprogramovať vlastné riešenie s podmienkami.</li>
+        <li>pochopiť a použiť vnorené <code>if-else</code> podmienky,</li>
+        <li>nájsť maximum z viacerých čísel bez použitia <code>and</code>,</li>
+        <li>nakresliť a pochopiť diagram rozhodovania,</li>
+        <li>otestovať program s rôznymi vstupnými hodnotami,</li>
+        <li>poznať alternatívne spôsoby riešenia v Pythone.</li>
       </ul>
     </section>
 
     <footer>
       Súkromná základná škola waldorfská · Informatika 9. ročník 2025/2026 ·
-      Michal Puškel · Pracovný list vytvorený s pomocou ChatGPT
+      Michal Puškel · Pracovný list vytvorený s pomocou Claude
     </footer>
   </body>
 </html>
