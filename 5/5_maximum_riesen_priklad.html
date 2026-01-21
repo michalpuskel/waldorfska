@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Pracovný list č. 5 – Riešený príklad: Nájdenie maxima troch čísel
+    </title>
+
+    <style>
+      body {
+        font-family: "Segoe UI", Roboto, sans-serif;
+        background-color: #f7f8fa;
+        color: #222;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+      }
+
+      header {
+        background-color: #2d87ef97;
+        color: white;
+        padding: 20px 40px;
+        text-align: center;
+        border-bottom: 4px solid #1b5cb8;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 1.8rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      h1 img {
+        margin-right: 16px;
+        width: 32px;
+        height: 32px;
+      }
+
+      h2 {
+        color: #1b5cb8;
+        margin-top: 40px;
+        border-bottom: 2px solid #1b5cb8;
+        padding-bottom: 5px;
+      }
+
+      h3 {
+        color: #2d89ef;
+        margin-top: 25px;
+      }
+
+      section {
+        padding: 20px 40px;
+        max-width: 900px;
+        margin: auto;
+        background: white;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      code,
+      pre {
+        background-color: #f0f3f9;
+        border-radius: 6px;
+        padding: 10px;
+        display: block;
+        font-family: "Fira Code", monospace;
+        white-space: pre-wrap;
+        font-size: 0.95rem;
+      }
+
+      code {
+        display: inline;
+        padding: 2px 6px;
+      }
+
+      .task {
+        background: #e8f4ff;
+        border-left: 6px solid #2d89ef;
+        padding: 12px 16px;
+        margin: 20px 0;
+        border-radius: 4px;
+      }
+
+      .bonus {
+        background: #fff9e6;
+        border-left: 6px solid #ffc107;
+        padding: 12px 16px;
+        margin: 20px 0;
+        border-radius: 4px;
+      }
+
+      .solution {
+        background: #f0fdf4;
+        border-left: 6px solid #22c55e;
+        padding: 12px 16px;
+        margin: 20px 0;
+        border-radius: 4px;
+      }
+
+      .diagram {
+        background: #f5f5f5;
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 4px;
+        font-family: monospace;
+        text-align: center;
+      }
+
+      .comparison {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin: 20px 0;
+      }
+
+      .comparison-box {
+        border: 2px solid #ddd;
+        padding: 15px;
+        border-radius: 6px;
+      }
+
+      .comparison-box h4 {
+        margin-top: 0;
+        color: #1b5cb8;
+      }
+
+      footer {
+        text-align: center;
+        font-size: 0.9rem;
+        color: #666;
+        padding: 20px;
+      }
+
+      table {
+        border-collapse: collapse;
+        margin: 15px 0;
+        width: 100%;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+      }
+
+      table th {
+        background: #f0f3f9;
+        color: #1b5cb8;
+      }
+
+      ul.checklist {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      ul.checklist li::before {
+        content: "✔ ";
+        color: #2d89ef;
+      }
+
+      .step {
+        margin: 15px 0;
+        padding: 10px;
+        background: #f9f9f9;
+        border-radius: 4px;
+      }
+
+      .step strong {
+        color: #1b5cb8;
+      }
+
+      @media (max-width: 600px) {
+        section {
+          padding: 15px 20px;
+        }
+
+        .comparison {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>
+        <img src="../logo.png" alt="python" />
+        Pracovný list č. 5 – Riešený príklad: Nájdenie maxima troch čísel
+      </h1>
+      <p>9. ročník ZŠ – Informatika</p>
+      <p style="text-align: start">
+        <a href="../index.html" style="color: #fff; text-decoration: underline">
+          🏠 Späť na zoznam pracovných listov
+        </a>
+      </p>
+    </header>
+
+    <section>
+      <h2>❓ Zadanie</h2>
+      <div class="task">
+        <p>
+          <strong
+            >Napíš program v Pythone, ktorý má na vstupe 3 čísla a zistí, ktoré
+            z nich je najväčšie.</strong
+          >
+        </p>
+        <p><strong>Príklad vstupu:</strong></p>
+        <ul>
+          <li>Číslo 1: 5</li>
+          <li>Číslo 2: 12</li>
+          <li>Číslo 3: 8</li>
+        </ul>
+        <p>
+          <strong>Očakávaný výstup:</strong> Maximálne číslo je <code>12</code>
+        </p>
+      </div>
+
+      <h2>✅ Riešenie (vnorené if-else podmienky)</h2>
+
+      <h3>1. Krok – Pochopenie logiky</h3>
+      <p>Potrebujeme porovnávať 3 čísla. Základná idea:</p>
+      <ul>
+        <li>
+          Ak je <strong>číslo 1</strong> väčšie ako číslo 2 a väčšie ako číslo 3
+          → maximum je číslo 1
+        </li>
+        <li>
+          Inak, ak je <strong>číslo 2</strong> väčšie ako číslo 1 a väčšie ako
+          číslo 3 → maximum je číslo 2
+        </li>
+        <li>Inak → maximum musí byť <strong>číslo 3</strong></li>
+      </ul>
+
+      <h3>2. Krok – Diagram toku rozhodovania</h3>
+      <div class="diagram">
+        Máme 3 čísla: a, b, c<br />
+        ↓<br />
+        Je <strong>a > b AND a > c</strong> ?<br />
+        ├─ AÑO → <strong>maximum = a</strong> ✓<br />
+        └─ NIE<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;↓<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;Je <strong>b > c</strong> ?<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;├─ AÑO → <strong>maximum = b</strong> ✓<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;└─ NIE → <strong>maximum = c</strong> ✓
+      </div>
+
+      <h3>3. Krok – Kompletný Python kód</h3>
+      <div class="solution">
+        <pre><code>a = int(input("Zadaj prvé číslo: "))
+b = int(input("Zadaj druhé číslo: "))
+c = int(input("Zadaj tretie číslo: "))
+
+if a > b and a > c:
+    maximum = a
+else:
+    if b > c:
+        maximum = b
+    else:
+        maximum = c
+
+print(f"Maximálne číslo je {maximum}")</code></pre>
+      </div>
+
+      <h3>4. Krok – Krok za krokom vysvetlenie</h3>
+
+      <div class="step">
+        <strong>Riadok 1-3:</strong> Čítame tri čísla od používateľa a
+        konvertujeme ich na typ <code>int</code> (celé číslo).
+      </div>
+
+      <div class="step">
+        <strong>Riadok 5:</strong> Hlavná podmienka:
+        <code>if a > b and a > c:</code>
+        <ul>
+          <li>
+            Skontrolujeme, či je číslo <code>a</code> väčšie než všetci ostatní
+          </li>
+          <li>Ak áno, vieme, že <code>a</code> je určite maximum</li>
+          <li>
+            Operátor <code>and</code> znamená, že
+            <strong>obe podmienky</strong> musia byť pravdivé
+          </li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <strong>Riadok 6:</strong> Ak je podmienka pravdivá, priradíme:
+        <code>maximum = a</code>
+      </div>
+
+      <div class="step">
+        <strong>Riadok 7-11:</strong> Vnorené <code>if-else</code> (vykonáme len
+        ak riadok 5 bol nepravdivý)
+        <ul>
+          <li>
+            <code>if b > c:</code> → Ak je <code>b</code> väčšie ako
+            <code>c</code>, potom <code>b</code> je maximum
+          </li>
+          <li>
+            <code>else:</code> → V opačnom prípade musí byť maximum
+            <code>c</code>
+          </li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <strong>Riadok 13:</strong> Vypíšeme výsledok pomocou f-stringu
+        (formátovaného reťazca): <code>f"Maximálne číslo je {maximum}"</code>
+      </div>
+
+      <h3>5. Krok – Testovanie s príkladmi</h3>
+
+      <table>
+        <tr>
+          <th>Vstup (a, b, c)</th>
+          <th>Vykonanie kódu</th>
+          <th>Výstup</th>
+        </tr>
+        <tr>
+          <td>5, 12, 8</td>
+          <td>5 > 12? NIE → 12 > 8? AÑO → maximum = 12</td>
+          <td>Maximálne číslo je 12</td>
+        </tr>
+        <tr>
+          <td>20, 10, 5</td>
+          <td>20 > 10 AND 20 > 5? AÑO → maximum = 20</td>
+          <td>Maximálne číslo je 20</td>
+        </tr>
+        <tr>
+          <td>3, 7, 15</td>
+          <td>3 > 7? NIE → 7 > 15? NIE → maximum = 15</td>
+          <td>Maximálne číslo je 15</td>
+        </tr>
+        <tr>
+          <td>8, 8, 8</td>
+          <td>8 > 8? NIE → 8 > 8? NIE → maximum = 8</td>
+          <td>Maximálne číslo je 8</td>
+        </tr>
+      </table>
+
+      <h2>🔄 Alternatívne spôsoby riešenia</h2>
+
+      <div class="comparison">
+        <div class="comparison-box">
+          <h4>1️⃣ Pomocou vnorených if-else (náš kód)</h4>
+          <pre><code>if a > b and a > c:
+    maximum = a
+else:
+    if b > c:
+        maximum = b
+    else:
+        maximum = c</code></pre>
+          <p><strong>Výhody:</strong> Jasné, ľahko pochopiteľné</p>
+          <p><strong>Nevýhody:</strong> Viac riadkov kódu</p>
+        </div>
+
+        <div class="comparison-box">
+          <h4>2️⃣ Pomocou funkcie <code>max()</code></h4>
+          <pre><code>a = int(input("Číslo 1: "))
+b = int(input("Číslo 2: "))
+c = int(input("Číslo 3: "))
+
+maximum = max(a, b, c)
+print(f"Maximum je {maximum}")</code></pre>
+          <p><strong>Výhody:</strong> Krátky a elegantný kód</p>
+          <p><strong>Nevýhody:</strong> Netrénujem logiku s podmienkami</p>
+        </div>
+      </div>
+
+      <div class="comparison">
+        <div class="comparison-box">
+          <h4>3️⃣ Pomocou reťazených porovnaní</h4>
+          <pre><code>if a > b and a > c:
+    maximum = a
+elif b > a and b > c:
+    maximum = b
+else:
+    maximum = c</code></pre>
+          <p>
+            <strong>Výhody:</strong> Jasnejší kód, <code>elif</code> je
+            modernejší
+          </p>
+          <p><strong>Nevýhody:</strong> Podobný ako prvý spôsob</p>
+        </div>
+
+        <div class="comparison-box">
+          <h4>4️⃣ Pomocou zoznamu a funkcie <code>sorted()</code></h4>
+          <pre><code>cisla = [a, b, c]
+cisla_zoradene = sorted(cisla)
+maximum = cisla_zoradene[-1]
+print(f"Maximum je {maximum}")</code></pre>
+          <p><strong>Výhody:</strong> Funguje pre ľubovolný počet čísel</p>
+          <p><strong>Nevýhody:</strong> Zložitejšie, menej efektívne</p>
+        </div>
+      </div>
+
+      <h2>💡 Prečo sme použili vnorené if-else?</h2>
+
+      <div class="bonus">
+        <ul>
+          <li>
+            <strong>Pedagogický dôvod:</strong> Cvičíme logické myslenie a
+            pochopenie podmienok
+          </li>
+          <li>
+            <strong>Jasnosť:</strong> Vidíme presne, ako sa rozhodovací proces
+            vyvíja
+          </li>
+          <li>
+            <strong>Základy:</strong> V programe sa bez vnorených podmienok
+            neobídeme
+          </li>
+          <li>
+            <strong>Porovnanie:</strong> Vidíme rozdiely medzi rôznymi prístupmi
+          </li>
+        </ul>
+      </div>
+
+      <h2>✍️ Úlohy na cvičenie</h2>
+
+      <div class="task">
+        <ol>
+          <li>
+            <strong>Modifikuj kód:</strong> Vyskúšaj namiesto
+            <code>and</code> použiť <code>or</code>. Čo sa zmení?
+          </li>
+          <li>
+            <strong>Rozšírenie:</strong> Napíš program na nájdenie maxima pre 4
+            čísla
+          </li>
+          <li>
+            <strong>Obrátená logika:</strong> Napíš program, ktorý nájde
+            <strong>minimum</strong> z 3 čísel
+          </li>
+          <li>
+            <strong>Komplexná úloha:</strong> Nájdi minimum a maximum z 3 čísel
+            v jednom programe
+          </li>
+          <li>
+            <strong>Porovnanie:</strong> Napíš program dvoma spôsobmi – s
+            vnoreným if-else a s funkciou <code>max()</code>
+          </li>
+        </ol>
+      </div>
+
+      <h2>✔ Na konci hodiny by si mal/a vedieť:</h2>
+      <ul class="checklist">
+        <li>pochopiť logiku vnorených podmienok,</li>
+        <li>nájsť maximum/minimum z viacerých čísel,</li>
+        <li>ovládať operátor <code>and</code> v reálnej aplikácii,</li>
+        <li>poznať alternatívne spôsoby riešenia v Pythone,</li>
+        <li>naprogramovať vlastné riešenie s podmienkami.</li>
+      </ul>
+    </section>
+
+    <footer>
+      Súkromná základná škola waldorfská · Informatika 9. ročník 2025/2026 ·
+      Michal Puškel · Pracovný list vytvorený s pomocou ChatGPT
+    </footer>
+  </body>
+</html>
