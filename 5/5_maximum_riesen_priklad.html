@@ -467,6 +467,20 @@ print(f"Maximálne číslo je {maximum}")</code></pre>
             porovnania
           </li>
         </ul>
+        <p><strong>Prečo práve 2 porovnania?</strong></p>
+        <ol>
+          <li>Najprv porovnáme <code>a > b</code></li>
+          <li>
+            Potom podľa výsledku porovnáme buď <code>a > c</code> alebo
+            <code>b > c</code>
+          </li>
+        </ol>
+        <p>
+          Nikdy nevykonáme všetky 3 porovnania naraz – vždy len 2. To je výhoda
+          vnorených podmienok oproti riešeniu s <code>and</code>, kde by sme
+          mohli robiť až 4 porovnania (napr. <code>a > b and a > c</code> sú už
+          2, a potom ešte <code>b > a and b > c</code> ďalšie 2).
+        </p>
       </div>
 
       <h3>6. Krok – Testovanie s príkladmi</h3>
