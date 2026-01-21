@@ -185,6 +185,23 @@
         color: #1b5cb8;
       }
 
+      .comparison-box.bonus-box {
+        border-color: #ffc107;
+        background: #fffdf5;
+      }
+
+      .bonus-badge {
+        display: inline-block;
+        background: #ffc107;
+        color: #000;
+        font-size: 0.7rem;
+        font-weight: bold;
+        padding: 2px 8px;
+        border-radius: 10px;
+        margin-left: 8px;
+        vertical-align: middle;
+      }
+
       footer {
         text-align: center;
         font-size: 0.9rem;
@@ -542,9 +559,13 @@ print(f"Maximálne číslo je {maximum}")</code></pre>
 
       <h2>🔄 Alternatívne spôsoby riešenia</h2>
 
+      <div class="bonus">
+        <strong>⭐ Bonusové učivo:</strong> Riešenia označené ako "BONUS" používajú koncepty nad rámec povinnej učebnej látky (zložené podmienky <code>and</code>, funkcia <code>max()</code>, zoznamy a <code>sorted()</code>).
+      </div>
+
       <div class="comparison">
-        <div class="comparison-box">
-          <h4>1️⃣ So zloženými podmienkami (and)</h4>
+        <div class="comparison-box bonus-box">
+          <h4>1️⃣ So zloženými podmienkami (and) <span class="bonus-badge">BONUS</span></h4>
           <pre><code>if a > b and a > c:
     maximum = a
 elif b > a and b > c:
@@ -558,8 +579,8 @@ else:
           </p>
         </div>
 
-        <div class="comparison-box">
-          <h4>2️⃣ Pomocou funkcie <code>max()</code></h4>
+        <div class="comparison-box bonus-box">
+          <h4>2️⃣ Pomocou funkcie <code>max()</code> <span class="bonus-badge">BONUS</span></h4>
           <pre><code>a = int(input("Číslo 1: "))
 b = int(input("Číslo 2: "))
 c = int(input("Číslo 3: "))
@@ -592,8 +613,8 @@ print(f"Maximum je {maximum}")</code></pre>
           </p>
         </div>
 
-        <div class="comparison-box">
-          <h4>4️⃣ Pomocou zoznamu a <code>sorted()</code></h4>
+        <div class="comparison-box bonus-box">
+          <h4>4️⃣ Pomocou zoznamu a <code>sorted()</code> <span class="bonus-badge">BONUS</span></h4>
           <pre><code>a = int(input("Číslo 1: "))
 b = int(input("Číslo 2: "))
 c = int(input("Číslo 3: "))
