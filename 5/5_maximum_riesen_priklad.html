@@ -99,6 +99,57 @@
         border-radius: 4px;
       }
 
+      .code-editor {
+        display: flex;
+        background: #f0f3f9;
+        border-radius: 6px;
+        overflow: hidden;
+        font-family: "Fira Code", "Consolas", monospace;
+        font-size: 14px;
+        line-height: 21px;
+      }
+
+      .code-editor .line-numbers {
+        background: #e0e5ed;
+        color: #666;
+        padding: 10px 12px;
+        text-align: right;
+        user-select: none;
+        border-right: 1px solid #ccc;
+        font-size: 14px;
+        line-height: 21px;
+      }
+
+      .code-editor .line-numbers span {
+        display: block;
+        height: 21px;
+      }
+
+      .code-editor .code-content {
+        flex: 1;
+        padding: 10px 16px;
+        overflow-x: auto;
+        color: #222;
+      }
+
+      .code-editor .code-content pre {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        color: inherit;
+        font-size: 14px;
+        line-height: 21px;
+      }
+
+      .code-editor .code-content code {
+        display: block;
+        background: transparent;
+        padding: 0;
+        color: inherit;
+        font-size: 14px;
+        line-height: 21px;
+      }
+
       .diagram {
         background: #f5f5f5;
         border: 1px solid #ddd;
@@ -282,7 +333,33 @@
 
       <h3>3. Krok – Kompletný Python kód</h3>
       <div class="solution">
-        <pre><code># Načítanie troch čísel od používateľa
+        <div class="code-editor">
+          <div class="line-numbers">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>6</span>
+            <span>7</span>
+            <span>8</span>
+            <span>9</span>
+            <span>10</span>
+            <span>11</span>
+            <span>12</span>
+            <span>13</span>
+            <span>14</span>
+            <span>15</span>
+            <span>16</span>
+            <span>17</span>
+            <span>18</span>
+            <span>19</span>
+            <span>20</span>
+            <span>21</span>
+            <span>22</span>
+          </div>
+          <div class="code-content">
+            <pre><code># Načítanie troch čísel od používateľa
 a = int(input("Zadaj prvé číslo: "))
 b = int(input("Zadaj druhé číslo: "))
 c = int(input("Zadaj tretie číslo: "))
@@ -304,6 +381,8 @@ else:
         maximum = c
 
 print(f"Maximálne číslo je {maximum}")</code></pre>
+          </div>
+        </div>
       </div>
 
       <h3>4. Krok – Podrobné vysvetlenie</h3>
@@ -316,7 +395,9 @@ print(f"Maximálne číslo je {maximum}")</code></pre>
       <div class="step">
         <strong>Riadok 7: <code>if a > b:</code></strong>
         <ul>
-          <li>Prvé porovnanie – je <code>a</code> väčšie ako <code>b</code>?</li>
+          <li>
+            Prvé porovnanie – je <code>a</code> väčšie ako <code>b</code>?
+          </li>
           <li>Ak áno, vstúpime do prvého bloku (riadky 8-12)</li>
           <li>Ak nie, preskočíme na <code>else</code> (riadok 13)</li>
         </ul>
@@ -376,9 +457,7 @@ print(f"Maximálne číslo je {maximum}")</code></pre>
             Keď porovnáme <code>a</code> a <code>b</code>, vylúčime jedno z nich
             ako možné maximum
           </li>
-          <li>
-            Potom stačí porovnať "víťaza" s tretím číslom <code>c</code>
-          </li>
+          <li>Potom stačí porovnať "víťaza" s tretím číslom <code>c</code></li>
           <li>
             Celkovo potrebujeme iba <strong>2 porovnania</strong> (nie 3!), aby
             sme našli maximum
@@ -417,7 +496,8 @@ print(f"Maximálne číslo je {maximum}")</code></pre>
         <tr>
           <td>3, 7, 15</td>
           <td>
-            3 > 7? <strong>NIE</strong> → 7 > 15? <strong>NIE</strong> → max = 15
+            3 > 7? <strong>NIE</strong> → 7 > 15? <strong>NIE</strong> → max =
+            15
           </td>
           <td>Maximálne číslo je 15</td>
         </tr>
