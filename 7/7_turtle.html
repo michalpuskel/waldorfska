@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pracovný list č. 7 – Korytnačia grafika (turtle)</title>
+
+    <style>
+      body {
+        font-family: "Segoe UI", Roboto, sans-serif;
+        background-color: #f7f8fa;
+        color: #222;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+      }
+
+      header {
+        background-color: #2d87ef97;
+        color: white;
+        padding: 20px 40px;
+        text-align: center;
+        border-bottom: 4px solid #1b5cb8;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 1.8rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      h1 img {
+        margin-right: 16px;
+        width: 32px;
+        height: 32px;
+      }
+
+      h2 {
+        color: #1b5cb8;
+        margin-top: 40px;
+        border-bottom: 2px solid #1b5cb8;
+        padding-bottom: 5px;
+      }
+
+      h3 {
+        color: #2d89ef;
+        margin-top: 25px;
+      }
+
+      section {
+        padding: 20px 40px;
+        max-width: 900px;
+        margin: auto;
+        background: white;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      code,
+      pre {
+        background-color: #f0f3f9;
+        border-radius: 6px;
+        padding: 10px;
+        display: block;
+        font-family: "Fira Code", monospace;
+        white-space: pre-wrap;
+        font-size: 0.95rem;
+      }
+
+      code {
+        display: inline;
+        padding: 2px 6px;
+      }
+
+      pre code {
+        display: block;
+        padding: 0;
+        white-space: pre;
+      }
+
+      .task {
+        background: #e8f4ff;
+        border-left: 6px solid #2d89ef;
+        padding: 12px 16px;
+        margin: 20px 0;
+        border-radius: 4px;
+      }
+
+      .bonus {
+        background: #fff9e6;
+        border-left: 6px solid #ffc107;
+        padding: 12px 16px;
+        margin: 20px 0;
+        border-radius: 4px;
+      }
+
+      .solution {
+        background: #f0fdf4;
+        border-left: 6px solid #22c55e;
+        padding: 12px 16px;
+        margin: 20px 0;
+        border-radius: 4px;
+      }
+
+      .homework {
+        background: #e9f9eb;
+        border-left: 6px solid #28a745;
+        padding: 14px 18px;
+        margin: 30px 0;
+        border-radius: 6px;
+      }
+
+      .code-editor {
+        display: flex;
+        background: #f0f3f9;
+        border-radius: 6px;
+        overflow: hidden;
+        font-family: "Fira Code", "Consolas", monospace;
+        font-size: 14px;
+        line-height: 21px;
+      }
+
+      .code-editor .line-numbers {
+        background: #e0e5ed;
+        color: #666;
+        padding: 10px 12px;
+        text-align: right;
+        user-select: none;
+        border-right: 1px solid #ccc;
+        font-size: 14px;
+        line-height: 21px;
+      }
+
+      .code-editor .line-numbers span {
+        display: block;
+        height: 21px;
+      }
+
+      .code-editor .code-content {
+        flex: 1;
+        padding: 10px 16px;
+        overflow-x: auto;
+        color: #222;
+      }
+
+      .code-editor .code-content pre {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        color: inherit;
+        font-size: 14px;
+        line-height: 21px;
+      }
+
+      .code-editor .code-content code {
+        display: block;
+        background: transparent;
+        padding: 0;
+        color: inherit;
+        font-size: 14px;
+        line-height: 21px;
+      }
+
+      .step {
+        margin: 15px 0;
+        padding: 10px 14px;
+        background: #f9f9f9;
+        border-radius: 4px;
+      }
+
+      .step strong {
+        color: #1b5cb8;
+      }
+
+      .highlight {
+        background: #fffde7;
+        padding: 2px 4px;
+        border-radius: 3px;
+      }
+
+      .bonus-badge {
+        display: inline-block;
+        background: #ffc107;
+        color: #000;
+        font-size: 0.7rem;
+        font-weight: bold;
+        padding: 2px 8px;
+        border-radius: 10px;
+        margin-left: 8px;
+        vertical-align: middle;
+      }
+
+      table {
+        border-collapse: collapse;
+        margin: 15px 0;
+        width: 100%;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #ccc;
+        padding: 8px 12px;
+        text-align: left;
+      }
+
+      table th {
+        background: #f0f3f9;
+        color: #1b5cb8;
+      }
+
+      ul.checklist {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      ul.checklist li::before {
+        content: "✔ ";
+        color: #2d89ef;
+      }
+
+      .preview-box {
+        border: 2px dashed #ccc;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 15px 0;
+        text-align: center;
+        background: #fafafa;
+        font-size: 3rem;
+        letter-spacing: 4px;
+      }
+
+      footer {
+        text-align: center;
+        font-size: 0.9rem;
+        color: #666;
+        padding: 20px;
+      }
+
+      @media (max-width: 600px) {
+        section {
+          padding: 15px 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>
+        <img src="../logo.png" alt="python" />
+        Pracovný list č. 7 – Korytnačia grafika (turtle)
+      </h1>
+      <p>9. ročník ZŠ – Informatika</p>
+      <p style="text-align: start">
+        <a href="../index.html" style="color: #fff; text-decoration: underline">
+          🏠 Späť na zoznam pracovných listov
+        </a>
+      </p>
+    </header>
+
+    <section>
+
+      <!-- ====================================================== -->
+      <h2>1️⃣ Čo je korytnačka?</h2>
+
+      <p>
+        Modul <strong>turtle</strong> (korytnačka) je knižnica vstavaná
+        priamo do Pythonu. Predstav si, že na obrazovke stojí korytnačka so
+        štetcom. Ty jej dávaš príkazy – <em>choď dopredu, otoč sa doprava</em>
+        – a ona za sebou kreslí čiaru.
+      </p>
+
+      <div class="preview-box"><span style="display:inline-block; transform:scaleX(-1)">🐢</span> ➡ ➡ ➡</div>
+
+      <p>
+        Na začiatku každého programu musíme modul <strong>importovať</strong>
+        (načítať), aby Python vedel, čo <code>turtle</code> znamená:
+      </p>
+
+      <pre><code>import turtle
+
+turtle.forward(100)
+
+turtle.done()   # nechá okno otvorené, kým ho nezatvoríš</code></pre>
+
+      <div class="bonus">
+        <strong>Dôležité:</strong> <code>turtle.done()</code> píšeme
+        <strong>vždy na koniec</strong> programu s korytnačkou. Bez neho sa
+        okno hneď zatvorí a nič neuvidíš.
+      </div>
+
+      <!-- ====================================================== -->
+      <h2>2️⃣ Základné príkazy</h2>
+
+      <table>
+        <tr>
+          <th>Príkaz</th>
+          <th>Čo robí</th>
+          <th>Príklad</th>
+        </tr>
+        <tr>
+          <td><code>turtle.forward(n)</code></td>
+          <td>Choď dopredu o <em>n</em> krokov</td>
+          <td><code>turtle.forward(100)</code></td>
+        </tr>
+        <tr>
+          <td><code>turtle.backward(n)</code></td>
+          <td>Choď dozadu o <em>n</em> krokov</td>
+          <td><code>turtle.backward(50)</code></td>
+        </tr>
+        <tr>
+          <td><code>turtle.right(uhol)</code></td>
+          <td>Otoč sa doprava o <em>uhol</em> stupňov</td>
+          <td><code>turtle.right(90)</code></td>
+        </tr>
+        <tr>
+          <td><code>turtle.left(uhol)</code></td>
+          <td>Otoč sa doľava o <em>uhol</em> stupňov</td>
+          <td><code>turtle.left(45)</code></td>
+        </tr>
+        <tr>
+          <td><code>turtle.penup()</code></td>
+          <td>Zdvihni pero – korytnačka sa pohybuje bez kreslenia</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>turtle.pendown()</code></td>
+          <td>Polož pero – korytnačka opäť kreslí</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><code>turtle.pencolor("farba")</code></td>
+          <td>Nastav farbu čiary</td>
+          <td><code>turtle.pencolor("red")</code></td>
+        </tr>
+        <tr>
+          <td><code>turtle.pensize(n)</code></td>
+          <td>Nastav hrúbku čiary</td>
+          <td><code>turtle.pensize(3)</code></td>
+        </tr>
+        <tr>
+          <td><code>turtle.shape("turtle")</code></td>
+          <td>Zmeň kurzor na korytnačku 🐢</td>
+          <td></td>
+        </tr>
+      </table>
+
+      <p>Farby, ktoré môžeš použiť (anglicky):</p>
+      <pre><code>"red"   "blue"   "green"   "yellow"   "orange"
+"purple"   "black"   "white"   "pink"   "brown"</code></pre>
+
+      <h3>Prvý program – čiara a uhol</h3>
+
+      <pre><code>import turtle
+
+turtle.shape("turtle")   # ukáže korytnačku namiesto šípky
+turtle.pensize(3)
+turtle.pencolor("blue")
+
+turtle.forward(150)
+turtle.right(90)
+turtle.forward(100)
+
+turtle.done()</code></pre>
+
+      <div class="task">
+        <strong>Vyskúšaj:</strong> Spusti tento program. Potom zmeň farbu,
+        veľkosť pera a uhly – sleduj, čo sa zmení.
+      </div>
+
+      <!-- ====================================================== -->
+      <h2>3️⃣ Riešený príklad – štvorec</h2>
+
+      <h3>Krok 1 – bez cyklu</h3>
+      <p>
+        Štvorec má 4 rovnako dlhé strany a 4 pravé uhly (90°). Môžeme ho
+        nakresliť takto:
+      </p>
+
+      <pre><code>import turtle
+
+turtle.forward(100)
+turtle.right(90)
+turtle.forward(100)
+turtle.right(90)
+turtle.forward(100)
+turtle.right(90)
+turtle.forward(100)
+turtle.right(90)
+
+turtle.done()</code></pre>
+
+      <p>
+        Funguje to – ale opakujeme tie isté 2 riadky <strong>4-krát</strong>.
+        Pripomína ti to niečo?
+      </p>
+
+      <h3>Krok 2 – s for cyklom ✨</h3>
+      <p>
+        Presne na toto máme cyklus! Namiesto 8 riadkov stačia 3:
+      </p>
+
+      <div class="solution">
+        <div class="code-editor">
+          <div class="line-numbers">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>6</span>
+            <span>7</span>
+            <span>8</span>
+          </div>
+          <div class="code-content">
+            <pre><code>import turtle
+
+turtle.shape("turtle")
+turtle.pensize(2)
+
+for i in range(4):        # 4 strany štvorca
+    turtle.forward(100)   # nakreslí stranu
+    turtle.right(90)      # otočí sa o 90°
+
+turtle.done()</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <strong>Prečo práve 90°?</strong> Štvorec má 4 strany. Keď sa chceme
+        otočiť o celé kolo (360°) rovnomerne 4-krát, každý uhol je
+        <span class="highlight">360 ÷ 4 = 90°</span>.
+      </div>
+
+      <div class="task">
+        <strong>Úlohy:</strong>
+        <ol>
+          <li>
+            Nakresli štvorec pomocou cyklu – ale so stranou dlhou
+            <strong>150 krokov</strong> a červenou farbou.
+          </li>
+          <li>
+            <strong>Trojuholník:</strong> 3 strany, uhol = 360 ÷ 3 = <strong>120°</strong>.
+            Nakresli ho pomocou <code>for</code> cyklu.
+          </li>
+          <li>
+            <strong>Šesťuholník:</strong> 6 strán, uhol = 360 ÷ 6 = <strong>60°</strong>.
+            Nakresli ho.
+          </li>
+        </ol>
+      </div>
+
+      <!-- ====================================================== -->
+      <h2>4️⃣ Vzorec pre pravidelný mnohouholník</h2>
+
+      <p>
+        Všimol/a si si vzorec? Pre ľubovolný pravidelný mnohouholník platí:
+      </p>
+
+      <pre><code>uhol = 360 / pocet_stran</code></pre>
+
+      <table>
+        <tr>
+          <th>Tvar</th>
+          <th>Počet strán</th>
+          <th>Uhol otočenia</th>
+        </tr>
+        <tr><td>Trojuholník</td><td>3</td><td>120°</td></tr>
+        <tr><td>Štvorec</td><td>4</td><td>90°</td></tr>
+        <tr><td>Päťuholník</td><td>5</td><td>72°</td></tr>
+        <tr><td>Šesťuholník</td><td>6</td><td>60°</td></tr>
+        <tr><td>Osmuholník</td><td>8</td><td>45°</td></tr>
+        <tr><td>Kruh (aproximácia)</td><td>36</td><td>10°</td></tr>
+      </table>
+
+      <p>
+        Môžeme sa teda opýtať používateľa, koľko strán chce, a kód zostane
+        rovnaký:
+      </p>
+
+      <div class="solution">
+        <div class="code-editor">
+          <div class="line-numbers">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>6</span>
+            <span>7</span>
+            <span>8</span>
+            <span>9</span>
+          </div>
+          <div class="code-content">
+            <pre><code>import turtle
+
+n = int(input("Koľko strán má tvar? "))
+uhol = 360 / n
+
+turtle.pensize(2)
+
+for i in range(n):
+    turtle.forward(100)
+    turtle.right(uhol)
+
+turtle.done()</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="task">
+        <strong>Úlohy:</strong>
+        <ol>
+          <li>
+            Vyskúšaj program s hodnotami 3, 5, 8, 36. Čo dostaneš pri 36?
+          </li>
+          <li>
+            Uprav program: nech sa opýta aj na <strong>dĺžku strany</strong>
+            a použije ju namiesto 100.
+          </li>
+        </ol>
+      </div>
+
+      <!-- ====================================================== -->
+      <h2>5️⃣ Bonus – Hviezda a špirála 🌟</h2>
+
+      <div class="bonus">
+        <strong>💡 Bonus:</strong> Malou zmenou uhla dostaneme úplne iné
+        vzory. Skús tieto programy a sleduj, čo sa nakreslí:
+      </div>
+
+      <h3>Hviezda</h3>
+      <p>
+        Keď sa otočíme o <strong>144°</strong> (nie 72°) a nakreslíme 5 strán,
+        dostaneme hviezdu:
+      </p>
+
+      <pre><code>import turtle
+
+turtle.pencolor("orange")
+turtle.pensize(3)
+
+for i in range(5):
+    turtle.forward(150)
+    turtle.right(144)
+
+turtle.done()</code></pre>
+
+      <h3>Špirálovitá hviezda</h3>
+      <p>
+        Čo ak zvyšujeme dĺžku každého kroku? Vznikne špirála:
+      </p>
+
+      <pre><code>import turtle
+
+turtle.pencolor("purple")
+turtle.speed(0)   # najrýchlejšie kreslenie
+
+for i in range(60):
+    turtle.forward(i * 4)   # každý krok je dlhší
+    turtle.right(91)        # uhol tesne nad 90°
+
+turtle.done()</code></pre>
+
+      <div class="bonus">
+        <strong>Zaujímavosť:</strong> <code>turtle.speed(0)</code> nastaví
+        maximálnu rýchlosť – pri väčšom počte opakovaní sa kreslenie inak zdá
+        pomalé.
+      </div>
+
+      <h3>Náhodné farby <span class="bonus-badge">BONUS</span></h3>
+      <p>
+        Modul <code>random</code> vie vygenerovať náhodné čísla. Môžeme s ním
+        robiť každý krok inak farebný:
+      </p>
+
+      <pre><code>import turtle
+import random
+
+turtle.colormode(255)   # farby budú čísla 0-255
+turtle.pensize(3)
+turtle.speed(0)
+
+for i in range(36):
+    r = random.randint(0, 255)   # náhodná červená zložka
+    g = random.randint(0, 255)   # náhodná zelená zložka
+    b = random.randint(0, 255)   # náhodná modrá zložka
+    turtle.pencolor(r, g, b)
+
+    turtle.forward(150)
+    turtle.right(170)
+
+turtle.done()</code></pre>
+
+      <p>
+        Každé spustenie programu nakreslí inú farebnú hviezdu – pretože
+        čísla sú <em>náhodné</em>.
+      </p>
+
+      <!-- ====================================================== -->
+      <h2>✔ Na konci hodiny by si mal/a vedieť:</h2>
+      <ul class="checklist">
+        <li>importovať modul <code>turtle</code> a spustiť jednoduchý program,</li>
+        <li>používať základné príkazy: <code>forward</code>, <code>right</code>, <code>left</code>,</li>
+        <li>nastaviť farbu a hrúbku čiary,</li>
+        <li>nakresliť ľubovolný pravidelný mnohouholník pomocou <code>for</code> cyklu,</li>
+        <li>vypočítať správny uhol otočenia (360 ÷ počet strán).</li>
+      </ul>
+
+      <!-- ====================================================== -->
+      <h2>🏠 Domáca úloha</h2>
+
+      <div class="homework">
+        <p><strong>Téma:</strong> Korytnačia grafika</p>
+        <p>Vyber si <em>aspoň jednu</em> z týchto úloh:</p>
+        <ol>
+          <li>
+            <strong>Päťuholník:</strong> Napíš program, ktorý nakreslí
+            päťuholník (pentagon) zelenou farbou s hrúbkou čiary 4.
+          </li>
+          <li>
+            <strong>Opakujúci sa štvorec:</strong> Nakresli 4 štvorce za sebou,
+            pričom po každom štvorci zdvihni pero, presuň korytnačku dopredu
+            o 30 krokov a pero znova polož.
+            (Použi <code>penup()</code> a <code>pendown()</code>.)
+          </li>
+        </ol>
+        <p>
+          💾 Program ulož ako <code>domaca7_meno.priezvisko.py</code> a nahraj
+          do svojho priečinka na Google Drive.
+        </p>
+      </div>
+
+    </section>
+
+    <footer>
+      Súkromná základná škola waldorfská · Informatika 9. ročník 2025/2026 ·
+      Michal Puškel · Pracovný list vytvorený s pomocou Claude
+    </footer>
+  </body>
+</html>
