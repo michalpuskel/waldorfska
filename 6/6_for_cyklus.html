@@ -1,0 +1,800 @@
+<!doctype html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pracovný list č. 6 – For cyklus v Pythone</title>
+
+    <style>
+      body {
+        font-family: "Segoe UI", Roboto, sans-serif;
+        background-color: #f7f8fa;
+        color: #222;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+      }
+
+      header {
+        background-color: #2d87ef97;
+        color: white;
+        padding: 20px 40px;
+        text-align: center;
+        border-bottom: 4px solid #1b5cb8;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 1.8rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      h1 img {
+        margin-right: 16px;
+        width: 32px;
+        height: 32px;
+      }
+
+      h2 {
+        color: #1b5cb8;
+        margin-top: 40px;
+        border-bottom: 2px solid #1b5cb8;
+        padding-bottom: 5px;
+      }
+
+      h3 {
+        color: #2d89ef;
+        margin-top: 25px;
+      }
+
+      section {
+        padding: 20px 40px;
+        max-width: 900px;
+        margin: auto;
+        background: white;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      code,
+      pre {
+        background-color: #f0f3f9;
+        border-radius: 6px;
+        padding: 10px;
+        display: block;
+        font-family: "Fira Code", monospace;
+        white-space: pre-wrap;
+        font-size: 0.95rem;
+      }
+
+      code {
+        display: inline;
+        padding: 2px 6px;
+      }
+
+      pre code {
+        display: block;
+        padding: 0;
+        white-space: pre;
+      }
+
+      .task {
+        background: #e8f4ff;
+        border-left: 6px solid #2d89ef;
+        padding: 12px 16px;
+        margin: 20px 0;
+        border-radius: 4px;
+      }
+
+      .bonus {
+        background: #fff9e6;
+        border-left: 6px solid #ffc107;
+        padding: 12px 16px;
+        margin: 20px 0;
+        border-radius: 4px;
+      }
+
+      .solution {
+        background: #f0fdf4;
+        border-left: 6px solid #22c55e;
+        padding: 12px 16px;
+        margin: 20px 0;
+        border-radius: 4px;
+      }
+
+      .homework {
+        background: #e9f9eb;
+        border-left: 6px solid #28a745;
+        padding: 14px 18px;
+        margin: 30px 0;
+        border-radius: 6px;
+      }
+
+      .code-editor {
+        display: flex;
+        background: #f0f3f9;
+        border-radius: 6px;
+        overflow: hidden;
+        font-family: "Fira Code", "Consolas", monospace;
+        font-size: 14px;
+        line-height: 21px;
+      }
+
+      .code-editor .line-numbers {
+        background: #e0e5ed;
+        color: #666;
+        padding: 10px 12px;
+        text-align: right;
+        user-select: none;
+        border-right: 1px solid #ccc;
+        font-size: 14px;
+        line-height: 21px;
+      }
+
+      .code-editor .line-numbers span {
+        display: block;
+        height: 21px;
+      }
+
+      .code-editor .code-content {
+        flex: 1;
+        padding: 10px 16px;
+        overflow-x: auto;
+        color: #222;
+      }
+
+      .code-editor .code-content pre {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        color: inherit;
+        font-size: 14px;
+        line-height: 21px;
+      }
+
+      .code-editor .code-content code {
+        display: block;
+        background: transparent;
+        padding: 0;
+        color: inherit;
+        font-size: 14px;
+        line-height: 21px;
+      }
+
+      .step {
+        margin: 15px 0;
+        padding: 10px;
+        background: #f9f9f9;
+        border-radius: 4px;
+      }
+
+      .step strong {
+        color: #1b5cb8;
+      }
+
+      .highlight {
+        background: #fffde7;
+        padding: 2px 4px;
+        border-radius: 3px;
+      }
+
+      .comparison {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin: 20px 0;
+      }
+
+      .comparison-box {
+        border: 2px solid #ddd;
+        padding: 15px;
+        border-radius: 6px;
+      }
+
+      .comparison-box h4 {
+        margin-top: 0;
+        color: #1b5cb8;
+      }
+
+      .comparison-box.bonus-box {
+        border-color: #ffc107;
+        background: #fffdf5;
+      }
+
+      .bonus-badge {
+        display: inline-block;
+        background: #ffc107;
+        color: #000;
+        font-size: 0.7rem;
+        font-weight: bold;
+        padding: 2px 8px;
+        border-radius: 10px;
+        margin-left: 8px;
+        vertical-align: middle;
+      }
+
+      table {
+        border-collapse: collapse;
+        margin: 15px 0;
+        width: 100%;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+      }
+
+      table th {
+        background: #f0f3f9;
+        color: #1b5cb8;
+      }
+
+      ul.checklist {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      ul.checklist li::before {
+        content: "✔ ";
+        color: #2d89ef;
+      }
+
+      .diagram {
+        background: #f5f5f5;
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 4px;
+        font-family: monospace;
+        text-align: left;
+        line-height: 1.8;
+      }
+
+      footer {
+        text-align: center;
+        font-size: 0.9rem;
+        color: #666;
+        padding: 20px;
+      }
+
+      @media (max-width: 600px) {
+        section {
+          padding: 15px 20px;
+        }
+
+        .comparison {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>
+        <img src="../logo.png" alt="python" />
+        Pracovný list č. 6 – For cyklus v Pythone
+      </h1>
+      <p>9. ročník ZŠ – Informatika</p>
+      <p style="text-align: start">
+        <a href="../index.html" style="color: #fff; text-decoration: underline">
+          🏠 Späť na zoznam pracovných listov
+        </a>
+      </p>
+    </header>
+
+    <section>
+
+      <!-- ====================================================== -->
+      <h2>1️⃣ Prečo potrebujeme cykly?</h2>
+
+      <p>
+        Predstav si, že chceš vypísať čísla od 1 do 5. Môžeš to urobiť
+        <em>ručne</em>:
+      </p>
+
+      <pre><code>print(1)
+print(2)
+print(3)
+print(4)
+print(5)</code></pre>
+
+      <p>
+        Fungovalo by to. Ale čo ak chceš vypísať čísla od 1 do <strong>100</strong>?
+        Alebo od 1 do <strong>1000</strong>? Písať stokrát <code>print()</code>
+        nestíhame.
+      </p>
+
+      <p>
+        Na toto slúžia <strong>cykly</strong> – umožňujú nám
+        <strong>opakovať</strong> nejaký kód viackrát, pričom stačí ho napísať
+        raz.
+      </p>
+
+      <div class="bonus">
+        <strong>Kľúčová myšlienka:</strong> Cyklus hovorí počítaču:
+        „<em>Zopakuj tento kód X-krát.</em>"
+      </div>
+
+      <!-- ====================================================== -->
+      <h2>2️⃣ Základný tvar for cyklu</h2>
+
+      <pre><code>for premenna in range(pocet):
+    # tento kód sa zopakuje "pocet"-krát
+    print(premenna)</code></pre>
+
+      <p>Príklad – vypísanie čísel od 0 do 4:</p>
+
+      <pre><code>for i in range(5):
+    print(i)</code></pre>
+
+      <p><strong>Výstup:</strong></p>
+      <pre><code>0
+1
+2
+3
+4</code></pre>
+
+      <div class="bonus">
+        <strong>Pozor na odsadenie!</strong> Kód vo vnútri cyklu musí byť
+        <strong>odsadený</strong> (posunutý doprava) o 4 medzery alebo jeden
+        tabulátor – rovnako ako v podmienkach <code>if</code>. Python tak vie,
+        čo patrí do cyklu a čo nie.
+      </div>
+
+      <h3>Čo je to <code>i</code>?</h3>
+      <p>
+        <code>i</code> je <strong>premenná cyklu</strong> (môžeš ju pomenovať
+        akokoľvek). Pri každom opakovaní dostane novú hodnotu – prvýkrát 0,
+        potom 1, potom 2... Uchováva, „kde v cykle sme".
+      </p>
+
+      <div class="diagram">
+        <pre>
+for i in range(5):      →   Opakuj 5-krát
+    print(i)            →   Vypíš aktuálnu hodnotu i
+
+Priebeh:
+  1. opakovanie:  i = 0  →  vypíše 0
+  2. opakovanie:  i = 1  →  vypíše 1
+  3. opakovanie:  i = 2  →  vypíše 2
+  4. opakovanie:  i = 3  →  vypíše 3
+  5. opakovanie:  i = 4  →  vypíše 4
+  (koniec, ďalej už nie)
+        </pre>
+      </div>
+
+      <div class="task">
+        <strong>Úlohy:</strong>
+        <ol>
+          <li>Vypíš čísla od 0 do 9 pomocou <code>for</code> cyklu.</li>
+          <li>Vypíš 8-krát text <code>Ahoj svet!</code></li>
+          <li>
+            Vypíš 5-krát svoje meno. (Premenná cyklu <code>i</code> sa nemusí
+            použiť v tele cyklu.)
+          </li>
+        </ol>
+      </div>
+
+      <!-- ====================================================== -->
+      <h2>3️⃣ Funkcia <code>range()</code> podrobnejšie</h2>
+
+      <p>
+        Funkcia <code>range()</code> generuje postupnosť čísel. Môžeme ju
+        volať troma spôsobmi:
+      </p>
+
+      <table>
+        <tr>
+          <th>Zápis</th>
+          <th>Čo generuje</th>
+          <th>Príklad výstupu</th>
+        </tr>
+        <tr>
+          <td><code>range(5)</code></td>
+          <td>Od 0 do 4 (5 čísel)</td>
+          <td>0, 1, 2, 3, 4</td>
+        </tr>
+        <tr>
+          <td><code>range(1, 6)</code></td>
+          <td>Od 1 do 5 (6 nie je zahrnuté)</td>
+          <td>1, 2, 3, 4, 5</td>
+        </tr>
+        <tr>
+          <td><code>range(0, 11, 2)</code></td>
+          <td>Od 0 do 10, krok 2</td>
+          <td>0, 2, 4, 6, 8, 10</td>
+        </tr>
+        <tr>
+          <td><code>range(10, 0, -1)</code></td>
+          <td>Od 10 dole po 1, krok -1</td>
+          <td>10, 9, 8, 7, 6, 5, 4, 3, 2, 1</td>
+        </tr>
+      </table>
+
+      <div class="bonus">
+        <strong>Pravidlo:</strong> <code>range(začiatok, koniec, krok)</code><br />
+        Číslo <code>koniec</code> <strong>nie je zahrnuté</strong> – cyklus sa
+        zastaví <em>pred</em> ním. Napríklad <code>range(1, 6)</code> ide od 1
+        do 5, nie do 6.
+      </div>
+
+      <p>Príklady:</p>
+      <pre><code># Čísla 1 až 10
+for i in range(1, 11):
+    print(i)
+
+# Párne čísla 2, 4, 6, 8, 10
+for i in range(2, 11, 2):
+    print(i)
+
+# Odpočítavanie od 5
+for i in range(5, 0, -1):
+    print(i)
+print("Štart!")</code></pre>
+
+      <div class="task">
+        <strong>Úlohy:</strong>
+        <ol>
+          <li>Vypíš čísla od 1 do 20.</li>
+          <li>Vypíš iba nepárne čísla od 1 do 19 (1, 3, 5 ... 19).</li>
+          <li>Vypíš čísla od 10 do 1 zostupne (odpočítavanie).</li>
+          <li>Vypíš násobilku čísla 3: <code>3, 6, 9, 12, ... 30</code>.</li>
+        </ol>
+      </div>
+
+      <!-- ====================================================== -->
+      <h2>4️⃣ Premenná cyklu vo výpočtoch</h2>
+
+      <p>
+        Premennú <code>i</code> môžeme nielen vypísať, ale aj
+        <strong>počítať s ňou</strong>. To je veľmi mocná vlastnosť cyklov.
+      </p>
+
+      <pre><code># Vypíše druhé mocniny čísel 1 až 5
+for i in range(1, 6):
+    print(i * i)</code></pre>
+
+      <p><strong>Výstup:</strong></p>
+      <pre><code>1
+4
+9
+16
+25</code></pre>
+
+      <pre><code># Vypíše teploty v stupňoch Celsius aj Fahrenheit
+for stupen in range(0, 51, 10):
+    fahrenheit = stupen * 9 // 5 + 32
+    print(stupen, "°C =", fahrenheit, "°F")</code></pre>
+
+      <p><strong>Výstup:</strong></p>
+      <pre><code>0 °C = 32 °F
+10 °C = 50 °F
+20 °C = 68 °F
+30 °C = 86 °F
+40 °C = 104 °F
+50 °C = 122 °F</code></pre>
+
+      <div class="task">
+        <strong>Úlohy:</strong>
+        <ol>
+          <li>
+            Vypíš čísla 1 až 10 a pri každom napíš, či je párne alebo nepárne.
+            (Tip: číslo je párne, ak <code>i % 2 == 0</code>)
+          </li>
+          <li>
+            Vypíš násobilku čísla 7 v tvare:
+            <pre><code>7 x 1 = 7
+7 x 2 = 14
+7 x 3 = 21
+...</code></pre>
+          </li>
+          <li>
+            Vypíš čísla 1 až 5 a k nim ich tretie mocniny (1, 8, 27, 64, 125).
+          </li>
+        </ol>
+      </div>
+
+      <!-- ====================================================== -->
+      <h2>5️⃣ Akumulátor – počítanie a sčítavanie</h2>
+
+      <p>
+        Veľmi často chceme v cykle <strong>zbierať</strong> výsledky –
+        napríklad spočítať súčet čísel. Na to slúži tzv.
+        <strong>akumulátor</strong>: premenná, do ktorej postupne pridávame
+        hodnoty.
+      </p>
+
+      <pre><code># Súčet čísel od 1 do 100
+sucet = 0               # akumulátor – začíname od nuly
+
+for i in range(1, 101):
+    sucet = sucet + i   # pridáme aktuálne i k celkovému súčtu
+
+print("Súčet je:", sucet)</code></pre>
+
+      <p><strong>Výstup:</strong></p>
+      <pre><code>Súčet je: 5050</code></pre>
+
+      <div class="diagram">
+        <pre>
+Sledujeme premennú sucet:
+
+  Začiatok:          sucet = 0
+  Po 1. opakovaní:   sucet = 0 + 1  = 1
+  Po 2. opakovaní:   sucet = 1 + 2  = 3
+  Po 3. opakovaní:   sucet = 3 + 3  = 6
+  Po 4. opakovaní:   sucet = 6 + 4  = 10
+  ...
+  Po 100. opakovaní: sucet = 4950 + 100 = 5050
+        </pre>
+      </div>
+
+      <div class="task">
+        <strong>Úlohy:</strong>
+        <ol>
+          <li>
+            Vypočítaj súčet čísel od 1 do 50.
+          </li>
+          <li>
+            Vypočítaj súčet <strong>párnych</strong> čísel od 2 do 20.
+          </li>
+          <li>
+            Spočítaj, koľko čísel od 1 do 100 je deliteľných číslom 7.
+            (Tip: použi <code>if i % 7 == 0</code> vnútri cyklu.)
+          </li>
+        </ol>
+      </div>
+
+      <!-- ====================================================== -->
+      <h2>6️⃣ Riešený príklad: Násobilka čísla N</h2>
+
+      <h3>Zadanie</h3>
+      <div class="task">
+        <p>
+          <strong>Napíš program, ktorý sa opýta používateľa na číslo N a vypíše
+          celú násobilku tohto čísla (od 1 do 10).</strong>
+        </p>
+        <p><strong>Príklad – vstup:</strong> <code>6</code></p>
+        <p><strong>Očakávaný výstup:</strong></p>
+        <pre><code>6 x 1 = 6
+6 x 2 = 12
+6 x 3 = 18
+6 x 4 = 24
+6 x 5 = 30
+6 x 6 = 36
+6 x 7 = 42
+6 x 8 = 48
+6 x 9 = 54
+6 x 10 = 60</code></pre>
+      </div>
+
+      <h3>Postup riešenia krok za krokom</h3>
+
+      <div class="step">
+        <strong>Krok 1 – Čo potrebujeme?</strong>
+        <ul>
+          <li>Načítať číslo N od používateľa.</li>
+          <li>Opakovať výpočet pre násobiteľ od 1 do 10.</li>
+          <li>Vypísať výsledok každého násobenia.</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <strong>Krok 2 – Ako by to vyzeralo bez cyklu?</strong>
+        <pre><code>n = int(input("Zadaj číslo: "))
+print(n, "x 1 =", n * 1)
+print(n, "x 2 =", n * 2)
+print(n, "x 3 =", n * 3)
+# ... a tak ďalej 10-krát – nudné!</code></pre>
+      </div>
+
+      <div class="step">
+        <strong>Krok 3 – Použijeme cyklus:</strong>
+        Namiesto desiatich riadkov stačia tri:
+        <pre><code>for i in range(1, 11):
+    print(n, "x", i, "=", n * i)</code></pre>
+        Premenná <code>i</code> prechádza hodnotami 1, 2, 3 ... 10 a vždy
+        vypíšeme <code>n × i</code>.
+      </div>
+
+      <h3>Kompletné riešenie</h3>
+
+      <div class="solution">
+        <div class="code-editor">
+          <div class="line-numbers">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>6</span>
+          </div>
+          <div class="code-content">
+            <pre><code># Načítanie čísla od používateľa
+n = int(input("Zadaj číslo, pre ktoré chceš násobilku: "))
+
+# Vypísanie násobilky pomocou for cyklu
+for i in range(1, 11):
+    print(n, "x", i, "=", n * i)</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <h3>Testovanie riešenia</h3>
+      <table>
+        <tr>
+          <th>Vstup N</th>
+          <th>Prvý riadok výstupu</th>
+          <th>Posledný riadok výstupu</th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td><code>1 x 1 = 1</code></td>
+          <td><code>1 x 10 = 10</code></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><code>5 x 1 = 5</code></td>
+          <td><code>5 x 10 = 50</code></td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td><code>9 x 1 = 9</code></td>
+          <td><code>9 x 10 = 90</code></td>
+        </tr>
+        <tr>
+          <td>0</td>
+          <td><code>0 x 1 = 0</code></td>
+          <td><code>0 x 10 = 0</code></td>
+        </tr>
+      </table>
+
+      <!-- ====================================================== -->
+      <h2>7️⃣ For cyklus s podmienkou (if vo vnútri for)</h2>
+
+      <p>
+        Do tela cyklu môžeme vložiť <strong>podmienku</strong>. Takto vieme
+        odfiltrovať alebo rozlíšiť čísla podľa nejakej vlastnosti.
+      </p>
+
+      <pre><code># Vypíš len párne čísla od 1 do 20
+for i in range(1, 21):
+    if i % 2 == 0:
+        print(i)</code></pre>
+
+      <p><strong>Výstup:</strong></p>
+      <pre><code>2
+4
+6
+8
+10
+12
+14
+16
+18
+20</code></pre>
+
+      <div class="task">
+        <strong>Úlohy:</strong>
+        <ol>
+          <li>
+            Vypíš čísla od 1 do 30, pričom pri každom napíš:
+            <ul>
+              <li>ak je deliteľné 3 – vypíš <code>Fizz</code>,</li>
+              <li>inak vypíš samotné číslo.</li>
+            </ul>
+          </li>
+          <li>
+            Vypíš čísla od 1 do 100 a spočítaj, koľko z nich je väčších ako 50.
+            Na konci vypíš výsledok.
+          </li>
+          <li>
+            Napíš program, ktorý sa opýta na číslo N a vypíše, ktoré čísla od
+            1 do N sú deliteľné 5.
+          </li>
+        </ol>
+      </div>
+
+      <!-- ====================================================== -->
+      <h2>8️⃣ Bonus – Iterovanie cez text</h2>
+
+      <div class="bonus">
+        <strong>💡 Bonus:</strong> For cyklus funguje nielen s číslami.
+        Môžeme ním prechádzať aj <strong>písmená slova</strong> jedno po druhom.
+      </div>
+
+      <pre><code># Vypíš každé písmeno zvlášť
+slovo = "Python"
+for pismeno in slovo:
+    print(pismeno)</code></pre>
+
+      <p><strong>Výstup:</strong></p>
+      <pre><code>P
+y
+t
+h
+o
+n</code></pre>
+
+      <pre><code># Zisti, koľko písmen má slovo (bez použitia len())
+slovo = input("Zadaj slovo: ")
+pocet = 0
+for pismeno in slovo:
+    pocet = pocet + 1
+print("Slovo má", pocet, "písmen.")</code></pre>
+
+      <div class="bonus">
+        <strong>Úlohy na bonus:</strong>
+        <ol>
+          <li>
+            Napíš program, ktorý vypíše každé písmeno zadaného slova na nový
+            riadok, ale iba ak nie je medzera.
+          </li>
+          <li>
+            Spočítaj, koľkokrát sa písmeno <code>a</code> vyskytuje v slove
+            zadanom používateľom. (Tip: <code>if pismeno == "a"</code>)
+          </li>
+        </ol>
+      </div>
+
+      <!-- ====================================================== -->
+      <h2>✔ Na konci hodiny by si mal/a vedieť:</h2>
+      <ul class="checklist">
+        <li>vysvetliť, na čo slúži <code>for</code> cyklus,</li>
+        <li>napísať základný <code>for</code> cyklus s <code>range()</code>,</li>
+        <li>
+          použiť <code>range()</code> so začiatkom, koncom a krokom,
+        </li>
+        <li>použiť premennú cyklu vo výpočte,</li>
+        <li>
+          sčítavať hodnoty v cykle pomocou <strong>akumulátora</strong>,
+        </li>
+        <li>kombinovať <code>for</code> s podmienkou <code>if</code>.</li>
+      </ul>
+
+      <!-- ====================================================== -->
+      <h2>🏠 Domáca úloha</h2>
+
+      <div class="homework">
+        <p><strong>Téma:</strong> For cyklus v Pythone</p>
+        <p>Vyber si <em>aspoň jednu</em> z týchto úloh:</p>
+        <ol>
+          <li>
+            Program <strong>„Súčet od 1 do N"</strong>:
+            <ul>
+              <li>Opýtaj sa používateľa na číslo N.</li>
+              <li>Pomocou <code>for</code> cyklu vypočítaj súčet čísel od 1 do N.</li>
+              <li>Vypíš výsledok.</li>
+            </ul>
+          </li>
+          <li>
+            Program <strong>„FizzBuzz"</strong>:
+            <ul>
+              <li>Vypíš čísla od 1 do 30.</li>
+              <li>Ak je číslo deliteľné 3, vypíš namiesto neho <code>Fizz</code>.</li>
+              <li>Ak je číslo deliteľné 5, vypíš namiesto neho <code>Buzz</code>.</li>
+              <li>
+                Ak je deliteľné 3 aj 5 naraz, vypíš <code>FizzBuzz</code>.
+                <span class="bonus-badge">BONUS</span>
+              </li>
+            </ul>
+          </li>
+        </ol>
+        <p>
+          💾 Program ulož ako <code>domaca6_meno.priezvisko.py</code> a nahraj
+          do svojho priečinka na Google Drive.
+        </p>
+      </div>
+
+    </section>
+
+    <footer>
+      Súkromná základná škola waldorfská · Informatika 9. ročník 2025/2026 ·
+      Michal Puškel · Pracovný list vytvorený s pomocou Claude
+    </footer>
+  </body>
+</html>
