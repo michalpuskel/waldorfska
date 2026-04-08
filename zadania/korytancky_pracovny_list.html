@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pracovný list – Korytnačky (Turtle)</title>
+    <style>
+      @media print {
+        body {
+          margin: 1.5cm;
+        }
+      }
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        font-size: 12pt;
+        line-height: 1.4;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        color: #000;
+      }
+      h1 {
+        text-align: center;
+        font-size: 18pt;
+        border-bottom: 2px solid #000;
+        padding-bottom: 6px;
+        margin-bottom: 2px;
+      }
+      .subtitle {
+        text-align: center;
+        font-size: 10pt;
+        margin-bottom: 14px;
+      }
+      .info-box {
+        border: 1px solid #000;
+        padding: 8px 12px;
+        margin-bottom: 14px;
+        font-size: 11pt;
+      }
+      .task {
+        margin-bottom: 10px;
+        padding: 4px 10px;
+        border-left: 3px solid #000;
+      }
+      .task-number {
+        font-weight: bold;
+      }
+      .task p {
+        margin: 3px 0;
+      }
+      pre {
+        border: 1px solid #000;
+        padding: 6px 8px;
+        font-size: 10pt;
+        overflow-x: auto;
+        margin: 4px 0;
+      }
+      code {
+        font-family: "Consolas", "Courier New", monospace;
+      }
+      .hint {
+        font-style: italic;
+      }
+      .section-title {
+        font-size: 13pt;
+        font-weight: bold;
+        margin-top: 18px;
+        margin-bottom: 6px;
+        border-bottom: 1px solid #000;
+        padding-bottom: 2px;
+      }
+      .student-info {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+      .student-info span {
+        border-bottom: 1px dotted #000;
+        min-width: 200px;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Korytnačky (Turtle Graphics)</h1>
+    <div class="subtitle">
+      Informatika 9. ročník &mdash; Súkromná základná škola waldorfská &mdash;
+      9. 4. 2026
+    </div>
+
+    <div class="student-info">
+      <div>Meno: <span>&nbsp;</span></div>
+    </div>
+
+    <div class="info-box">
+      <strong>Pripomienka:</strong> Pri kreslení korytnačky nezabudni importovať
+      knižnicu:<br />
+      <code>import turtle</code> &nbsp; alebo pre skrátený zápis: &nbsp;
+      <code>import turtle as t</code><br />
+      Pre náhodné čísla použi: <code>import random</code>
+    </div>
+
+    <div class="section-title">Základné tvary a špirály</div>
+
+    <div class="task">
+      <span class="task-number">1.</span> Nakresli 6-uholník pomocou korytnačky.
+    </div>
+
+    <div class="task">
+      <span class="task-number">2.</span> Vyskúšaj nakresliť farebnú špirálu.
+      Pozoruj, zamýšľaj sa nad uhlami a have fun!
+      <pre><code>t.bgcolor('black')
+t.speed(0)
+
+for x in range(360):
+    farba = 'white'
+    zv = x % 6
+    if zv == 0:
+        farba = 'red'
+    elif zv == 1:
+        farba = 'purple'
+    elif zv == 2:
+        farba = 'blue'
+    elif zv == 3:
+        farba = 'green'
+    elif zv == 4:
+        farba = 'orange'
+    elif zv == 5:
+        farba = 'yellow'
+
+    t.pencolor(farba)
+    t.forward(x)
+    t.left(59)</code></pre>
+    </div>
+
+    <div class="task">
+      <span class="task-number">3.</span> Ako sa obrázok zmení, keď v každom
+      kroku postupne zväčšuješ hrúbku pera? Pridaj napr. príkaz:
+      <pre><code>t.pensize(x/100 + 1)</code></pre>
+      <p class="hint">
+        Vyskúšaj aj iné varianty (trošku iný uhol, iná dĺžka, iná hrúbka, ...)
+      </p>
+    </div>
+
+    <div class="section-title" style="page-break-before: always">
+      Špirály &mdash; slimák
+    </div>
+
+    <div class="task">
+      <span class="task-number">4.</span> Vyskúšaj špirálu slimák:
+      <pre><code>for i in range(100):
+    t.fd(i*2)
+    t.lt(360 / 10)</code></pre>
+    </div>
+
+    <div class="task">
+      <span class="task-number">5.</span> Vyskúšaj štvorcovú verziu slimáka:
+      <pre><code>for a in range(100):
+    t.fd(a*4)
+    t.lt(360 / 4)</code></pre>
+    </div>
+
+    <div class="task">
+      <span class="task-number">6.</span> Čím viac n-uholníková špirála, tým
+      okrúhlejšia:
+      <pre><code>for i in range(100):
+    t.fd(10 + i)
+    t.lt(360 / 20)</code></pre>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="section-title">Náhodné špirály</div>
+
+    <div class="task">
+      <span class="task-number">7.</span> Viackrát spusti program s náhodnými
+      špirálami:
+      <pre><code>uhol = random.randint(30, 170)
+print('spirala s uhlom', uhol)
+for i in range(3, 300, 3):
+    t.fd(i)
+    t.rt(uhol)</code></pre>
+    </div>
+
+    <div class="task">
+      <span class="task-number">8.</span> Pritvrdíme &mdash; vyskúšaj mind
+      blowing špirálu:
+      <pre><code>for uhol in range(1, 3000):
+    t.fd(8)
+    t.rt(uhol)</code></pre>
+    </div>
+
+    <div class="task">
+      <span class="task-number">9.</span> Vyskúšaj rôzne zmeny uhla:
+      <pre><code>t.rt(uhol + 0.1)</code></pre>
+    </div>
+
+    <div class="task">
+      <span class="task-number">10.</span> A ešte túto variantu:
+      <pre><code>t.rt(uhol + 0.333)</code></pre>
+    </div>
+
+    <div class="section-title" style="page-break-before: always">
+      Náhodné prechádzky
+    </div>
+
+    <div class="task">
+      <span class="task-number">11.</span> Naprogramuj korytnačku, ktorá bude
+      chodiť náhodne v kruhu:
+      <pre><code>t.pensize(5)
+t.pencolor('red')
+for i in range(10000):
+    t.setheading(random.randint(0, 359))
+    t.fd(10)
+    if t.xcor()**2 + t.ycor()**2 > 50**2:
+        t.fd(-10)</code></pre>
+    </div>
+
+    <div class="task">
+      <span class="task-number">12.</span> Metóda
+      <code>distance()</code> vypočíta vzdialenosť korytnačky od nejakého bodu.
+      Naprogramuj korytnačku, nech sa náhodne prechádza po ploche a podľa
+      vzdialenosti od vybraného bodu jej zmeň farbu:
+      <pre><code>t.bgcolor('navy')
+t.pensize(5)
+t.pencolor('yellow')
+for i in range(10000):
+    t.seth(random.randint(0, 359))
+    t.fd(10)
+    if t.distance(40, 0) > 100 or t.distance(100, 0) < 100:
+        t.fd(-10)</code></pre>
+    </div>
+
+    <div class="section-title">Výzvy na záver</div>
+
+    <div class="task">
+      <span class="task-number">13.</span> Vieš naprogramovať štvorec v strede
+      grafickej plochy pomocou náhodných prechádzok?
+    </div>
+
+    <div class="task">
+      <span class="task-number">14.</span> Nakresli obrázok, kde je viac
+      n-uholníkov naraz s rovnakou stranou. <br /><img
+        src="n-uholniky.png"
+        alt="N-uholníky s rovnakou stranou"
+        style="max-width: 135px; margin-top: 6px"
+      />
+    </div>
+
+    <div class="task">
+      <span class="task-number">15.</span> Nakresli obrázok, kde je viac
+      n-uholníkov naraz, sú opísané kružnici s rovnakým polomerom. <br /><img
+        src="n-gon_rovnaky-polomer.png"
+        alt="N-uholníky opísané kružnici"
+        style="max-width: 135px; margin-top: 6px"
+      />
+    </div>
+  </body>
+</html>
