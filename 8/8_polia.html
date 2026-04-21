@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pracovný list č. 8 – Polia (zoznamy) v Pythone</title>
+
+    <style>
+      body {
+        font-family: "Segoe UI", Roboto, sans-serif;
+        background-color: #f7f8fa;
+        color: #222;
+        line-height: 1.5;
+        margin: 0;
+        padding: 0;
+      }
+
+      header {
+        background-color: #2d87ef97;
+        color: white;
+        padding: 20px 40px;
+        text-align: center;
+        border-bottom: 4px solid #1b5cb8;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 1.8rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      h1 img {
+        margin-right: 16px;
+        width: 32px;
+        height: 32px;
+      }
+
+      h2 {
+        color: #1b5cb8;
+        margin-top: 30px;
+        border-bottom: 2px solid #1b5cb8;
+        padding-bottom: 5px;
+      }
+
+      h3 {
+        color: #2d89ef;
+        margin-top: 20px;
+        margin-bottom: 5px;
+      }
+
+      section {
+        padding: 15px 40px;
+        max-width: 900px;
+        margin: auto;
+        background: white;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      p {
+        margin: 6px 0;
+      }
+
+      code,
+      pre {
+        background-color: #f0f3f9;
+        border-radius: 6px;
+        padding: 8px;
+        display: block;
+        font-family: "Fira Code", monospace;
+        white-space: pre-wrap;
+        font-size: 0.9rem;
+      }
+
+      code {
+        display: inline;
+        padding: 2px 6px;
+      }
+
+      pre code {
+        display: block;
+        padding: 0;
+        white-space: pre;
+      }
+
+      .task {
+        background: #e8f4ff;
+        border-left: 6px solid #2d89ef;
+        padding: 10px 14px;
+        margin: 12px 0;
+        border-radius: 4px;
+      }
+
+      .task p {
+        margin: 4px 0;
+      }
+
+      .bonus {
+        background: #fff9e6;
+        border-left: 6px solid #ffc107;
+        padding: 10px 14px;
+        margin: 12px 0;
+        border-radius: 4px;
+      }
+
+      .homework {
+        background: #e9f9eb;
+        border-left: 6px solid #28a745;
+        padding: 12px 16px;
+        margin: 20px 0;
+        border-radius: 6px;
+      }
+
+      table {
+        border-collapse: collapse;
+        margin: 10px 0;
+        width: 100%;
+        font-size: 0.9rem;
+      }
+
+      table th,
+      table td {
+        border: 1px solid #ccc;
+        padding: 5px 8px;
+        text-align: left;
+      }
+
+      table th {
+        background: #f0f3f9;
+        color: #1b5cb8;
+      }
+
+      ul.checklist {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      ul.checklist li::before {
+        content: "\2714 ";
+        color: #2d89ef;
+      }
+
+      footer {
+        text-align: center;
+        font-size: 0.9rem;
+        color: #666;
+        padding: 20px;
+      }
+
+      @media print {
+        body { background: white; }
+        header { background-color: #2d87ef; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        section { box-shadow: none; padding: 10px 20px; }
+        .task, .bonus, .homework { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      }
+
+      @media (max-width: 600px) {
+        section {
+          padding: 15px 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>
+        <img src="../logo.png" alt="python" />
+        Pracovný list č. 8 – Polia (zoznamy) v Pythone
+      </h1>
+      <p>9. ročník ZŠ – Informatika</p>
+      <p style="text-align: start">
+        <a href="../index.html" style="color: #fff; text-decoration: underline">
+          🏠 Späť na zoznam pracovných listov
+        </a>
+      </p>
+    </header>
+
+    <section>
+
+      <!-- ====================================================== -->
+      <h2>1️⃣ Čo je zoznam?</h2>
+
+      <p>
+        <strong>Zoznam</strong> (list) je premenná, ktorá uchováva <strong>viacero hodnôt</strong> v poradí.
+        Zapisujeme ho do hranatých zátvoriek:
+      </p>
+
+      <pre><code>znamky = [1, 2, 1, 3, 1, 2]
+mena = ["Anna", "Boris", "Cyril"]
+prazdny = []</code></pre>
+
+      <p>Každý prvok má svoje číslo – <strong>index</strong>. Indexovanie začína od <strong>nuly</strong>:</p>
+
+      <pre><code># index:   0    1    2    3    4    5
+znamky = [ 1,   2,   1,   3,   1,   2 ]</code></pre>
+
+      <!-- ====================================================== -->
+      <h2>2️⃣ Čítanie a zápis prvkov</h2>
+
+      <pre><code>farby = ["červená", "modrá", "zelená"]
+
+print(farby[0])    # červená  (prvý prvok)
+print(farby[2])    # zelená   (tretí prvok)
+print(len(farby))  # 3        (počet prvkov)
+
+farby[1] = "žltá"  # zmena druhého prvku
+print(farby)       # ["červená", "žltá", "zelená"]</code></pre>
+
+      <h3>Záporné indexy</h3>
+      <p>
+        <code>pole[-1]</code> je skratka za <code>pole[len(pole) - 1]</code> –
+        teda posledný prvok. Python si sám dopočíta pozíciu od konca:
+      </p>
+
+      <pre><code>farby = ["červená", "modrá", "zelená"]   # len(farby) = 3
+
+farby[-1]   # = farby[3 - 1] = farby[2] → "zelená"
+farby[-2]   # = farby[3 - 2] = farby[1] → "modrá"</code></pre>
+
+      <!-- ====================================================== -->
+      <h2>3️⃣ Prechádzanie cyklom</h2>
+
+      <pre><code>mena = ["Anna", "Boris", "Cyril"]
+
+# Cez prvky:
+for meno in mena:
+    print(meno)
+
+# Cez index:
+for i in range(len(mena)):
+    print(i, mena[i])</code></pre>
+
+      <div class="bonus">
+        <strong>Reťazec je ako pole znakov.</strong>
+        S textom vieme pracovať rovnako – pristupovať cez index, prechádzať cyklom aj použiť <code>len()</code>:
+      </div>
+
+      <pre><code>slovo = "Python"
+
+print(slovo[0])    # P
+print(slovo[-1])   # n
+print(len(slovo))  # 6
+
+for pismeno in slovo:
+    print(pismeno)</code></pre>
+
+      <!-- ====================================================== -->
+      <h2>4️⃣ Reťazenie a opakovanie</h2>
+
+      <p>Zoznamy sa dajú <strong>spájať</strong> operátorom <code>+</code> a <strong>opakovať</strong> operátorom <code>*</code>:</p>
+
+      <pre><code>a = [1, 2, 3]
+b = [4, 5, 6]
+
+print(a + b)     # [1, 2, 3, 4, 5, 6]   (spojenie)
+print([0] * 5)   # [0, 0, 0, 0, 0]      (opakovanie)</code></pre>
+
+      <p>
+        Takto vieme <strong>pridať prvok</strong> na koniec aj bez <code>append()</code> –
+        stačí spojiť zoznam s jednoprvkovým zoznamom:
+      </p>
+
+      <pre><code>cisla = [10, 20, 30]
+cisla = cisla + [40]
+print(cisla)   # [10, 20, 30, 40]</code></pre>
+
+      <p>Alebo pridať prvok na <strong>začiatok</strong>:</p>
+
+      <pre><code>cisla = [10, 20, 30]
+cisla = [5] + cisla
+print(cisla)   # [5, 10, 20, 30]</code></pre>
+
+      <!-- ====================================================== -->
+      <h2>5️⃣ Slicy (výrezy)</h2>
+
+      <p>
+        <code>zoznam[od:do]</code> – vráti časť zoznamu
+        (<code>od</code> je zahrnuté, <code>do</code> nie).
+      </p>
+
+      <pre><code>c = [10, 20, 30, 40, 50, 60, 70]
+
+c[1:4]    # [20, 30, 40]
+c[:3]     # [10, 20, 30]          (od začiatku)
+c[4:]     # [50, 60, 70]          (do konca)
+c[::2]    # [10, 30, 50, 70]     (každý druhý)
+c[::-1]   # [70, 60, ..., 10]    (pozpiatku)</code></pre>
+
+      <!-- ====================================================== -->
+      <h2>6️⃣ Pridávanie a mazanie prvkov</h2>
+
+      <table>
+        <tr><th>Príkaz</th><th>Čo robí</th></tr>
+        <tr><td><code>z.append(x)</code></td><td>pridá <code>x</code> na koniec</td></tr>
+        <tr><td><code>z.insert(i, x)</code></td><td>vloží <code>x</code> na index <code>i</code></td></tr>
+        <tr><td><code>z.remove(x)</code></td><td>odstráni prvý výskyt hodnoty <code>x</code></td></tr>
+        <tr><td><code>z.pop()</code></td><td>odstráni a vráti posledný prvok</td></tr>
+        <tr><td><code>z.pop(i)</code></td><td>odstráni a vráti prvok na indexe <code>i</code></td></tr>
+        <tr><td><code>del z[i]</code></td><td>zmaže prvok na indexe <code>i</code></td></tr>
+      </table>
+
+      <pre><code>cisla = [10, 20, 30]
+cisla.append(40)       # [10, 20, 30, 40]
+cisla.insert(1, 15)    # [10, 15, 20, 30, 40]
+cisla.remove(20)       # [10, 15, 30, 40]
+cisla.pop()            # [10, 15, 30]</code></pre>
+
+      <!-- ====================================================== -->
+      <h2>7️⃣ Kópia zoznamu</h2>
+
+      <pre><code>a = [1, 2, 3]
+b = a        # b ukazuje na TEN ISTÝ zoznam – nie je to kópia!
+b.append(4)
+print(a)     # [1, 2, 3, 4]  – zmenilo sa aj a!</code></pre>
+
+      <p>Skutočná kópia:</p>
+
+      <pre><code>a = [1, 2, 3]
+b = a[:]       # skutočná kópia
+
+b.append(4)
+print(a)       # [1, 2, 3]     – a sa nezmenilo!
+print(b)       # [1, 2, 3, 4]  – zmenilo sa iba b</code></pre>
+
+      <p>Kópiu vieme vytvoriť troma spôsobmi – všetky robia to isté:</p>
+
+      <pre><code>b = a[:]       # slice kópia
+b = list(a)    # cez list()
+b = a.copy()   # cez .copy()</code></pre>
+
+      <!-- ====================================================== -->
+      <h2>✔ Mal/a by si vedieť:</h2>
+      <ul class="checklist">
+        <li>vytvoriť zoznam a pristupovať k prvkom cez index</li>
+        <li>zmeniť, pridať a zmazať prvok</li>
+        <li>prejsť zoznam cyklom <code>for</code></li>
+        <li>použiť slice a správne skopírovať zoznam</li>
+      </ul>
+
+      <!-- ====================================================== -->
+      <h2>📝 Úlohy na precvičenie (10)</h2>
+
+      <div class="task">
+        <strong>1.</strong> Vytvor zoznam <code>dni = ["Po", "Ut", "St", "Št", "Pi", "So", "Ne"]</code>.
+        Vypíš každý deň na nový riadok pomocou <code>for</code> cyklu.
+      </div>
+
+      <div class="task">
+        <strong>2.</strong> Vytvor zoznam <code>cisla = [5, 12, 8, 3, 19, 7]</code>.
+        Vypíš prvý prvok, posledný prvok a dĺžku zoznamu.
+      </div>
+
+      <div class="task">
+        <strong>3.</strong> Vytvor zoznam <code>cisla = [4, 7, 2, 9, 1, 6]</code>.
+        Pomocou <code>for</code> cyklu vypočítaj a vypíš súčet všetkých prvkov.
+      </div>
+
+      <div class="task">
+        <strong>4.</strong> Vytvor zoznam <code>cisla = [14, 3, 27, 8, 21, 5]</code>.
+        Pomocou cyklu nájdi a vypíš najväčšie číslo. (Nepoužívaj <code>max()</code>.)
+      </div>
+
+      <div class="task">
+        <strong>5.</strong> Zo zoznamu <code>cisla = [3, 10, 7, 22, 15, 8, 41, 36]</code>
+        vytvor <strong>nový zoznam</strong> obsahujúci iba párne čísla. Vypíš ho.
+      </div>
+
+      <div class="task">
+        <strong>6.</strong> Pomocou cyklu vytvor zoznam všetkých násobkov 3 od 3 do 30.
+        Vypíš výsledný zoznam.
+      </div>
+
+      <div class="task">
+        <strong>7.</strong> Vytvor zoznam <code>slova = ["ahoj", "svet", "python", "je", "super"]</code>.
+        Bez použitia <code>[::-1]</code> vytvor nový zoznam s prvkami v opačnom poradí.
+      </div>
+
+      <div class="task">
+        <strong>8.</strong> Máš dva zoznamy:
+        <code>a = [2, 5, 8, 12, 15, 20]</code> a <code>b = [3, 5, 10, 12, 18, 20, 25]</code>.
+        Nájdi a vypíš čísla, ktoré sú v <strong>oboch</strong> zoznamoch.
+      </div>
+
+      <div class="task">
+        <strong>9.</strong> Opýtaj sa používateľa na číslo <code>n</code>.
+        Vytvor zoznam všetkých násobkov <code>n</code> do 100 (vrátane) a vypíš ho aj s počtom násobkov.
+      </div>
+
+      <div class="task">
+        <strong>10.</strong> Zoznam <code>[1, 2, 3, 4, 5, 6, 7, 8]</code> rozdeľ na dve polovice
+        a vymeň ich. Výsledok: <code>[5, 6, 7, 8, 1, 2, 3, 4]</code>.
+      </div>
+
+    </section>
+
+    <footer>
+      Súkromná základná škola waldorfská · Informatika 9. ročník 2025/2026 ·
+      Michal Puškel · Pracovný list vytvorený s pomocou Claude
+    </footer>
+  </body>
+</html>
