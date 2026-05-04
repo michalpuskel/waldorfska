@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pracovný list – Polia (zoznamy) v Pythone</title>
+    <style>
+      @media print {
+        body {
+          margin: 1.5cm;
+        }
+      }
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        font-size: 11pt;
+        line-height: 1.35;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        color: #000;
+      }
+      h1 {
+        text-align: center;
+        font-size: 18pt;
+        border-bottom: 2px solid #000;
+        padding-bottom: 6px;
+        margin-bottom: 2px;
+      }
+      .subtitle {
+        text-align: center;
+        font-size: 10pt;
+        margin-bottom: 12px;
+      }
+      .info-box {
+        border: 1px solid #000;
+        padding: 6px 10px;
+        margin-bottom: 12px;
+        font-size: 10.5pt;
+      }
+      .task {
+        margin-bottom: 8px;
+        padding: 3px 10px;
+        border-left: 3px solid #000;
+      }
+      .task-number {
+        font-weight: bold;
+      }
+      .task p {
+        margin: 3px 0;
+      }
+      pre {
+        border: 1px solid #000;
+        padding: 5px 8px;
+        font-size: 10pt;
+        overflow-x: auto;
+        margin: 4px 0;
+      }
+      code {
+        font-family: "Consolas", "Courier New", monospace;
+      }
+      .hint {
+        font-style: italic;
+        font-size: 10pt;
+      }
+      .student-info {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+      .student-info span {
+        border-bottom: 1px dotted #000;
+        min-width: 200px;
+        display: inline-block;
+      }
+      .section-title {
+        font-size: 12pt;
+        font-weight: bold;
+        margin-top: 10px;
+        margin-bottom: 6px;
+        border-bottom: 1px solid #000;
+        padding-bottom: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Polia (zoznamy) v Pythone</h1>
+    <div class="subtitle">
+      Informatika 9. ročník &mdash; Súkromná základná škola waldorfská &mdash;
+      7. 5. 2026
+    </div>
+
+    <div class="student-info">
+      <div>Meno: <span>&nbsp;</span></div>
+    </div>
+
+    <div class="info-box">
+      <strong>Pripomienka:</strong> Pole (zoznam) zapisujeme do hranatých
+      zátvoriek: <code>cisla = [3, 7, 2, 8]</code>. K prvkom pristupujeme cez
+      index od nuly: <code>cisla[0]</code>. Dĺžka poľa: <code>len(cisla)</code>.
+      Pre náhodné čísla: <code>import random</code>, pre korytnačku:
+      <code>import turtle as t</code>.
+    </div>
+
+    <div class="section-title">Základné operácie s poľami</div>
+
+    <div class="task">
+      <span class="task-number">1.</span> Vytvor pole zvieratiek (aspoň 5
+      prvkov). Pomocou indexov vypíš druhé, štvrté a posledné zviera. Pre
+      posledný prvok vyskúšaj aj záporný index <code>-1</code>.
+    </div>
+
+    <div class="task">
+      <span class="task-number">2.</span> Mám pole
+      <code>teploty = [12, 18, 22, 25, 19, 14, 11]</code>. Pomocou cyklu nájdi a
+      vypíš najnižšiu teplotu (nepoužívaj <code>min()</code>).
+    </div>
+
+    <div class="task">
+      <span class="task-number">3.</span> Mám pole
+      <code>cisla = [3, 7, 2, 8, 5, 1, 9]</code>. Vypíš priemer všetkých čísel
+      (súčet vydelený počtom prvkov).
+    </div>
+
+    <div class="task">
+      <span class="task-number">4.</span> Pomocou cyklu vytvor pole druhých
+      mocnín čísel 1 až 10. Výsledok:
+      <code>[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]</code>.
+    </div>
+
+    <div class="task">
+      <span class="task-number">5.</span> Mám pole
+      <code>cisla = [5, 12, 7, 3, 19, 8, 14, 2]</code>. Vypíš počet čísel
+      väčších ako 10.
+    </div>
+
+    <div class="task">
+      <span class="task-number">6.</span> Mám pole
+      <code>zarobky = [20, 35, 10, 50, 15, 40]</code>. Vypíš súčet len tých
+      zárobkov, ktoré sú väčšie ako 25.
+    </div>
+
+    <div class="task">
+      <span class="task-number">7.</span> Mám pole
+      <code>cisla = [4, 7, 2, 9, 11, 3, 8]</code>. Vytvor nový zoznam, kde každý
+      prvok bude dvojnásobkom pôvodného.
+    </div>
+
+    <div class="task">
+      <span class="task-number">8.</span> Mám pole
+      <code>znamky = [1, 3, 2, 1, 4, 3, 2, 1, 5, 2]</code>. Spočítaj a vypíš,
+      koľkokrát sa v ňom vyskytuje známka 1.
+    </div>
+
+    <div class="task">
+      <span class="task-number">9.</span> Mám pole
+      <code>cisla = [3, 8, 1, 7, 4, 12, 6]</code>. Nájdi a vypíš
+      <strong>index</strong> najväčšieho čísla (nie hodnotu, ale index!).
+    </div>
+
+    <div class="task">
+      <span class="task-number">10.</span> <strong>Fibonacciho čísla.</strong>
+      Vytvor pole <code>f</code> s 30 prvkami. Prvé dva prvky sú 1 a 1. Každý
+      ďalší prvok je súčtom dvoch predchádzajúcich, teda
+      <code>f[i] = f[i-1] + f[i-2]</code>. Pole vypíš.
+      <p class="hint">
+        Tip: Najprv vyrob pole 30 núl: <code>f = [0] * 30</code>. Nastav
+        <code>f[0] = 1</code>, <code>f[1] = 1</code> a v cykle
+        <code>for i in range(2, 30)</code> dopočítaj zvyšok.
+      </p>
+    </div>
+
+    <div style="page-break-before: always"></div>
+
+    <div class="section-title">Práca s indexami a vzťahmi medzi prvkami</div>
+
+    <div class="task">
+      <span class="task-number">11.</span> Vytvor pole 20 čísel, kde každý prvok
+      je 2× väčší ako predchádzajúci. Prvý prvok je 1. Výsledok:
+      <code>[1, 2, 4, 8, 16, 32, ...]</code> &mdash; mocniny dvoch.
+    </div>
+
+    <div class="task">
+      <span class="task-number">12.</span> Mám dve polia rovnakej dĺžky
+      <code>a = [1, 2, 3, 4, 5]</code> a <code>b = [10, 20, 30, 40, 50]</code>.
+      Vytvor nový zoznam, kde sa odpovedajúce prvky spočítajú:
+      <code>[11, 22, 33, 44, 55]</code>.
+    </div>
+
+    <div class="task">
+      <span class="task-number">13.</span> Mám pole
+      <code>slova = ["mama", "auto", "dom", "obed", "ihla", "pero", "ucho", "kava"]</code>.
+      Vytvor nový zoznam, ktorý obsahuje len slová začínajúce na samohlásku
+      (a, e, i, o, u).
+    </div>
+
+    <div class="task">
+      <span class="task-number">14.</span> Spýtaj sa používateľa na číslo
+      <code>n</code>. Pomocou cyklu nájdi všetkých jeho deliteľov a ulož ich do
+      poľa. Ak má pole presne 2 prvky (1 a <code>n</code>), je to prvočíslo
+      &mdash; vypíš to. Vypíš aj samotné pole deliteľov.
+      <p class="hint">
+        Tip: prejdi cyklom čísla od 1 po <code>n</code> a tie, ktoré delia
+        <code>n</code> bezo zvyšku (<code>n % i == 0</code>), pridaj do poľa.
+      </p>
+    </div>
+
+    <div class="task">
+      <span class="task-number">15.</span> Mám pole
+      <code>cisla = [3, 8, 1, 7, 4, 9, 2]</code>. Posuň prvky o jednu pozíciu
+      doľava &mdash; prvý prvok ide na koniec. Výsledok:
+      <code>[8, 1, 7, 4, 9, 2, 3]</code>.
+    </div>
+
+    <div class="task">
+      <span class="task-number">16.</span> Mám pole
+      <code>cisla = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]</code>. Vytvor nový zoznam
+      bez opakujúcich sa hodnôt (zachovaj poradie prvého výskytu). Výsledok:
+      <code>[3, 1, 4, 5, 9, 2, 6]</code>.
+      <p class="hint">
+        Tip: operátor <code>in</code> ti povie, či sa hodnota v poli už nachádza.
+        Napríklad <code>5 in [3, 1, 4, 5]</code> vráti <code>True</code>,
+        <code>7 in [3, 1, 4, 5]</code> vráti <code>False</code>. Použiteľné aj
+        ako <code>if x not in nove_pole:</code>.
+      </p>
+    </div>
+
+    <div class="task">
+      <span class="task-number">17.</span> Vytvor pole 50 náhodných čísel od 1
+      do 100. Pomocou cyklu nájdi a vypíš najvyššie, najnižšie a priemer (bez
+      <code>max()</code> a <code>min()</code>).
+      <pre><code>import random
+cisla = []
+for i in range(50):
+    cisla.append(random.randint(1, 100))</code></pre>
+    </div>
+
+    <div class="task">
+      <span class="task-number">18.</span> Mám pole
+      <code>znamky = [1, 3, 2, 1, 4, 3, 2, 1, 5, 2, 1, 3]</code>. Vytvor pole
+      <code>pocty</code> so 6 prvkami (index 0 nepoužiješ), kde
+      <code>pocty[1]</code> je počet jednotiek, <code>pocty[2]</code> počet
+      dvojok atď. až po pätorky.
+    </div>
+
+    <div class="task">
+      <span class="task-number">19.</span> Mám pole
+      <code>cisla = [10, 25, 13, 40, 18, 50]</code>. Vytvor nový zoznam, ktorý
+      obsahuje rozdiely susedných prvkov &mdash;
+      <code>cisla[i+1] - cisla[i]</code>. Výsledok:
+      <code>[15, -12, 27, -22, 32]</code>.
+    </div>
+
+    <div class="task">
+      <span class="task-number">20.</span> Mám pole
+      <code>mena = ["Anna", "Boris", "Cyril", "Dana", "Eva"]</code>. Spýtaj sa
+      používateľa na meno a vypíš, či sa v poli nachádza, a ak áno, na akom
+      indexe (pomocou cyklu, bez <code>.index()</code>).
+    </div>
+
+    <div style="page-break-before: always"></div>
+
+    <div class="section-title">Polia v kombinácii s korytnačkou</div>
+
+    <div class="task">
+      <span class="task-number">21.</span> Vytvor pole farieb
+      <code>farby = ["red", "blue", "green", "orange", "purple"]</code>.
+      Korytnačkou nakresli 15 čiar dĺžky 60 (po každej čiare sa otoč o 51°), kde
+      každá ďalšia má farbu z poľa.
+      <p class="hint">
+        Tip: cykluj cez index pomocou <code>farby[i % 5]</code>.
+      </p>
+    </div>
+
+    <div class="task">
+      <span class="task-number">22.</span> Mám pole
+      <code>dlzky = [50, 80, 30, 100, 60, 40, 90, 120]</code>. Korytnačkou pre
+      každú dĺžku z poľa nakresli čiaru danej dĺžky a otoč sa o 51°.
+    </div>
+
+    <div class="task">
+      <span class="task-number">23.</span> Mám pole
+      <code>uhly = [60, 90, 120, 45, 60, 90, 120, 45]</code>. Korytnačkou prejdi
+      vždy 60 dopredu a otoč sa o ďalší uhol z poľa.
+    </div>
+
+    <div class="task">
+      <span class="task-number">24.</span> Vytvor pole bodov
+      <code>body = [(0, 0), (100, 0), (100, 100), (0, 100), (0, 0)]</code>.
+      Korytnačkou postupne prejdi všetkými bodmi pomocou
+      <code>t.goto(x, y)</code>. K súradniciam dvojice sa dostaneš cez
+      <code>bod[0]</code> a <code>bod[1]</code>.
+    </div>
+
+    <div class="task">
+      <span class="task-number">25.</span> <strong>Stĺpcový graf.</strong>
+      Korytnačkou nakresli stĺpcový graf z poľa
+      <code>hodnoty = [30, 80, 50, 100, 70, 40, 90, 60]</code>. Pre každú
+      hodnotu nakresli čiaru hore (danej výšky), čiaru naspäť dolu a posuň sa
+      o 20 doprava.
+    </div>
+
+    <div class="task">
+      <span class="task-number">26.</span> Vytvor pole 10 náhodných uhlov od 30
+      do 170 stupňov. Korytnačkou prejdi vždy 80 dopredu a otoč sa o ďalší uhol
+      z poľa.
+    </div>
+
+    <div class="task">
+      <span class="task-number">27.</span> <strong>Korytnačka podľa pokynov.</strong>
+      Mám pole pokynov
+      <code>pokyny = ["F", "L", "F", "R", "F", "F", "L", "F"]</code>, kde
+      <code>F</code> = dopredu o 40, <code>L</code> = doľava o 90,
+      <code>R</code> = doprava o 90. Naprogramuj korytnačku, aby vykonala všetky
+      pokyny z poľa pomocou cyklu a <code>if/elif</code>.
+    </div>
+
+    <div class="task">
+      <span class="task-number">28.</span> Vytvor pole 30 náhodných čísel od 1
+      do 100. Vyrob z neho dva nové zoznamy: jeden s párnymi a druhý s
+      nepárnymi číslami. Vypíš dĺžky oboch a obidva zoznamy.
+    </div>
+
+    <div class="task">
+      <span class="task-number">29.</span> <strong>Fibonacciho špirála.</strong>
+      Použi pole Fibonacciho čísel z úlohy 10. Korytnačkou nakresli 12 čiar, kde
+      dĺžka každej je ďalšie Fibonacciho číslo z poľa a po každej čiare sa otoč
+      o 90°.
+    </div>
+
+    <div class="task">
+      <span class="task-number">30.</span> <strong>Bonus &mdash; mnohouholník
+      z polí.</strong> Vytvor pole <code>farby</code> (aspoň 4 prvky) a pole
+      <code>dlzky</code> (aspoň 6 prvkov). Korytnačkou nakresli mnohouholník s
+      počtom strán rovným <code>len(dlzky)</code>. Každá strana má dĺžku
+      <code>dlzky[i]</code> a farbu <code>farby[i % len(farby)]</code>. Po každej
+      strane sa otoč o <code>360 / len(dlzky)</code>.
+    </div>
+  </body>
+</html>
