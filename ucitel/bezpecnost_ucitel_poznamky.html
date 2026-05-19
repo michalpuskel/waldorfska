@@ -1,0 +1,328 @@
+
+<style>
+.page { background: #EDE3D0; padding: 2.5rem 50px; margin: -1rem -2rem; min-height: 100vh; }
+.wrap { padding: 0; font-family: var(--font-sans); margin: 0 50px; }
+.hdr { border-bottom: 2px solid #534AB7; padding-bottom: 10px; margin-bottom: 14px; }
+.meta { font-size: 11px; color: var(--color-text-tertiary); margin: 0 0 3px; }
+.title { font-size: 20px; font-weight: 500; color: var(--color-text-primary); margin: 0 0 3px; }
+.sub { font-size: 12px; color: var(--color-text-secondary); margin: 0; }
+.blok-label { font-size: 13px; font-weight: 500; padding: 6px 14px; border-radius: var(--border-radius-md); display: inline-block; margin-bottom: 10px; }
+.bl1 { background: #EEEDFE; color: #3C3489; }
+.bl2 { background: #E6F1FB; color: #0C447C; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: start; }
+.col { display: flex; flex-direction: column; gap: 10px; }
+.card { background: #FFFFFF; border: 1px solid #DCCFB3; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 10px rgba(80, 60, 30, 0.06); }
+.card-head { padding: 10px 14px 8px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.badge { display: inline-block; font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 20px; margin-bottom: 4px; }
+.b1 { background: #EEEDFE; color: #3C3489; }
+.b2 { background: #E6F1FB; color: #0C447C; }
+.ctitle { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin: 0; }
+.card-body { padding: 0; }
+.topic { border-bottom: 0.5px solid var(--color-border-tertiary); padding: 10px 14px; cursor: pointer; }
+.topic:last-child { border-bottom: none; }
+.topic-head { display: flex; justify-content: space-between; align-items: center; }
+.topic-name { font-size: 12px; font-weight: 500; color: var(--color-text-primary); }
+.topic-toggle { font-size: 16px; color: var(--color-text-tertiary); transition: transform 0.2s; user-select: none; }
+.topic-toggle.open { transform: rotate(45deg); }
+.topic-detail { display: none; margin-top: 8px; }
+.topic-detail.visible { display: block; }
+.def { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 7px 10px; margin-bottom: 6px; font-size: 11.5px; color: var(--color-text-secondary); line-height: 1.6; }
+.def b { color: var(--color-text-primary); font-weight: 500; display: block; margin-bottom: 2px; }
+.say { background: #F5F4FF; border-left: 3px solid #7F77DD; border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; padding: 6px 10px; margin-bottom: 6px; font-size: 11.5px; color: #3C3489; line-height: 1.6; font-style: italic; }
+.say::before { content: "💬 Čo povedať: "; font-style: normal; font-weight: 500; font-size: 10px; display: block; margin-bottom: 2px; color: #534AB7; }
+.activity { background: #EAF3DE; border-left: 3px solid #639922; border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; padding: 6px 10px; margin-bottom: 6px; font-size: 11.5px; color: #27500A; line-height: 1.6; }
+.activity::before { content: "✏️ Aktivita: "; font-weight: 500; font-size: 10px; display: block; margin-bottom: 2px; }
+.expand-all { font-size: 11px; color: var(--color-text-tertiary); cursor: pointer; float: right; padding: 2px 8px; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); }
+.expand-all:hover { background: var(--color-background-secondary); }
+</style>
+
+<div class="page">
+<div class="wrap">
+  <div class="hdr">
+    <p class="meta">Verzia pre učiteľa · 9. ročník ZŠ · 2 × 45 min</p>
+    <p class="title">Bezpečnosť na internete</p>
+    <p class="sub">Klikni na tému — zobrazí sa definícia, čo povedať a aktivity</p>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <div style="margin-bottom:2px"><span class="blok-label bl1">Blok 1 · Technické základy</span></div>
+
+      <div class="card">
+        <div class="card-head"><span class="badge b1">Blok 1</span><p class="ctitle">Heslá a účty</p></div>
+        <div class="card-body">
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Silné heslo</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Silné heslo má aspoň 12 znakov, obsahuje veľké a malé písmená, číslice a špeciálne znaky. Neobsahuje mená, dátumy narodenia ani slová zo slovníka.</div>
+              <div class="say">„Predstavte si, že heslo je kľúč od domu. Keby všetci používali rovnaký jednoduchý kľúč, každý by sa dostal dnu. Silné heslo je ako zámok s tisíc kombináciami."</div>
+              <div class="activity">Nechajte žiakov vymyslieť heslo z prvých písmen vety — napr. „Mám rád pizzu každý piatok o 7!" → MrpkPo7!</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Správca hesiel</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Správca hesiel (napr. Bitwarden, 1Password) je aplikácia, ktorá bezpečne ukladá všetky heslá. Stačí si pamätať jedno hlavné heslo.</div>
+              <div class="say">„Keby ste mali 30 rôznych zámkov, pamätali by ste si 30 kľúčov? Správca hesiel je ako trezor — jeden kód, všetko vo vnútri."</div>
+              <div class="activity">Ukážte Bitwarden (bezplatná verzia) — ako vyzerá, ako generuje heslo.</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Dvojfaktorová autentifikácia (2FA)</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>2FA je druhá vrstva overenia identity — okrem hesla sa vyžaduje aj kód z SMS alebo aplikácie (Google Authenticator). Aj keď niekto ukradne heslo, bez telefónu sa nedostane.</div>
+              <div class="say">„Je to ako dvoje dvere. Prvé otvoríte heslom, druhé kódom z telefónu. Zlodej má heslo, ale telefón nemá."</div>
+              <div class="activity">Ukážte zapnutie 2FA na školskom Google účte — krok za krokom.</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Únik hesla — HaveIBeenPwned</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Únik dát nastáva keď hackeri získajú databázu používateľov (e-mail + heslo). Stránka haveibeenpwned.com umožňuje zistiť, či bol váš e-mail súčasťou úniku.</div>
+              <div class="say">„Niektoré firmy boli napadnuté a heslá ich používateľov skončili na internete. Môžeme si to overiť hneď teraz."</div>
+              <div class="activity">Živá ukážka — zadajte školský e-mail na haveibeenpwned.com. Diskutujte o výsledku.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><span class="badge b1">Blok 1</span><p class="ctitle">Phishing a podvody</p></div>
+        <div class="card-body">
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Podvodný e-mail / správa</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Phishing je pokus podvodníka vydávať sa za dôveryhodnú osobu alebo firmu (banka, Google, kamarát) s cieľom získať heslo, údaje alebo peniaze.</div>
+              <div class="say">„Pozrite sa na túto správu — vyzerá ako od Googlu, ale adresa odosielateľa je divná. Aké ďalšie znaky vás upozornia?"</div>
+              <div class="activity">Premietni 2–3 príklady phishingových e-mailov (printscreeny) a nechaj žiakov nájsť chyby.</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Falošné súťaže a výhry</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Podvodníci posielajú správy typu „Vyhral si iPhone!" s cieľom získať osobné údaje alebo platbu za „poštovné". Žiadna legitimná súťaž nežiada platbu vopred.</div>
+              <div class="say">„Pravidlo číslo jedna: ak si nesúťažil, nevyhral si. A ak ťa žiadajú o peniaze, aby si dostal výhru — je to podvod."</div>
+              <div class="activity">Ukážte príklad podvodnej SMS alebo Instagram správy. Nechajte žiakov rozhodnúť — podvod alebo nie?</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Ako skontrolovať URL</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Podvodné stránky napodobňujú originál ale majú pozmenené URL (napr. gooogle.com, paypa1.com). Vždy treba skontrolovať adresu pred zadaním hesla.</div>
+              <div class="say">„Adresa stránky je ako adresa domu. gooogle.com nie je Google, tak ako Hlavná ulica 1A nie je Hlavná ulica 1."</div>
+              <div class="activity">Premietni 5 URL — nechaj žiakov určiť ktoré sú pravé a ktoré falošné.</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Komu nahlásiť podvod</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Postupnosť hlásenia: 1. Rodičia / dospelá osoba. 2. Škola (učiteľ, IT správca). 3. Platforma (tlačidlo „Nahlásiť"). 4. Polícia (pri finančnej škode alebo vyhrážaní — kybertím PZ SR). 5. Banka (ak došlo k úniku platobných údajov — okamžite zablokovať kartu).</div>
+              <div class="say">„Nemusíte to riešiť sami. Najhoršie čo môžete urobiť je mlčať a hanbiť sa — podvody sú dnes profesionálne, naletel by aj dospelý. Povedať to niekomu nie je slabosť."</div>
+              <div class="activity">Spoločne vytvorte „núdzový zoznam kontaktov" — koho zavolať ako prvého pri rôznych typoch podvodu (uniknuté heslo, ukradnutý účet, vydieranie).</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><span class="badge b1">Blok 1</span><p class="ctitle">Digitálna stopa a súkromie</p></div>
+        <div class="card-body">
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Čo zostane na internete navždy</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Digitálna stopa je súhrn všetkého, čo niekto zverejnil online. Vymazanie príspevku neznamená, že zmizol — mohol byť stiahnutý, zdieľaný alebo uložený inde.</div>
+              <div class="say">„Predstavte si, že každý príspevok, ktorý dáte na internet, je ako tetovanie. Dá sa zakryť, ale nikdy úplne odstrániť."</div>
+              <div class="activity">Diskusia: „Čo by ste nechceli, aby videl váš budúci zamestnávateľ alebo rodičia?"</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Nastavenia súkromia na profiloch</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Väčšina sietí (Instagram, TikTok) má nastavenia, ktoré určujú kto vidí profil, príspevky alebo stories. Predvolené nastavenia sú často verejné.</div>
+              <div class="say">„Koľkí z vás máte verejný profil? Viete, koľko ľudí vás teoreticky môže sledovať?"</div>
+              <div class="activity">Živá ukážka — prejdite nastavenia súkromia na Instagrame krok za krokom.</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Zdieľanie polohy — riziká</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Mnoho aplikácií (Snapchat Snap Map, Instagram, Find My) zdieľa polohu v reálnom čase. Aj fotky obsahujú metadáta (EXIF) s GPS súradnicami. Stalkeri a podvodníci to zneužívajú na sledovanie obetí.</div>
+              <div class="say">„Keď zapnete Snap Map, každý kamarát vidí kde presne ste — aj ten, koho ste si pridali pred rokom a už si ho ani nepamätáte. Komu naozaj dôverujete s informáciou, kde bývate?"</div>
+              <div class="activity">Ukážte ako vypnúť zdieľanie polohy v Snapchate a Instagrame. Spýtajte sa: kto má zapnutý „Ghost Mode"?</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Osobné údaje — čo nezverejňovať</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Citlivé osobné údaje: adresa, telefón, škola, denný rozvrh, fotky z domu. Kombinácia niekoľkých zdanlivo nevinných informácií môže byť nebezpečná.</div>
+              <div class="say">„Ak na fotke vidím tvoju školu, izbu, a viem kedy chodíš domov — viem o tebe viac, ako si myslíš."</div>
+              <div class="activity">„Doxing test" — z verejného (fiktívneho) profilu nechajte žiakov zistiť čo najviac informácií o osobe.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col">
+      <div style="margin-bottom:2px"><span class="blok-label bl2">Blok 2 · Sociálny rozmer</span></div>
+
+      <div class="card">
+        <div class="card-head"><span class="badge b2">Blok 2</span><p class="ctitle">Sociálne siete</p></div>
+        <div class="card-body">
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Vekové limity a prečo existujú</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Väčšina sociálnych sietí (Instagram, TikTok, Facebook) vyžaduje vek 13+. Dôvodom sú zákony o ochrane detí (COPPA, GDPR), zbieranie dát a nevhodný obsah.</div>
+              <div class="say">„Prečo myslíte, že tieto firmy stanovili vekový limit? Je to len formalita, alebo za tým niečo je?"</div>
+              <div class="activity">Diskusia: Kto z vás má účet na sieti kde je limit 13+? Čo si o tom myslíte?</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Falošné profily (catfishing)</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Catfishing je vytváranie falošnej identity online s cieľom oklamať, manipulovať alebo zneužiť iných. Ľudia sa vydávajú za niekoho iného — rovesníka, influencera alebo autoritu.</div>
+              <div class="say">„Viete, že osoba s ktorou chatujete nemusí byť tá, za ktorú sa vydáva? Ako by ste to spoznali?"</div>
+              <div class="activity">Znaky falošného profilu: málo fotiek, nedávno vytvorený, vyhýba sa videohovoru, príliš rýchlo kamarátsky.</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Algoritmy a informačné bubliny</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Algoritmus sleduje čo pozeráte a zobrazuje vám podobný obsah. Vzniká „bublina" kde vidíte len pohľady, ktoré potvrdzujú vaše názory.</div>
+              <div class="say">„Prečo vidíte na TikToku stále podobné videá? Pretože algoritmus sa naučil čo vás baví. To môže byť fajn — ale aj nebezpečné."</div>
+              <div class="activity">Experiment: Žiaci porovnajú svoje FYP (For You Page) navzájom — ako sa líšia?</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Závislosť od lajkov a sebaúcta</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Lajky spúšťajú vyplavenie dopamínu — rovnaký mechanizmus ako pri iných závislostiach. Porovnávanie sa s „dokonalými" profilmi môže negatívne ovplyvniť sebaobraz.</div>
+              <div class="say">„Prečo je dobré mať veľa lajkov? A prečo to nemusí byť dobré? Je číslo pod fotkou mierou vašej hodnoty?"</div>
+              <div class="activity">Diskusia: „Vymazali by ste si účet na mesiac? Čo by ste cítili?"</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><span class="badge b2">Blok 2</span><p class="ctitle">Kyberšikana</p></div>
+        <div class="card-body">
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Čo je kyberšikana — definícia a formy</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Kyberšikana je opakované úmyselné ubližovanie cez digitálne zariadenia. Formy: harašenie správami, šírenie klebiet, zdieľanie súkromných fotiek, vylúčenie zo skupiny, falošné profily.</div>
+              <div class="say">„Kyberšikana nie je len „zlé komentáre". Je to systematické a opakované správanie s cieľom ublížiť."</div>
+              <div class="activity">Nechajte žiakov vymenovať formy kyberšikany — pravdepodobne poznajú viac príkladov ako čakáte.</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Rozdiel od fyzickej šikany</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Kľúčové rozdiely: anonymita (páchateľ sa skrýva), dosah (vidí to celá trieda/internet), nepretržitosť (24/7, aj doma), trvalosť (obsah zostáva online).</div>
+              <div class="say">„Pri fyzickej šikane ideš domov a je pokoj. Pri kyberšikane príde domov s tebou — do telefónu, do izby."</div>
+              <div class="activity">Tabuľka na tabuli: fyzická vs. kyberšikana — žiaci vypĺňajú rozdiely spoločne.</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Čo robiť ako obeť</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Postup</b>1. Neodpovedať — odpoveď povzbudzuje páchateľa. 2. Zachytiť dôkazy (screenshot s dátumom). 3. Blokovať páchateľa. 4. Nahlásiť platforme. 5. Povedať dospelej osobe.</div>
+              <div class="say">„Najdôležitejší krok: povedať to niekomu. Mlčanie pomáha iba páchateľovi."</div>
+              <div class="activity">Roleplay: Žiak dostane kyberšikanóznu správu — čo urobí krok za krokom?</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Čo robiť ako svedok</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Upstander (aktívny svedok) zasahuje alebo nahlási šikanu. Bystander (pasívny svedok) to ignoruje. Lajkovanie alebo zdieľanie šikanózneho obsahu z vás robí spolupáchateľa.</div>
+              <div class="say">„Ak vidíte niekoho šikanovať na ulici a nerobíte nič — pomáhate šikanujúcemu. Online platí to isté."</div>
+              <div class="activity">Diskusia: „Zasiahli by ste? Čo by vám bránilo?"</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><span class="badge b2">Blok 2</span><p class="ctitle">Netiketa a správanie online</p></div>
+        <div class="card-body">
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Pravidlá slušného správania online</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Netiketa = etiketa na internete. Zlaté pravidlo: správaj sa online tak, ako by si sa správal tvárou v tvár. Anonymita nie je licencia na hrubosť.</div>
+              <div class="say">„Napísali by ste to istej veci do tváre? Ak nie — asi by ste to nemali písať ani online."</div>
+              <div class="activity">Príklady komentárov — žiaci hodnotia: OK / nevhodné / šikana?</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Hate speech a trolling</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Hate speech je nenávistný prejav namierený voči skupine ľudí (rasa, náboženstvo, pohlavie). Trolling je provokácia s cieľom vyvolať emocionálnu reakciu. Oboje môže mať právne dôsledky.</div>
+              <div class="say">„Kde je hranica medzi vtipom a hate speech? Kto ju určuje? A čo keď niekto tvrdí, že 'to bol len vtip'?"</div>
+              <div class="activity">Prípadová štúdia z médií — žiaci diskutujú či išlo o hate speech alebo nie.</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Autorské práva online</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Fotky, hudba, videá a texty na internete sú chránené autorským právom. Stiahnutie a zdieľanie bez súhlasu je porušenie zákona — aj keď je obsah „zadarmo" dostupný.</div>
+              <div class="say">„Keď dáte cudziu pesničku do svojho videa bez povolenia — porušujete zákon. To platí aj pre memy a fotky."</div>
+              <div class="activity">Kde nájsť legálne obrázky zadarmo? Ukážka: Unsplash, Pixabay, Creative Commons.</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Digitálna reputácia</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Digitálna reputácia je obraz, ktorý si ľudia o nás vytvárajú na základe toho, čo nájdu online. Zamestnávatelia bežne googlujú uchádzačov pred pohovorom.</div>
+              <div class="say">„Zagoogli sa. Čo nájdete? To isté nájde aj váš budúci zamestnávateľ alebo škola o 5 rokov."</div>
+              <div class="activity">Žiaci si „zagooglia" sami seba — diskusia o tom, čo našli.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+function toggle(el) {
+  const detail = el.querySelector('.topic-detail');
+  const icon = el.querySelector('.topic-toggle');
+  const isOpen = detail.classList.contains('visible');
+  detail.classList.toggle('visible', !isOpen);
+  icon.classList.toggle('open', !isOpen);
+  icon.textContent = isOpen ? '+' : '×';
+}
+</script>
