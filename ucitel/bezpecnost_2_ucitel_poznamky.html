@@ -1,0 +1,311 @@
+
+<style>
+.page { background: #EDE3D0; padding: 2.5rem 50px; margin: -1rem -2rem; min-height: 100vh; }
+.wrap { padding: 0; font-family: var(--font-sans); margin: 0 50px; }
+.hdr { border-bottom: 2px solid #534AB7; padding-bottom: 10px; margin-bottom: 14px; }
+.meta { font-size: 18px; color: var(--color-text-tertiary); margin: 0 0 3px; }
+.title { font-size: 32px; font-weight: 500; color: var(--color-text-primary); margin: 0 0 3px; }
+.sub { font-size: 19px; color: var(--color-text-secondary); margin: 0; }
+.blok-label { font-size: 20px; font-weight: 500; padding: 8px 18px; border-radius: var(--border-radius-md); display: inline-block; margin-bottom: 10px; }
+.bl1 { background: #FDE8D8; color: #7A3A0E; }
+.bl2 { background: #DDF0E5; color: #155F3C; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: start; }
+.col { display: flex; flex-direction: column; gap: 10px; }
+.card { background: #FFFFFF; border: 1px solid #DCCFB3; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 10px rgba(80, 60, 30, 0.06); }
+.card-head { padding: 10px 14px 8px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.badge { display: inline-block; font-size: 18px; font-weight: 500; padding: 4px 12px; border-radius: 20px; margin-bottom: 4px; }
+.b1 { background: #FDE8D8; color: #7A3A0E; }
+.b2 { background: #DDF0E5; color: #155F3C; }
+.ctitle { font-size: 22px; font-weight: 500; color: var(--color-text-primary); margin: 0; }
+.card-body { padding: 0; }
+.topic { border-bottom: 0.5px solid var(--color-border-tertiary); padding: 10px 14px; cursor: pointer; }
+.topic:last-child { border-bottom: none; }
+.topic-head { display: flex; justify-content: space-between; align-items: center; }
+.topic-name { font-size: 20px; font-weight: 500; color: var(--color-text-primary); }
+.topic-toggle { font-size: 25px; color: var(--color-text-tertiary); transition: transform 0.2s; user-select: none; }
+.topic-toggle.open { transform: rotate(45deg); }
+.topic-detail { display: none; margin-top: 8px; }
+.topic-detail.visible { display: block; }
+.def { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 11px 16px; margin-bottom: 9px; font-size: 18px; color: var(--color-text-secondary); line-height: 1.6; }
+.def b { color: var(--color-text-primary); font-weight: 500; display: block; margin-bottom: 2px; }
+.say { background: #FFF6E8; border-left: 3px solid #D89033; border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; padding: 10px 16px; margin-bottom: 9px; font-size: 18px; color: #6B3D08; line-height: 1.6; font-style: italic; }
+.say::before { content: "💬 Čo povedať: "; font-style: normal; font-weight: 500; font-size: 18px; display: block; margin-bottom: 2px; color: #A85D14; }
+.activity { background: #EAF3DE; border-left: 3px solid #639922; border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; padding: 10px 16px; margin-bottom: 9px; font-size: 18px; color: #27500A; line-height: 1.6; }
+.activity::before { content: "✏️ Aktivita: "; font-weight: 500; font-size: 18px; display: block; margin-bottom: 2px; }
+</style>
+
+<div class="page">
+<div class="wrap">
+  <div class="hdr">
+    <p class="meta">Verzia pre učiteľa · 9. ročník ZŠ · 1 × 45 min · pokračovanie</p>
+    <p class="title">Hoaxy, dezinformácie a AI hrozby</p>
+    <p class="sub">Klikni na tému — zobrazí sa definícia, čo povedať a aktivity</p>
+  </div>
+
+  <div class="cols">
+    <div class="col">
+      <div style="margin-bottom:2px"><span class="blok-label bl1">Blok 1 · Hoaxy a dezinformácie</span></div>
+
+      <div class="card">
+        <div class="card-head"><span class="badge b1">Blok 1</span><p class="ctitle">Typy nepravdivých informácií</p></div>
+        <div class="card-body">
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Hoax (klasický reťazový)</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Hoax je falošná správa, ktorá sa šíri ďalej — typicky e-mailom, na Messengeri či WhatsApp. Vyzýva: „pošli to ďalej 10 ľuďom". Cieľom je strach, panika alebo zábava na úkor pravdy.</div>
+              <div class="say">„Kto z vás dostal od babky alebo strýka správu typu „nepi vodu, je v nej čip"? Toto je hoax. A funguje, pretože ich pošle niekto, komu veríme."</div>
+              <div class="activity">Spýtajte sa: aký najdivnejší hoax si pamätáte? Zbierajte príklady na tabuli.</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Fake news (falošná správa)</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Fake news vyzerá ako pravá novinová správa — má titulok, fotku, dátum. Ale obsah je vymyslený alebo skreslený. Často napodobňuje seriózne médium (logo, dizajn).</div>
+              <div class="say">„Fake news nie je o tom, že je niečo nepríjemné alebo s čím nesúhlasím. Je to o tom, že je to objektívne nepravdivé — neexistuje to."</div>
+              <div class="activity">Ukážte dva nadpisy — jeden zo SME/Denníka N a jeden z dezinfo webu. Nechajte žiakov hádať ktorý je ktorý.</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Dezinformácia (cielená manipulácia)</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Dezinformácia je nepravda, ktorú niekto šíri zámerne, aby manipuloval verejnú mienku — politicky, ekonomicky alebo vojensky. Za hoaxom je často sranda alebo hlúposť. Za dezinformáciou stojí stratégia a peniaze.</div>
+              <div class="say">„Hoax o žuvačkách, ktoré ti dvíhajú IQ, niekto urobí pre srandu. Dezinformácia o vojne alebo voľbách je práca — niekto za ňou stojí, niekto ju platí."</div>
+              <div class="activity">Diskusia: Kto môže profitovať z toho, že ľudia uveria falošnej správe? (politici, firmy, štáty, podvodníci)</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Konšpiračná teória</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Konšpirácia tvrdí, že za bežnými udalosťami stojí tajná skupina ľudí, ktorá riadi svet (ilumináti, „elity", chemtrails, plochá Zem). Charakteristika: nedá sa vyvrátiť — každý dôkaz proti nej je „súčasť sprisahania".</div>
+              <div class="say">„Konšpirácia má jednu vlastnosť: nech jej dáte akýkoľvek dôkaz proti, vždy povie, že ste súčasťou sprisahania. To je znak, že nejde o teóriu, ale o vieru."</div>
+              <div class="activity">Pozrite si krátky úryvok videa o plochej Zemi (YouTube). Spoločne identifikujte argumenty a protiargumenty.</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Satira (a prečo sa pletie s pravdou)</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Satira je úmyselne nepravdivá správa určená na zábavu (zumag.sk, Zomri, Lampáreň). Problém: ak nevieš zdroj, môže vyzerať ako fake news. Mnoho hoaxov vzniká tak, že niekto zdieľa satiru ako pravdu.</div>
+              <div class="say">„Stránka Zomri píše nepravdivé titulky pre srandu. Ale keď to niekto zdieľa bez kontextu, jeho babka tomu uverí. Aj sranda môže napáchať škodu."</div>
+              <div class="activity">Ukážte 3 titulky: jeden zo Zomri, jeden zo SME, jeden z dezinfo webu. Nechajte žiakov rozdeliť.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><span class="badge b1">Blok 1</span><p class="ctitle">Prečo to funguje a ako to spoznať</p></div>
+        <div class="card-body">
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Emócie ako zbraň</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Falošné správy sú konštruované tak, aby vyvolali silnú emóciu — strach, hnev, znechutenie, šok. Človek v emócii nepremýšľa, len zdieľa. Toto je hlavný dôvod, prečo sa hoaxy šíria rýchlejšie než pravda.</div>
+              <div class="say">„Keď si si naposledy povedal „Toto MUSÍM ukázať kamarátom!" — pozri si tú správu znova. Pravdepodobne v tebe vyvolala silnú emóciu. To je presne to, na čo bola napísaná."</div>
+              <div class="activity">Ukáž nadpis bez kontextu: „ŠOKUJÚCE! Učiteľka v Bratislave..." — nechaj žiakov pomenovať, akú emóciu to v nich vyvoláva.</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Manipulačné techniky</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Najčastejšie triky: 1. Naliehavosť („pošli to ihneď, kým nie je neskoro"). 2. Autorita („lekár v anonymnej nemocnici povedal..."). 3. Falošné čísla a štatistiky. 4. Vytrhnutie z kontextu. 5. Vágne zdroje („vraj sa hovorí", „odborníci tvrdia").</div>
+              <div class="say">„Keď v správe nájdeš „lekári to taja", „elity nechcú aby ste to vedeli" alebo „pošli to skôr ako to vymažú" — to nie je správa, to je manipulácia."</div>
+              <div class="activity">Premietni 2 reálne dezinformačné príspevky. Spolu hľadajte manipulačné techniky (zakrúžkujte na premietnutom obraze).</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Echo komora a algoritmus</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Algoritmus na sociálnych sieťach ti ukazuje obsah, ktorý ťa už zaujal. Postupne vidíš len jeden uhol pohľadu. V tejto „bubline" sa dezinformácia stáva normou — všetci okolo to zdieľajú, takže to musí byť pravda.</div>
+              <div class="say">„Ak ti TikTok ukazuje len jeden názor, neznamená to že je správny. Znamená to, že si na neho klikol a algoritmus si to zapamätal."</div>
+              <div class="activity">Diskusia: skúšali ste niekedy zámerne klikať na opačné videá? Čo sa stalo s FYP?</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">5 krokov ako overiť informáciu</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Postup</b>1. Kto to napísal? (autor, médium) 2. Aký je zdroj? (uvádza odkaz na štúdiu, oficiálnu stránku?) 3. Píšu o tom aj iné seriózne médiá? 4. Kedy to vzniklo? (stará správa môže byť vytrhnutá z kontextu) 5. Vyvoláva to silnú emóciu? — varovný signál.</div>
+              <div class="say">„Nemusíte byť expert. Stačí 30 sekúnd: otvoríte druhú kartu, vygooglite si tému, pozriete či to píše ešte niekto seriózny. To je celé."</div>
+              <div class="activity">Spoločne overte jednu konkrétnu správu, ktorú dnes niekto z triedy videl na sociálnej sieti.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><span class="badge b1">Blok 1</span><p class="ctitle">Slovenské zdroje na overovanie</p></div>
+        <div class="card-body">
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">hoax.sk</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Databáza slovenských hoaxov od roku 2000. Môžeš si vyhľadať konkrétnu správu a zistiť, či bola overená ako hoax — vrátane analýzy, prečo je nepravdivá.</div>
+              <div class="say">„Pred zdieľaním si jednoducho skopírujte vetu zo správy do hoax.sk. Ak je to známy hoax, dozviete sa to za 5 sekúnd."</div>
+              <div class="activity">Otvor hoax.sk priamo na premietačke. Nechaj žiakov navrhnúť hoax na vyhľadanie. Spolu si pozrite výsledok.</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">demagog.sk</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Demagóg overuje výroky slovenských politikov — či to, čo povedali v diskusii alebo rozhovore, je pravda, lož alebo zavádzanie. Funguje aj v ČR.</div>
+              <div class="say">„Keď politik povie v relácii štatistiku, neznamená to že je pravdivá. Demagóg to za vás overí — s odkazmi na zdroje."</div>
+              <div class="activity">Ukáž jeden konkrétny overený výrok politika na demagog.sk. Diskutujte, prečo je dôležité takéto overovanie.</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Reverzné vyhľadávanie obrázkov</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Google Images alebo TinEye umožňujú „nahrať fotku a zistiť, odkiaľ je". Hoaxy často používajú stare fotky z iných udalostí. Reverzným vyhľadávaním zistíš pôvodný kontext za 10 sekúnd.</div>
+              <div class="say">„Veľa „šokujúcich fotiek z vojny na Ukrajine" sú v skutočnosti fotky z inej vojny pred 15 rokmi. Reverzné vyhľadávanie vám to ukáže okamžite."</div>
+              <div class="activity">Živá ukážka: vezmi „virálnu" fotku z internetu, hodíš ju do Google Images. Spolu zistíte pôvodný zdroj.</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Wikipedia a primárne zdroje</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Wikipedia nie je dokonalá, ale každé tvrdenie má (alebo má mať) odkaz na zdroj na konci. Skutočná hodnota Wikipédie nie sú články, ale odkazy pod nimi. Vždy si choď overiť primárny zdroj.</div>
+              <div class="say">„Wikipedia je odrazový mostík, nie konečná odpoveď. Posúvaj sa nadol k zdrojom — to je tam, kde žije pravda."</div>
+              <div class="activity">Otvor článok na slovenskej Wikipédii. Spolu nájdite odkaz na zdroj a klikem prejdite naň.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col">
+      <div style="margin-bottom:2px"><span class="blok-label bl2">Blok 2 · AI éra a nové hrozby</span></div>
+
+      <div class="card">
+        <div class="card-head"><span class="badge b2">Blok 2</span><p class="ctitle">Deepfake a AI obsah</p></div>
+        <div class="card-body">
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Video deepfake</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Deepfake je video, v ktorom AI nahradila tvár alebo hlas inou osobou. Dnes to dokáže ktokoľvek za pár minút na bežnom mobile. Najznámejšie sú videá s prezidentmi, hercami a celebritami.</div>
+              <div class="say">„Ešte pred 5 rokmi to vedeli urobiť len filmové štúdiá. Dnes to spravíš na mobile za 10 minút. To znamená, že video už nie je dôkaz."</div>
+              <div class="activity">Pusti známy deepfake (napr. Tom Cruise na TikToku, deepfake Zelenského). Diskusia: čo prezradí, že to je AI?</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Hlasový deepfake — rodinný scam</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>AI dokáže naklonovať hlas človeka z 10 sekundovej nahrávky (napr. zo storky na Instagrame). Podvodníci volajú rodičom a hrajú hlas dieťaťa: „mami, mal som nehodu, pošli mi peniaze". Najčastejší AI podvod roku 2025.</div>
+              <div class="say">„Ak vám zavolá známy hlas s prosbou o peniaze — položte a zavolajte mu späť na jeho normálne číslo. Aj keď je to mama, otec, kamarát. Hlas dnes klamať vie."</div>
+              <div class="activity">Doma sa s rodinou dohodnite na „kódovom slove" — keby vám niekto zavolal v núdzi, opýtate sa naň. AI ho nepozná.</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">AI generované obrázky a fotky</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Midjourney, DALL-E, Stable Diffusion — AI dokáže vytvoriť realistickú fotku čohokoľvek za 30 sekúnd. „Fotka z udalosti, ktorá sa nikdy nestala." Široko sa používa v dezinformačných kampaniach.</div>
+              <div class="say">„Keď vidíš na sociálnej sieti fotku z miesta, kde si nikdy nebol — neznamená to, že je pravá. Možno tá udalosť nikdy nebola."</div>
+              <div class="activity">Ukáž 4 fotky — 2 reálne, 2 AI generované. Žiaci hádajú. Diskusia o detailoch, ktoré ich prezradili.</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Ako rozpoznať AI obsah</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Bežné chyby AI: zvláštne ruky a prsty (6 prstov, krivé), nesymetrické uši a oči, podivný text v pozadí, pri videu „plávajúce" pozadie, nepravidelné mihanie očí. Ale: AI sa každý mesiac zlepšuje, čoskoro to nepoznáš okom.</div>
+              <div class="say">„Dnes ešte AI urobí chybu s prstami. O rok? Možno už nie. Takže pravidlo nie je „kontroluj prsty". Pravidlo je: nedôveruj žiadnemu obrázku, ktorý nepochádza z dôveryhodného zdroja."</div>
+              <div class="activity">Otvor stránku „This Person Does Not Exist" (thispersondoesnotexist.com). Spoločne hľadáte detaily, ktoré prezrádzajú AI.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><span class="badge b2">Blok 2</span><p class="ctitle">Nové formy podvodov a hrozieb</p></div>
+        <div class="card-body">
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">AI sextortion (vydieranie nahými fotkami)</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Sextortion = vydieranie intímnymi fotkami. NOVÉ: páchatelia vezmú bežnú fotku obete zo sociálnej siete a AI z nej vyrobí falošnú nahú fotku. Potom vydierajú: „pošli peniaze, alebo to rozošlem". Obeťami sú často 13–17-roční chlapci aj dievčatá.</div>
+              <div class="say">„Aj keby ste nikdy nikomu žiadnu nahú fotku neposlali — AI dnes vie vyrobiť falošnú z vašej bežnej fotky z dovolenky. Toto sa deje. Slovenská polícia rieši desiatky takýchto prípadov mesačne."</div>
+              <div class="activity">Postup pri sextortion: 1. Neplatiť. 2. Neodpovedať. 3. Zachytiť dôkazy. 4. Nahlásiť rodičom / polícii (kyber tím PZ). 5. Nahlásiť platforme. Spoločne to prejdite.</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Falošné brigády a „easy money"</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Telegram, Instagram a TikTok ponúkajú „brigády": baliť balíky doma za 800€/týždeň, lajkovať videá za peniaze, „administratívna práca". V skutočnosti ide o pranie peňazí, alebo žiadajú „depozit" 50€ a zmiznú.</div>
+              <div class="say">„Ak práca neexistuje na klasickom pracovnom portáli (profesia.sk, kariera.sk) a ponúka 5× viac ako normálna brigáda — je to podvod. Vždy."</div>
+              <div class="activity">Ukáž reálny screenshot inzerátu „Bal balíky doma, 200€ denne". Spoločne hľadajte známky podvodu.</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Krypto a investičné scamy s deepfake celebrít</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>Reklamy s deepfake Elona Muska, Andreja Kisku alebo populárnych youtuberov sľubujú „zázračné zhodnotenie peňazí". Klikneš, zaplatíš „minimálny vklad" 250€ — peniaze sú preč. Slovensko je top cieľ.</div>
+              <div class="say">„Keď vidíte reklamu kde celebrita sľubuje rýchle peniaze — je to podvod. Ani Musk, ani Kiska, ani Selassie vás osobne nepozývajú investovať. Sú to deepfake reklamy."</div>
+              <div class="activity">Ukáž reálnu deepfake reklamu z Facebooku (sú ich tisíce). Diskutujte: prečo sociálne siete to nezablokujú?</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">Nebezpečné výzvy (challenges)</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>TikTok a Instagram pravidelne „virálne" výzvy, ktoré sú nebezpečné: blackout challenge (zadržanie dychu), benadryl challenge (predávkovanie), tide pod (jesť kapsuly do práčky), borg (extrémny alkohol). Niektoré skončili smrťou — najmladšia obeť mala 8 rokov.</div>
+              <div class="say">„Pravidlo: ak by ste videli kamaráta robiť to v reále bez kamery, považovali by ste ho za hlúpeho. Tak prečo to robíte pre lajky?"</div>
+              <div class="activity">Diskusia: ktoré výzvy práve teraz vidíte na TikToku? Ktoré z nich sú reálne nebezpečné?</div>
+            </div>
+          </div>
+
+          <div class="topic" onclick="toggle(this)">
+            <div class="topic-head"><span class="topic-name">AI chatboty — čo neprezradiť</span><span class="topic-toggle">+</span></div>
+            <div class="topic-detail">
+              <div class="def"><b>Definícia</b>ChatGPT, Character.AI, Replika sú populárne — ale: všetko, čo im napíšete, sa môže použiť na trénovanie modelu, môže byť uložené, môže uniknúť. Nikdy do nich nepíšte: rodné číslo, heslá, intímne detaily, mená spolužiakov v negatívnom kontexte.</div>
+              <div class="say">„AI chatbot je ako zápisník, ktorý sa môže zajtra dostať na internet. Píšte doňho len to, čo by ste pokojne zverejnili."</div>
+              <div class="activity">Diskusia: používate ChatGPT? Na čo? Aké informácie ste mu o sebe povedali?</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+function toggle(el) {
+  const detail = el.querySelector('.topic-detail');
+  const icon = el.querySelector('.topic-toggle');
+  const isOpen = detail.classList.contains('visible');
+
+  document.querySelectorAll('.topic-detail.visible').forEach(d => {
+    d.classList.remove('visible');
+    const t = d.parentElement.querySelector('.topic-toggle');
+    t.classList.remove('open');
+    t.textContent = '+';
+  });
+
+  if (!isOpen) {
+    detail.classList.add('visible');
+    icon.classList.add('open');
+    icon.textContent = '×';
+  }
+}
+</script>
