@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pracovný list – Záverečné opakovanie (Python)</title>
+    <style>
+      @media print {
+        body {
+          margin: 1.2cm;
+        }
+      }
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        font-size: 11pt;
+        line-height: 1.32;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        color: #000;
+      }
+      h1 {
+        text-align: center;
+        font-size: 18pt;
+        border-bottom: 2px solid #000;
+        padding-bottom: 6px;
+        margin-bottom: 2px;
+      }
+      .subtitle {
+        text-align: center;
+        font-size: 10pt;
+        margin-bottom: 12px;
+      }
+      .info-box {
+        border: 1px solid #000;
+        padding: 6px 10px;
+        margin-bottom: 10px;
+        font-size: 10.5pt;
+      }
+      .pair-box {
+        border: 2px solid #000;
+        padding: 8px 12px;
+        margin-bottom: 12px;
+        font-size: 10.5pt;
+        background: #f2f2f2;
+      }
+      .task {
+        margin-bottom: 7px;
+        padding: 3px 10px;
+        border-left: 3px solid #000;
+      }
+      .task-number {
+        font-weight: bold;
+      }
+      .task p {
+        margin: 3px 0;
+      }
+      pre {
+        border: 1px solid #000;
+        padding: 5px 8px;
+        font-size: 10pt;
+        overflow-x: auto;
+        margin: 4px 0;
+      }
+      code {
+        font-family: "Consolas", "Courier New", monospace;
+      }
+      .hint {
+        font-style: italic;
+        font-size: 10pt;
+      }
+      .pair {
+        display: inline-block;
+        border: 1px solid #000;
+        border-radius: 3px;
+        padding: 0 4px;
+        font-size: 8.5pt;
+        font-weight: bold;
+        vertical-align: middle;
+        margin-left: 4px;
+      }
+      .student-info {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+      .student-info span {
+        border-bottom: 1px dotted #000;
+        min-width: 200px;
+        display: inline-block;
+      }
+      .section-title {
+        font-size: 12pt;
+        font-weight: bold;
+        margin-top: 12px;
+        margin-bottom: 6px;
+        border-bottom: 1px solid #000;
+        padding-bottom: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Záverečné opakovanie &mdash; Python</h1>
+    <div class="subtitle">
+      Informatika 9. ročník &mdash; Súkromná základná škola waldorfská &mdash;
+      25. 6. 2026
+    </div>
+
+    <div class="student-info">
+      <div>Dvojica: <span>&nbsp;</span></div>
+      <div>Dátum: <span>&nbsp;</span></div>
+    </div>
+
+    <div class="pair-box">
+      <strong>Ako pracujeme &mdash; tichá dvojica 🤝</strong><br />
+      <strong>Párové programovanie</strong> znamená, že na jednom programe
+      pracujú dvaja ľudia spoločne pri jednom počítači. Nie je to len školská
+      hra &mdash; <strong>naozaj sa to používa aj vo firmách</strong>, pretože
+      keď kód píšu a sledujú dvaja, nájde sa viac chýb a výsledný
+      <strong>kód býva kvalitnejší</strong>. My to dnes skúsime v prísnejšej,
+      &bdquo;tichej&ldquo; verzii.<br /><br />
+      Programujete vo dvojici a <strong>bez rozprávania</strong>. Striedate sa
+      <strong>po každom jednom napísanom riadku</strong> &mdash; napíšeš riadok,
+      počítač posunieš kolegovi, on napíše ďalší riadok atď. Kód kolegu
+      <strong>neupravuješ ani nemažeš</strong> &mdash; len <strong>dopisuješ nové
+      riadky</strong>. Druhý zatiaľ ticho sleduje a snaží sa
+      <strong>uhádnuť, čo chce kolega naprogramovať</strong> a aký bude výsledok.
+      <strong>Takto riešite všetky úlohy v tomto liste</strong> &mdash; každá je
+      na to navrhnutá a jej výsledok sa dá uhádnuť dopredu.<br />
+      <em>Prečo to robíme:</em> dobrý programátor musí vedieť
+      <strong>čítať a rozumieť aj cudziemu kódu</strong> &mdash; nielen písať
+      vlastný. Práve to si v tomto cvičení precvičíte.
+    </div>
+
+    <div class="info-box">
+      <strong>Pripomienka:</strong> výpis <code>print(...)</code>, vstup
+      <code>cislo = int(input("..."))</code>, opakovanie
+      <code>for i in range(...)</code>, zoznam <code>p = [3, 7, 2]</code>, prvý
+      prvok <code>p[0]</code>, posledný <code>p[-1]</code>, dĺžka
+      <code>len(p)</code>. Pre náhodu <code>import random</code>, pre korytnačku
+      <code>import turtle as t</code>.
+    </div>
+
+    <div class="section-title">A &mdash; Rozcvička: výpisy, premenné, reťazce</div>
+
+    <div class="task">
+      <span class="task-number">1.</span> Vypíš 20 hviezdičiek na jeden riadok.
+      <p class="hint">Tip: reťazec sa dá opakovať: <code>"*" * 20</code>.</p>
+    </div>
+
+    <div class="task">
+      <span class="task-number">2.</span> Spýtaj sa používateľa na meno a pozdrav
+      ho: <code>Ahoj &lt;meno&gt;, vitaj!</code>
+    </div>
+
+    <div class="task">
+      <span class="task-number">3.</span> Spýtaj sa na dve čísla a vypíš ich
+      súčet.
+    </div>
+
+    <div class="task">
+      <span class="task-number">4.</span> Spýtaj sa na slovo a vypíš jeho dĺžku a
+      prvé písmeno.
+    </div>
+
+    <div class="section-title">B &mdash; Podmienky (if / else)</div>
+
+    <div class="task">
+      <span class="task-number">5.</span> Spýtaj sa na číslo a vypíš, či je
+      <strong>párne</strong> alebo <strong>nepárne</strong>.
+      <p class="hint">Tip: párne číslo má <code>cislo % 2 == 0</code>.</p>
+    </div>
+
+    <div class="task">
+      <span class="task-number">6.</span> Spýtaj sa na vek. Ak má 18 a viac, vypíš
+      <code>Si dospelý.</code>, inak <code>Ešte nie si dospelý.</code>
+    </div>
+
+    <div class="task">
+      <span class="task-number">7.</span> Spýtaj sa na dve čísla a vypíš to
+      väčšie. Ak sú rovnaké, vypíš <code>Sú rovnaké.</code>
+    </div>
+
+    <div class="task">
+      <span class="task-number">8.</span> Spýtaj sa na známku (1 až 5) a vypíš ju
+      slovom: 1 = výborný, 2 = chválitebný, 3 = dobrý, 4 = dostatočný, 5 =
+      nedostatočný. <p class="hint">Tip: použi <code>if / elif / else</code>.</p>
+    </div>
+
+    <div style="page-break-before: always"></div>
+
+    <div class="section-title">C &mdash; Cykly (for, range)</div>
+
+    <div class="task">
+      <span class="task-number">9.</span> Vypíš čísla od 1 do 20.
+    </div>
+
+    <div class="task">
+      <span class="task-number">10.</span> Vypíš všetky <strong>párne</strong>
+      čísla od 2 do 20.
+      <p class="hint">Tip: <code>range(2, 21, 2)</code> skáče po dvoch.</p>
+    </div>
+
+    <div class="task">
+      <span class="task-number">11.</span> Spočítaj a vypíš súčet čísel od 1 do
+      100.
+    </div>
+
+    <div class="task">
+      <span class="task-number">12.</span> Vypíš malú násobilku čísla 7:
+      <code>7, 14, 21, ... 70</code>.
+    </div>
+
+    <div class="task">
+      <span class="task-number">13.</span> Vypíš odpočítavanie od 10 po 1 a
+      nakoniec <code>Štart!</code>
+      <p class="hint">Tip: <code>range(10, 0, -1)</code> ide odzadu.</p>
+    </div>
+
+    <div class="section-title">D &mdash; Polia (zoznamy)</div>
+
+    <div class="task">
+      <span class="task-number">14.</span> Vytvor pole 5 zvieratiek. Vypíš prvé,
+      posledné (cez <code>-1</code>) a počet prvkov (cez <code>len()</code>).
+    </div>
+
+    <div class="task">
+      <span class="task-number">15.</span> Mám pole
+      <code>cisla = [4, 8, 2, 9, 5, 1]</code>. Pomocou cyklu spočítaj a vypíš
+      súčet všetkých prvkov.
+    </div>
+
+    <div class="task">
+      <span class="task-number">16.</span> Mám pole
+      <code>cisla = [3, 8, 1, 7, 4, 12, 6]</code>. Pomocou cyklu nájdi a vypíš
+      najväčšie číslo (bez <code>max()</code>).
+    </div>
+
+    <div class="task">
+      <span class="task-number">17.</span> Mám pole
+      <code>znamky = [1, 3, 2, 1, 4, 1, 2, 5, 1]</code>. Spočítaj, koľkokrát sa v
+      ňom vyskytuje jednotka.
+    </div>
+
+    <div class="task">
+      <span class="task-number">18.</span> Mám pole
+      <code>cisla = [4, 7, 2, 9, 3]</code>. Vytvor nový zoznam, kde je každý
+      prvok dvojnásobkom pôvodného.
+    </div>
+
+    <div class="task">
+      <span class="task-number">19.</span> Vytvor pole 20 náhodných čísel od 1 do
+      100 a vypíš ich priemer (súčet delený počtom).
+      <pre><code>import random
+cisla = []
+for i in range(20):
+    cisla.append(random.randint(1, 100))</code></pre>
+    </div>
+
+    <div style="page-break-before: always"></div>
+
+    <div class="section-title">E &mdash; Korytnačka (turtle)</div>
+
+    <div class="task">
+      <span class="task-number">20.</span> Nakresli štvorec so stranou 100.
+      <p class="hint">Tip: 4-krát dopredu o 100 a otoč sa o 90°.</p>
+    </div>
+
+    <div class="task">
+      <span class="task-number">21.</span> Nakresli šesťuholník (otáčaj sa o
+      60°).
+    </div>
+
+    <div class="task">
+      <span class="task-number">22.</span> Tento kód nakreslí špirálu (čiara sa po
+      každom kroku predĺži). <strong>Dopíš do neho farby</strong>, aby bola
+      farebná.
+      <pre><code>import turtle as t
+for i in range(80):
+    t.forward(i * 3)
+    t.left(91)</code></pre>
+      <p class="hint">
+        Tip: pridaj do cyklu zmenu farby, napr.
+        <code>farby = ["red", "blue", "green", "orange"]</code> a
+        <code>t.pencolor(farby[i % 4])</code>.
+      </p>
+    </div>
+
+    <div class="task">
+      <span class="task-number">23.</span> Mám pole
+      <code>dlzky = [40, 80, 60, 100, 50, 90]</code>. Korytnačkou pre každú dĺžku
+      z poľa nakresli čiaru danej dĺžky a otoč sa o 90°.
+    </div>
+
+    <div class="section-title">F &mdash; Bonusové výzvy 💪</div>
+
+    <div class="task">
+      <span class="task-number">24.</span> <strong>Palindróm.</strong> Spýtaj sa
+      na slovo a zisti, či sa číta rovnako spredu aj odzadu (napr.
+      <code>oko</code>, <code>radar</code>). Vypíš <code>Áno</code> /
+      <code>Nie</code>.
+      <p class="hint">Tip: obrátené slovo dostaneš cez <code>slovo[::-1]</code>.</p>
+    </div>
+
+    <div class="task">
+      <span class="task-number">25.</span> <strong>Prvočíslo.</strong> Spýtaj sa
+      na číslo <code>n</code> a zisti, či je prvočíslo (delí sa bezo zvyšku len 1
+      a samým sebou).
+      <p class="hint">
+        Tip: spočítaj v cykle, koľkými číslami od 1 po <code>n</code> sa
+        <code>n</code> delí bezo zvyšku (<code>n % i == 0</code>). Ak presne
+        dvomi, je to prvočíslo.
+      </p>
+    </div>
+
+    <div class="task">
+      <span class="task-number">26.</span> <strong>Fibonacci.</strong> Vypíš
+      prvých 15 Fibonacciho čísel. Začína <code>0, 1</code> a každé ďalšie je
+      súčet dvoch predošlých: <code>0, 1, 1, 2, 3, 5, 8, ...</code>
+      <p class="hint">
+        Tip: použi pole. Začni s <code>f = [0, 1]</code> a v cykle pridávaj súčet
+        dvoch posledných prvkov: <code>f.append(f[-1] + f[-2])</code>.
+      </p>
+    </div>
+
+    <div class="task">
+      <span class="task-number">27.</span> <strong>Prienik dvoch polí.</strong>
+      Mám <code>a = [1, 2, 3, 4]</code> a <code>b = [3, 4, 5, 6]</code>. Vytvor
+      nový zoznam s prvkami, ktoré sú v <strong>oboch</strong> poliach. Výsledok:
+      <code>[3, 4]</code>.
+      <p class="hint">Tip: operátor <code>in</code> zistí, či je prvok v poli.</p>
+    </div>
+
+    <div class="task">
+      <span class="task-number">28.</span> <strong>Počítanie samohlások.</strong>
+      Spýtaj sa na slovo a spočítaj, koľko obsahuje samohlások (a, e, i, o, u).
+      <p class="hint">
+        Tip: prechádzaj slovo písmeno po písmene a kontroluj
+        <code>if pismeno in "aeiou":</code>.
+      </p>
+    </div>
+  </body>
+</html>
