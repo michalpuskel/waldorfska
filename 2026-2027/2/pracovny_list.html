@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Korytnačka kreslí – pracovný list</title>
+    <style>
+      :root {
+        --ink: #1d232b;
+        --muted: #5b6573;
+        --line: #c9d1dc;
+        --accent: #1b5cb8;
+        --code-bg: #f4f6f9;
+        --desk: #eef1f5;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--desk);
+        color: var(--ink);
+        font: 11.5pt/1.45 "Segoe UI", Roboto, Arial, sans-serif;
+      }
+      .nav {
+        max-width: 210mm;
+        margin: 0 auto;
+        padding: 14px 16px 0;
+        font-size: 10.5pt;
+      }
+      .nav a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .sheet {
+        max-width: 210mm;
+        margin: 10px auto 40px;
+        background: #fff;
+        padding: 13mm 15mm;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+      }
+      header.ws {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 16px;
+        border-bottom: 2px solid var(--ink);
+        padding-bottom: 6px;
+        margin-bottom: 10px;
+      }
+      header.ws h1 {
+        margin: 0;
+        font-size: 20pt;
+        line-height: 1.1;
+      }
+      .meta {
+        font-size: 9.5pt;
+        color: var(--muted);
+        margin-top: 3px;
+      }
+      .name {
+        font-size: 10.5pt;
+        white-space: nowrap;
+      }
+      .name span {
+        display: inline-block;
+        width: 50mm;
+        border-bottom: 1px dotted var(--ink);
+      }
+      .lead {
+        margin: 0 0 8px;
+      }
+      h2 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12.5pt;
+        margin: 13px 0 6px;
+        padding-bottom: 3px;
+        border-bottom: 1px solid var(--line);
+        break-after: avoid;
+      }
+      h2 .k {
+        display: inline-grid;
+        place-items: center;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--ink);
+        color: #fff;
+        font-size: 10pt;
+      }
+      .task {
+        display: grid;
+        grid-template-columns: 24px 1fr;
+        gap: 0 8px;
+        margin: 8px 0;
+        break-inside: avoid;
+      }
+      .task > .n {
+        font-weight: 700;
+        text-align: center;
+        border: 1.5px solid var(--ink);
+        border-radius: 4px;
+        height: 22px;
+        line-height: 19px;
+        font-size: 10pt;
+      }
+      .task.bonus > .n {
+        border-style: dashed;
+      }
+      .task > *,
+      .pair > *,
+      .solved > .body > * {
+        min-width: 0;
+      }
+      .task p {
+        margin: 0 0 4px;
+      }
+      pre,
+      code {
+        font-family: Consolas, "Fira Code", Menlo, monospace;
+      }
+      pre {
+        margin: 4px 0 6px;
+        padding: 6px 10px;
+        background: var(--code-bg);
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        font-size: 10pt;
+        line-height: 1.4;
+        white-space: pre;
+        overflow-x: auto;
+      }
+      code {
+        font-size: 0.92em;
+        background: var(--code-bg);
+        padding: 0 3px;
+        border-radius: 3px;
+        white-space: nowrap;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+        font-size: inherit;
+        white-space: inherit;
+      }
+      .pb {
+        break-before: page;
+      }
+      .hint {
+        font-size: 9.5pt;
+        color: var(--muted);
+      }
+      .blank {
+        display: inline-block;
+        min-width: 15mm;
+        border-bottom: 1px dotted var(--ink);
+      }
+      .pair {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        align-items: start;
+      }
+      .pair.fig {
+        grid-template-columns: 1fr auto;
+      }
+      svg {
+        display: block;
+        font-family: "Segoe UI", Arial, sans-serif;
+      }
+
+      /* ťahák */
+      .cheat {
+        border: 1.5px solid var(--ink);
+        border-radius: 6px;
+        padding: 6px 10px 8px;
+        margin: 6px 0;
+      }
+      .cheat > b {
+        font-size: 10pt;
+      }
+      .cmds {
+        display: grid;
+        grid-template-columns: auto 1fr auto 1fr;
+        gap: 2px 10px;
+        margin-top: 4px;
+        font-size: 10pt;
+        align-items: baseline;
+      }
+      .cmds code {
+        background: none;
+        padding: 0;
+        font-weight: 600;
+      }
+      .warn {
+        margin: 6px 0 0;
+        font-size: 10pt;
+      }
+
+      /* riešený príklad */
+      .solved {
+        border: 1.5px solid var(--ink);
+        border-radius: 6px;
+        margin: 8px 0;
+        break-inside: avoid;
+      }
+      .solved > .bar {
+        padding: 3px 10px;
+        background: var(--ink);
+        color: #fff;
+        font-weight: 700;
+        font-size: 10pt;
+      }
+      .solved > .body {
+        padding: 8px 10px;
+      }
+      .solved p {
+        margin: 4px 0 0;
+        font-size: 10.5pt;
+      }
+      .steps {
+        margin: 4px 0 0;
+        padding-left: 20px;
+        font-size: 10.5pt;
+      }
+
+      /* nápoveda hore nohami */
+      .flip {
+        display: inline-block;
+        transform: rotate(180deg);
+        font-size: 9.5pt;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+
+      /* domáca úloha */
+      .hw {
+        border: 2px solid var(--ink);
+        border-radius: 6px;
+        padding: 7px 12px;
+        margin: 10px 0 0;
+        break-inside: avoid;
+      }
+      .hw h3 {
+        margin: 0 0 4px;
+        font-size: 12pt;
+      }
+      .hw p {
+        margin: 3px 0;
+      }
+
+      @media (max-width: 640px) {
+        .sheet {
+          padding: 18px 16px;
+        }
+        header.ws {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .pair,
+        .pair.fig {
+          grid-template-columns: 1fr;
+        }
+        .cmds {
+          grid-template-columns: auto 1fr;
+        }
+        .plan-wrap {
+          overflow-x: auto;
+        }
+        .plan-wrap svg {
+          min-width: 560px;
+        }
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 12mm 14mm;
+        }
+        body {
+          background: #fff;
+          font-size: 10.5pt;
+        }
+        .nav {
+          display: none;
+        }
+        .sheet {
+          box-shadow: none;
+          margin: 0;
+          padding: 0;
+          max-width: none;
+        }
+        pre,
+        code {
+          background: #fff;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="nav"><a href="../index.html">← Späť na zoznam hodín</a></nav>
+
+    <main class="sheet">
+      <header class="ws">
+        <div>
+          <h1>Korytnačka kreslí</h1>
+          <div class="meta">
+            Informatika 9. ročník · 2. hodina · Súkromná ZŠ waldorfská ·
+            2026/2027
+          </div>
+        </div>
+        <div class="name">Meno: <span>&nbsp;</span></div>
+      </header>
+
+      <p class="lead">
+        Korytnačka je robot so štetcom. Stojí v strede okna, pozerá
+        <strong>doprava</strong> a robí presne to, čo jej povieš, nič viac.
+      </p>
+
+      <div class="cheat">
+        <b>Ťahák</b>
+        <div class="cmds">
+          <code>import turtle as t</code><span>načítaj korytnačku</span>
+          <code>t.penup()</code><span>zdvihni pero (nekreslí)</span>
+          <code>t.forward(100)</code><span>choď dopredu o 100 krokov</span>
+          <code>t.pendown()</code><span>polož pero (kreslí)</span>
+          <code>t.back(50)</code><span>choď dozadu</span>
+          <code>t.goto(x, y)</code><span>choď rovno na bod [x, y]</span>
+          <code>t.left(90)</code><span>otoč sa doľava o 90°</span>
+          <code>t.pencolor("red")</code><span>farba pera</span>
+          <code>t.right(90)</code><span>otoč sa doprava o 90°</span>
+          <code>t.pensize(5)</code><span>hrúbka pera</span>
+          <code>t.shape("turtle")</code><span>ukáž korytnačku</span>
+          <code>t.reset()</code><span>zmaž všetko a začni odznova</span>
+          <code>t.done()</code><span>vždy na koniec súboru</span>
+          <code>t.speed(0)</code><span>kresli najrýchlejšie</span>
+        </div>
+        <p class="warn">
+          Farby: <code>"red"</code> <code>"orange"</code> <code>"yellow"</code>
+          <code>"green"</code> <code>"blue"</code> <code>"purple"</code>
+          <code>"pink"</code> <code>"brown"</code> <code>"black"</code>
+          &nbsp;·&nbsp; <strong>Súbor nikdy nenazvi <code>turtle.py</code></strong>,
+          inak Python namiesto korytnačky načíta tvoj súbor.
+        </p>
+      </div>
+
+      <h2><span class="k">A</span> Diaľkové ovládanie (Shell)</h2>
+
+      <div class="task">
+        <span class="n">1</span>
+        <div class="pair fig">
+          <p>
+            V Shelli napíš <code>import turtle as t</code> a potom príkazy po
+            jednom. Korytnačka ich vykoná hneď, ako stlačíš Enter.
+            <strong>Nakresli schody so 4 schodíkmi.</strong>
+          </p>
+          <svg viewBox="-12 -132 146 142" width="80" role="img" aria-label="Schody so 4 schodíkmi">
+            <path d="M0 0h30v-30h30v-30h30v-30h30v-30" fill="none" stroke="#1d232b" stroke-width="3" stroke-linejoin="round" />
+            <path d="M-8 -6L4 0L-8 6Z" fill="#1d232b" />
+          </svg>
+        </div>
+      </div>
+
+      <h2><span class="k">B</span> Štvorec</h2>
+
+      <div class="solved">
+        <div class="bar">Riešený príklad – súbor stvorec.py</div>
+        <div class="body pair">
+          <pre><code>import turtle as t
+
+t.shape("turtle")
+t.forward(100)
+t.left(90)
+t.forward(100)
+t.left(90)
+t.forward(100)
+t.left(90)
+t.forward(100)
+t.left(90)
+
+t.done()</code></pre>
+          <div>
+            <svg viewBox="-30 -128 160 156" width="150" role="img" aria-label="Štvorec, korytnačka štartuje vľavo dole a ide doprava">
+              <path d="M0 0h100v-100h-100z" fill="none" stroke="#1d232b" stroke-width="3" stroke-linejoin="round" />
+              <path d="M-9 -7L5 0L-9 7Z" fill="#1d232b" />
+              <g font-size="11" text-anchor="middle" fill="#5b6573">
+                <text x="50" y="18">1</text>
+                <text x="114" y="-46">2</text>
+                <text x="50" y="-108">3</text>
+                <text x="-14" y="-46">4</text>
+              </g>
+              <text x="0" y="22" font-size="9" text-anchor="middle" fill="#5b6573">štart</text>
+            </svg>
+            <p>
+              4 strany a 4 otočenia o 90°. Spolu
+              <strong>4 × 90° = 360°</strong>, celé kolo, takže korytnačka na
+              konci pozerá zase doprava.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="task">
+        <span class="n">2</span>
+        <p>Nakresli <strong>obdĺžnik</strong> 200 × 100.</p>
+      </div>
+
+      <div class="task">
+        <span class="n">3</span>
+        <div>
+          <p>
+            Nakresli <strong>rovnostranný trojuholník</strong> so stranou 100.
+            Pozor, je v tom chyták! Najprv tipni, o koľko stupňov sa má
+            korytnačka otočiť: <span class="blank">&nbsp;</span>°
+          </p>
+          <span class="flip">Nápoveda: za celý obrázok sa korytnačka otočí dokopy o 360°.</span>
+        </div>
+      </div>
+
+      <div class="task">
+        <span class="n">4</span>
+        <p>
+          Nakresli štvorec, ktorý má <strong>každú stranu inou farbou</strong> a
+          hrubšie pero.
+        </p>
+      </div>
+
+      <h2 class="pb"><span class="k">C</span> Súradnice – kreslíme písmená</h2>
+
+      <p class="lead">
+        Okno je ako graf z matematiky, stred je <strong>[0, 0]</strong>.
+        <code>t.goto(x, y)</code> ide rovno na bod, aj šikmo, bez počítania
+        uhlov.
+      </p>
+
+      <div class="solved">
+        <div class="bar">Riešený príklad – písmeno A</div>
+        <div class="body pair">
+          <div>
+            <pre><code>import turtle as t
+t.pensize(5)
+
+# dve šikmé čiary
+t.penup()
+t.goto(0, 0)
+t.pendown()
+t.goto(20, 80)
+t.goto(40, 0)
+
+# vodorovná priečka
+t.penup()
+t.goto(10, 40)
+t.pendown()
+t.goto(30, 40)
+t.done()</code></pre>
+          </div>
+          <div>
+            <svg viewBox="-44 -112 132 146" width="100%" style="max-width: 210px" role="img" aria-label="Písmeno A na mriežke so súradnicami bodov">
+              <defs>
+                <pattern id="grid-a" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M20 0H0V20" fill="none" stroke="#b9c0ca" stroke-width=".6" />
+                </pattern>
+              </defs>
+              <rect x="-20" y="-100" width="80" height="120" fill="url(#grid-a)" stroke="#b9c0ca" stroke-width=".6" />
+              <path d="M-20 0H60M0 -100V20" stroke="#1d232b" stroke-width="1" />
+              <path d="M0 0L20 -80L40 0M10 -40H30" fill="none" stroke="#1d232b" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+              <g fill="#fff" stroke="#1d232b" stroke-width="1.2">
+                <circle cx="0" cy="0" r="2.6" />
+                <circle cx="20" cy="-80" r="2.6" />
+                <circle cx="40" cy="0" r="2.6" />
+                <circle cx="10" cy="-40" r="2.6" />
+                <circle cx="30" cy="-40" r="2.6" />
+              </g>
+              <g font-size="7" fill="#1d232b">
+                <text x="-4" y="11" text-anchor="end">[0, 0]</text>
+                <text x="20" y="-87" text-anchor="middle">[20, 80]</text>
+                <text x="44" y="11">[40, 0]</text>
+                <text x="6" y="-43" text-anchor="end">[10, 40]</text>
+                <text x="34" y="-43">[30, 40]</text>
+              </g>
+              <g font-size="7" fill="#5b6573" font-style="italic">
+                <text x="63" y="3">x</text>
+                <text x="3" y="-103">y</text>
+              </g>
+            </svg>
+            <ol class="steps">
+              <li>Nakresli písmeno na mriežku.</li>
+              <li>Zapíš si súradnice rohov.</li>
+              <li>
+                Pero hore → presun na začiatok → pero dole →
+                <code>goto</code>, <code>goto</code>…
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="task">
+        <span class="n">5</span>
+        <div>
+          <p>
+            <strong>Moje meno.</strong> Najprv ceruzkou nakresli na mriežku svoje
+            meno, každé písmeno do jedného rámčeka (40 × 80, štvorček = 20
+            krokov, ďalšie písmeno začína o 60 ďalej). Až potom ho naprogramuj.
+            Okrúhle písmená (O, S, C…) urob hranaté ako na digitálkach. A
+            nezabudni na mäkčene a dĺžne!
+          </p>
+          <div class="plan-wrap">
+            <svg viewBox="-338 -132 666 194" width="100%" role="img" aria-label="Prázdna mriežka na plánovanie mena s rámčekmi na písmená">
+              <defs>
+                <pattern id="grid-plan" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M20 0H0V20" fill="none" stroke="#c3c9d2" stroke-width=".8" />
+                </pattern>
+              </defs>
+              <rect x="-300" y="-120" width="600" height="160" fill="url(#grid-plan)" stroke="#9aa3ae" stroke-width="1" />
+              <g fill="none" stroke="#5b6573" stroke-width="1.2" stroke-dasharray="5 4">
+                <rect x="-300" y="-80" width="40" height="80" />
+                <rect x="-240" y="-80" width="40" height="80" />
+                <rect x="-180" y="-80" width="40" height="80" />
+                <rect x="-120" y="-80" width="40" height="80" />
+                <rect x="-60" y="-80" width="40" height="80" />
+                <rect x="0" y="-80" width="40" height="80" />
+                <rect x="60" y="-80" width="40" height="80" />
+                <rect x="120" y="-80" width="40" height="80" />
+                <rect x="180" y="-80" width="40" height="80" />
+                <rect x="240" y="-80" width="40" height="80" />
+              </g>
+              <path d="M-300 0H300M0 -120V40" stroke="#1d232b" stroke-width="1.6" />
+              <path d="M-2 -6L10 0L-2 6Z" fill="#1d232b" />
+              <g font-size="11" fill="#1d232b" text-anchor="middle">
+                <text x="-300" y="56">-300</text>
+                <text x="-240" y="56">-240</text>
+                <text x="-180" y="56">-180</text>
+                <text x="-120" y="56">-120</text>
+                <text x="-60" y="56">-60</text>
+                <text x="0" y="56">0</text>
+                <text x="60" y="56">60</text>
+                <text x="120" y="56">120</text>
+                <text x="180" y="56">180</text>
+                <text x="240" y="56">240</text>
+                <text x="300" y="56">300</text>
+              </g>
+              <g font-size="11" fill="#1d232b" text-anchor="end">
+                <text x="-306" y="-116">120</text>
+                <text x="-306" y="-76">80</text>
+                <text x="-306" y="-36">40</text>
+                <text x="-306" y="4">0</text>
+                <text x="-306" y="44">-40</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <h2><span class="k">★</span> Bonus</h2>
+
+      <div class="task bonus">
+        <span class="n">6</span>
+        <div class="pair fig">
+          <p>
+            <strong>Domček jedným ťahom.</strong> Nakresli ho iba príkazmi
+            <code>goto</code>, bez jediného <code>penup()</code>. Každú čiaru
+            smieš nakresliť len raz.
+          </p>
+          <svg viewBox="-34 -160 162 190" width="54" role="img" aria-label="Domček jedným ťahom: štvorec s uhlopriečkami a strechou">
+            <path d="M0 0H100V-100H0ZM0 0L100 -100M100 0L0 -100M0 -100L50 -150L100 -100" fill="none" stroke="#1d232b" stroke-width="4" stroke-linejoin="round" />
+            <circle cx="0" cy="0" r="6" fill="#1d232b" />
+            <text x="0" y="24" font-size="22" text-anchor="middle" fill="#5b6573">štart</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="task bonus">
+        <span class="n">7</span>
+        <p>
+          <strong>Farba na želanie.</strong> Program sa opýta
+          <code>farba = input("Akou farbou? ")</code>, nastaví
+          <code>t.pencolor(farba)</code> a nakreslí tvoje meno touto farbou.
+        </p>
+      </div>
+
+      <div class="task bonus">
+        <span class="n">8</span>
+        <p>
+          <strong>Okrúhle písmená.</strong> <code>t.circle(40)</code> nakreslí
+          kruh, <code>t.circle(40, 180)</code> polkruh. Skús O alebo D.
+        </p>
+      </div>
+
+      <div class="hw">
+        <h3>🏠 Domáca úloha: obľúbené ovocie</h3>
+        <p>
+          Napíš korytnačkou názov svojho obľúbeného ovocia.
+          <strong>Každé písmeno inou farbou</strong> (pred každým písmenom zmeň
+          <code>t.pencolor(…)</code>). Kto chce, nakreslí vedľa aj samotné
+          ovocie.
+        </p>
+        <p>
+          Súbor <code>ovocie_meno_priezvisko.py</code> odovzdaj do:
+          <span class="blank" style="min-width: 40mm">&nbsp;</span>
+        </p>
+      </div>
+    </main>
+  </body>
+</html>
