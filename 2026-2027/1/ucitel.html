@@ -1,0 +1,956 @@
+<!doctype html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prvý program – poznámky pre učiteľa</title>
+    <style>
+      :root {
+        --page: #f3eee4;
+        --card: #ffffff;
+        --ink: #23262b;
+        --muted: #6b6f78;
+        --line: #ddd3c0;
+        --show: #d89033;
+        --show-soft: #fdf1df;
+        --kids: #5b9a2a;
+        --kids-soft: #eaf3de;
+        --both: #4c6fb5;
+        --both-soft: #e6edf9;
+        --warn: #b8432f;
+        --warn-soft: #fbebe7;
+        --idle-bg: #1f2430;
+        --idle-fg: #e7e9ee;
+        --idle-prompt: #8b93a7;
+        --idle-out: #7fb3ff;
+        --idle-err: #ff8a80;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--page);
+        color: var(--ink);
+        font: 16px/1.55 "Segoe UI", Roboto, Arial, sans-serif;
+      }
+      .wrap {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 28px 20px 60px;
+      }
+      .meta {
+        margin: 0;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      h1 {
+        margin: 2px 0 4px;
+        font-size: 30px;
+        line-height: 1.2;
+      }
+      .sub {
+        margin: 0;
+        color: var(--muted);
+      }
+      .tools {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 14px 0 0;
+        padding-bottom: 14px;
+        border-bottom: 2px solid var(--ink);
+      }
+      .tools a,
+      .tools button {
+        font: inherit;
+        font-size: 14px;
+        padding: 5px 12px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: var(--card);
+        color: var(--ink);
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .tools a:hover,
+      .tools button:hover {
+        border-color: var(--ink);
+      }
+      h2 {
+        margin: 30px 0 10px;
+        font-size: 20px;
+      }
+      .cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 18px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 12px 16px;
+      }
+      .card h3 {
+        margin: 0 0 6px;
+        font-size: 16px;
+      }
+      .in a {
+        color: var(--both);
+      }
+      .card ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+      ul.todo {
+        list-style: none;
+        padding-left: 0;
+      }
+      ul.todo li::before {
+        content: "☐ ";
+      }
+      code,
+      pre {
+        font-family: Consolas, "Fira Code", Menlo, monospace;
+      }
+      code {
+        font-size: 0.9em;
+        background: #f1ece2;
+        padding: 0 4px;
+        border-radius: 4px;
+      }
+      pre code {
+        font-size: inherit;
+        background: none;
+        padding: 0;
+      }
+
+      /* časová os */
+      .timeline {
+        display: flex;
+        gap: 3px;
+        margin: 6px 0 4px;
+      }
+      .timeline a {
+        min-width: 78px;
+        padding: 6px 8px;
+        border-radius: 6px;
+        color: var(--ink);
+        text-decoration: none;
+        font-size: 13px;
+        line-height: 1.3;
+        border-top: 4px solid;
+      }
+      .timeline a b {
+        display: block;
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 600;
+      }
+      .timeline .half {
+        border-left: 2px dashed var(--ink);
+        margin: 0 2px;
+      }
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .legend span::before {
+        content: "";
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 2px;
+        margin-right: 5px;
+        background: currentColor;
+      }
+      .show {
+        background: var(--show-soft);
+        border-color: var(--show) !important;
+      }
+      .kids {
+        background: var(--kids-soft);
+        border-color: var(--kids) !important;
+      }
+      .both {
+        background: var(--both-soft);
+        border-color: var(--both) !important;
+      }
+      .legend .l-show {
+        color: var(--show);
+      }
+      .legend .l-kids {
+        color: var(--kids);
+      }
+      .legend .l-both {
+        color: var(--both);
+      }
+
+      /* bloky */
+      details.blk {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        margin: 8px 0;
+        overflow: hidden;
+      }
+      details.blk > summary {
+        display: grid;
+        grid-template-columns: 76px 1fr auto 20px;
+        gap: 10px;
+        align-items: center;
+        padding: 10px 14px;
+        cursor: pointer;
+        list-style: none;
+      }
+      details.blk > summary::-webkit-details-marker {
+        display: none;
+      }
+      details.blk > summary::after {
+        content: "+";
+        font-size: 22px;
+        line-height: 1;
+        color: var(--muted);
+        text-align: center;
+      }
+      details.blk[open] > summary::after {
+        content: "×";
+      }
+      .time {
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+      }
+      .ttl {
+        font-weight: 600;
+      }
+      .who {
+        font-size: 12px;
+        font-weight: 600;
+        padding: 2px 10px;
+        border-radius: 999px;
+        border: 1px solid;
+        white-space: nowrap;
+      }
+      .in {
+        padding: 2px 16px 14px;
+        border-top: 1px solid var(--line);
+      }
+      .in > p {
+        margin: 10px 0 0;
+      }
+      .lbl {
+        display: block;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+      .proj,
+      .say,
+      .watch,
+      .todo-kids {
+        margin-top: 10px;
+        padding: 9px 14px;
+        border-radius: 0 8px 8px 0;
+        border-left: 4px solid;
+      }
+      .proj {
+        border-color: var(--ink);
+        background: #f6f3ee;
+      }
+      .say {
+        border-color: var(--show);
+        background: var(--show-soft);
+        font-style: italic;
+      }
+      .say .lbl {
+        font-style: normal;
+        color: #a85d14;
+      }
+      .say p {
+        margin: 0 0 6px;
+      }
+      .say p:last-child {
+        margin-bottom: 0;
+      }
+      .watch {
+        border-color: var(--warn);
+        background: var(--warn-soft);
+      }
+      .watch .lbl {
+        color: var(--warn);
+      }
+      .watch ul,
+      .proj ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+      .todo-kids {
+        border-color: var(--kids);
+        background: var(--kids-soft);
+      }
+      .todo-kids .lbl {
+        color: #3f6e17;
+      }
+
+      /* kód */
+      pre.idle {
+        margin: 6px 0;
+        padding: 10px 14px;
+        background: var(--idle-bg);
+        color: var(--idle-fg);
+        border-radius: 8px;
+        font-size: 15px;
+        line-height: 1.45;
+        overflow-x: auto;
+      }
+      pre.idle .p {
+        color: var(--idle-prompt);
+      }
+      pre.idle .o {
+        color: var(--idle-out);
+      }
+      pre.idle .e {
+        color: var(--idle-err);
+      }
+      .file {
+        position: relative;
+        margin: 6px 0;
+      }
+      .file pre {
+        margin: 0;
+        padding: 10px 14px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        font-size: 15px;
+        line-height: 1.45;
+        overflow-x: auto;
+      }
+      .file .name {
+        display: block;
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 2px;
+      }
+      .copy {
+        position: absolute;
+        right: 8px;
+        bottom: 8px;
+        font: inherit;
+        font-size: 12px;
+        padding: 2px 10px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--page);
+        cursor: pointer;
+      }
+
+      .sol ol {
+        margin: 10px 0 0;
+        padding-left: 22px;
+      }
+      .sol li {
+        margin-bottom: 8px;
+      }
+
+      footer {
+        margin-top: 40px;
+        font-size: 13px;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      @media (max-width: 720px) {
+        .cols {
+          grid-template-columns: 1fr;
+        }
+        .timeline {
+          flex-direction: column;
+        }
+        .timeline a {
+          flex: none !important;
+        }
+        .timeline .half {
+          border-left: 0;
+          border-top: 2px dashed var(--ink);
+          margin: 4px 0;
+        }
+        details.blk > summary {
+          grid-template-columns: 1fr 20px;
+        }
+        details.blk > summary .time {
+          grid-column: 1;
+        }
+        details.blk > summary .who {
+          justify-self: start;
+        }
+        h1 {
+          font-size: 24px;
+        }
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 12mm;
+        }
+        body {
+          background: #fff;
+          font-size: 11pt;
+        }
+        .wrap {
+          max-width: none;
+          padding: 0;
+        }
+        .tools button,
+        .copy {
+          display: none;
+        }
+        .card,
+        details.blk {
+          border-color: #999;
+        }
+        .card,
+        .proj,
+        .say,
+        .watch,
+        .todo-kids,
+        details.blk > summary {
+          break-inside: avoid;
+        }
+        details.blk > summary {
+          break-after: avoid;
+        }
+        details.blk > summary::after {
+          content: "";
+        }
+        pre.idle {
+          background: #fff;
+          color: #000;
+          border: 1px solid #999;
+        }
+        pre.idle .p,
+        pre.idle .o {
+          color: #555;
+        }
+        pre.idle .e {
+          color: #000;
+          font-weight: 700;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <header>
+        <p class="meta">Verzia pre učiteľa · 9. ročník · 2 × 45 min</p>
+        <h1>1. hodina · Prvý program</h1>
+        <p class="sub">
+          Interaktívny režim, <code>print</code>, súbor, <code>input</code>.
+          Nadväzuje na prezentáciu Ako funguje počítač (0. hodina).
+        </p>
+        <nav class="tools">
+          <a href="pracovny_list.html">📄 Pracovný list pre deti</a>
+          <a href="../0/index.html#5">🖥 Prezentácia – slide 5</a>
+          <button type="button" data-all="open">Rozbaliť všetko</button>
+          <button type="button" data-all="close">Zbaliť všetko</button>
+        </nav>
+      </header>
+
+      <div class="cols">
+        <div class="card">
+          <h3>Na konci hodiny deti vedia</h3>
+          <ul>
+            <li>spustiť príkaz v Shelli a povedať, prečo sa po zatvorení stratí,</li>
+            <li>vytvoriť, uložiť a spustiť súbor <code>.py</code>,</li>
+            <li>použiť <code>print</code>, <code>input</code>, <code>int</code> a premennú,</li>
+            <li>prečítať posledný riadok chybovej hlášky.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Pred hodinou</h3>
+          <ul class="todo">
+            <li>Na všetkých PC ide IDLE. Skús aj <code>import turtle</code>, bude treba o týždeň.</li>
+            <li>Dohodni, kam si deti ukladajú súbory (jeden priečinok).</li>
+            <li>IDLE na projektore: <em>Options → Configure IDLE → Fonts</em>, veľkosť 18–20.</li>
+            <li>Na ploche maj pripravený <code>ochutnavka.py</code> (kód v poslednom bloku).</li>
+            <li>Prezentácia otvorená na slide 5, pracovné listy vytlačené.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>Priebeh</h2>
+      <div class="timeline">
+        <a href="#b1" class="show" style="flex: 8"><b>0–8</b>Úvod</a>
+        <a href="#b2" class="both" style="flex: 17"><b>8–25</b>Shell a chyby</a>
+        <a href="#b3" class="both" style="flex: 15"><b>25–40</b>Prvý súbor</a>
+        <a href="#b4" class="kids" style="flex: 5"><b>40–45</b>Rezerva</a>
+        <span class="half"></span>
+        <a href="#b5" class="both" style="flex: 20"><b>45–65</b>input a premenné</a>
+        <a href="#b6" class="kids" style="flex: 20"><b>65–85</b>Bláznivá rozprávka</a>
+        <a href="#b7" class="show" style="flex: 5"><b>85–90</b>Ochutnávka</a>
+      </div>
+      <div class="legend">
+        <span class="l-show">ukazujem na projektore</span>
+        <span class="l-both">ukazujem → deti skúšajú</span>
+        <span class="l-kids">deti pracujú samy</span>
+      </div>
+
+      <h2>1. polčas</h2>
+
+      <details class="blk" id="b1" open>
+        <summary>
+          <span class="time">0–8</span>
+          <span class="ttl">Úvod: „Dnes ho napíšete sami"</span>
+          <span class="who show">ukazujem</span>
+        </summary>
+        <div class="in">
+          <div class="proj">
+            <span class="lbl">Na projektor</span>
+            Prezentácia z 0. hodiny,
+            <a href="../0/index.html#5">slide 5 „Spustíme ten program"</a>.
+            Spusti program raz s menom niekoho z triedy cez
+            <em>▶ Spusti celý naraz</em>.
+          </div>
+          <div class="say">
+            <span class="lbl">💬 Povedz</span>
+            <p>
+              „Minule ste tento program videli bežať. Dnes ho do konca hodiny
+              napíše každý z vás sám. A budúci týždeň budete kresliť."
+            </p>
+            <p>„Z akých štyroch častí sa skladá počítač?"</p>
+          </div>
+          <p>
+            Odpoveď: vstup, pamäť, procesor (ALU), výstup. Nechaj ich priradiť
+            riadky programu k častiam. Presne toto majú v pracovnom liste v
+            časti C.
+          </p>
+        </div>
+      </details>
+
+      <details class="blk" id="b2">
+        <summary>
+          <span class="time">8–25</span>
+          <span class="ttl">Interaktívny režim: Python ako kalkulačka, prvé chyby</span>
+          <span class="who both">ukazujem → úlohy 1–3</span>
+        </summary>
+        <div class="in">
+          <div class="proj">
+            <span class="lbl">Na projektor</span>
+            Spusti IDLE. Okno so <code>&gt;&gt;&gt;</code> je <strong>Shell</strong>.
+            Pred každým Enterom nechaj deti tipnúť, čo vyjde.
+            <pre class="idle"><span class="p">&gt;&gt;&gt; </span>2 + 3
+<span class="o">5</span>
+<span class="p">&gt;&gt;&gt; </span>24 * 60 * 60
+<span class="o">86400</span>
+<span class="p">&gt;&gt;&gt; </span>2 ** 100
+<span class="o">1267650600228229401496703205376</span>
+<span class="p">&gt;&gt;&gt; </span>print("Ahoj!")
+<span class="o">Ahoj!</span>
+<span class="p">&gt;&gt;&gt; </span>"ha" * 10
+<span class="o">'hahahahahahahahahaha'</span></pre>
+          </div>
+          <div class="say">
+            <span class="lbl">💬 Povedz</span>
+            <p>
+              „Šípky <code>&gt;&gt;&gt;</code> znamenajú, že Python čaká na
+              príkaz. Napíšeš, stlačíš Enter a hneď odpovie. Tomu sa hovorí
+              interaktívny režim, je to ako chat."
+            </p>
+            <p>
+              Pri <code>2 ** 100</code>: „Kalkulačka v mobile by to zaokrúhlila
+              a ukázala niečo s E. Python vypíše všetkých 31 cifier."
+            </p>
+          </div>
+          <div class="proj">
+            <span class="lbl">📖 Príbeh na minútu: legenda o šachu</span>
+            Vynálezca šachu si od kráľa pýtal odmenu: 1 zrnko ryže na prvé
+            políčko, 2 na druhé, 4 na tretie… Kráľ sa zasmial, že je to málo.
+            Spolu <code>2 ** 64 - 1</code> = 18 446 744 073 709 551 615 zrniek,
+            to sú stovky rokov dnešnej celosvetovej úrody ryže.
+          </div>
+          <div class="todo-kids">
+            <span class="lbl">✏️ Deti</span>
+            Pracovný list, úlohy 1 a 2.
+          </div>
+          <div class="proj">
+            <span class="lbl">Na projektor: chyby</span>
+            <pre class="idle"><span class="p">&gt;&gt;&gt; </span>print(Ahoj)
+<span class="e">NameError: name 'Ahoj' is not defined</span>
+<span class="p">&gt;&gt;&gt; </span>Print("Ahoj")
+<span class="e">NameError: name 'Print' is not defined. Did you mean: 'print'?</span>
+<span class="p">&gt;&gt;&gt; </span>print("Ahoj)
+<span class="e">SyntaxError: unterminated string literal (detected at line 1)</span></pre>
+          </div>
+          <div class="say">
+            <span class="lbl">💬 Povedz</span>
+            <p>
+              „Chyba nie je katastrofa, programátori ich robia celý deň. Červený
+              text čítajte odspodu: posledný riadok hovorí, čo sa Pythonu
+              nepáči. Niekedy dokonca poradí: <em>Did you mean: 'print'?</em>"
+            </p>
+          </div>
+          <div class="watch">
+            <span class="lbl">⚠️ Pozor</span>
+            <ul>
+              <li>Bez úvodzoviek si Python myslí, že <code>Ahoj</code> je názov premennej.</li>
+              <li>Veľké a malé písmená sú rozdiel: <code>Print</code> nie je <code>print</code>.</li>
+              <li>
+                Ukáž, kde sú na slovenskej klávesnici úvodzovky, zátvorky a
+                <code>*</code>. Deti ich hľadajú dlho.
+              </li>
+              <li>
+                <code>print "Ahoj"</code> bez zátvoriek z internetu je starý
+                Python 2. Hláška to aj povie: <em>Missing parentheses</em>.
+              </li>
+            </ul>
+          </div>
+          <div class="todo-kids">
+            <span class="lbl">✏️ Deti</span>
+            Úloha 3. Keď je nálada: <code>import antigravity</code> otvorí v
+            prehliadači komiks xkcd o Pythone.
+          </div>
+        </div>
+      </details>
+
+      <details class="blk" id="b3">
+        <summary>
+          <span class="time">25–40</span>
+          <span class="ttl">Prečo súbor: Shell je ako RAM</span>
+          <span class="who both">ukazujem → úloha 4</span>
+        </summary>
+        <div class="in">
+          <div class="say">
+            <span class="lbl">💬 Povedz</span>
+            <p>„Zatvorte Shell a otvorte ho znova. Kde sú vaše výpočty?" → preč.</p>
+            <p>
+              „Pamätáte si RAM? Po vypnutí zabudne. Shell je presne taký. Ak má
+              program ostať, musíme ho uložiť na disk, do súboru."
+            </p>
+          </div>
+          <div class="proj">
+            <span class="lbl">Na projektor</span>
+            <em>File → New File</em>, napíš vizitku, <em>Ctrl + S</em> ako
+            <code>vizitka.py</code>, spusti <em>F5</em>.
+            <div class="file">
+              <pre><code>print("*" * 30)
+print("Volám sa Michal.")
+print("Učím informatiku.")
+print("*" * 30)</code></pre>
+            </div>
+            Potom do súboru napíš len <code>2 + 3</code> a spusti. Nevypíše sa
+            nič.
+          </div>
+          <div class="say">
+            <span class="lbl">💬 Povedz</span>
+            <p>„Teraz máte dve okná. V súbore píšete, v Shelli to beží. F5 = spusti."</p>
+            <p>„V Shelli Python odpovedá sám. V programe mu musíte povedať <code>print</code>."</p>
+          </div>
+          <div class="watch">
+            <span class="lbl">⚠️ Pozor</span>
+            <ul>
+              <li>Do súboru nepíšu <code>&gt;&gt;&gt;</code> ani skopírované výsledky zo Shellu.</li>
+              <li>F5 funguje iba v okne so súborom, nie v Shelli.</li>
+              <li>Neuložený súbor: IDLE sa spýta <em>Source Must Be Saved</em> → OK a uložiť.</li>
+              <li>
+                Názov bez diakritiky a medzier, <code>.py</code> doplní IDLE
+                samo. Nikdy nie <code>turtle.py</code>, o týždeň by to rozbilo
+                korytnačku.
+              </li>
+              <li>Ukáž, do ktorého priečinka ukladať.</li>
+            </ul>
+          </div>
+          <div class="todo-kids">
+            <span class="lbl">✏️ Deti</span>
+            Úloha 4: vizitka.
+          </div>
+        </div>
+      </details>
+
+      <details class="blk" id="b4">
+        <summary>
+          <span class="time">40–45</span>
+          <span class="ttl">Rezerva</span>
+          <span class="who kids">deti</span>
+        </summary>
+        <div class="in">
+          <p>
+            Kto nestíha, dobehne úlohy 1–4. Kto je hotový, vylepší vizitku:
+            rámček z iných znakov, viac riadkov alebo malý obrázok z
+            <code>print</code>.
+          </p>
+        </div>
+      </details>
+
+      <h2>2. polčas</h2>
+
+      <details class="blk" id="b5">
+        <summary>
+          <span class="time">45–65</span>
+          <span class="ttl"><code>input</code>, premenné a <code>int()</code></span>
+          <span class="who both">ukazujem → úlohy 5–6</span>
+        </summary>
+        <div class="in">
+          <div class="proj">
+            <span class="lbl">Na projektor (Shell)</span>
+            <pre class="idle"><span class="p">&gt;&gt;&gt; </span>meno = input("Ako sa voláš? ")
+<span class="o">Ako sa voláš? </span>Ema
+<span class="p">&gt;&gt;&gt; </span>meno
+<span class="o">'Ema'</span>
+<span class="p">&gt;&gt;&gt; </span>print("Ahoj", meno)
+<span class="o">Ahoj Ema</span></pre>
+          </div>
+          <div class="say">
+            <span class="lbl">💬 Povedz</span>
+            <p>
+              „<code>meno</code> je premenná, šuflík v pamäti s nálepkou. Rovná
+              sa tu neznamená rovnosť ako v matematike, ale: vlož do šuflíka."
+            </p>
+          </div>
+          <div class="proj">
+            <span class="lbl">Na projektor: prečo <code>int()</code></span>
+            <pre class="idle"><span class="p">&gt;&gt;&gt; </span>rok = input("Rok narodenia? ")
+<span class="o">Rok narodenia? </span>2012
+<span class="p">&gt;&gt;&gt; </span>2026 - rok
+<span class="e">TypeError: unsupported operand type(s) for -: 'int' and 'str'</span>
+<span class="p">&gt;&gt;&gt; </span>rok = int(input("Rok narodenia? "))
+<span class="o">Rok narodenia? </span>2012
+<span class="p">&gt;&gt;&gt; </span>2026 - rok
+<span class="o">14</span></pre>
+          </div>
+          <div class="say">
+            <span class="lbl">💬 Povedz</span>
+            <p>
+              „Z klávesnice príde vždy text, aj keď napíšete 2012. Pre Python
+              je to ako slovo. <code>int()</code> z textu urobí číslo. Spomínate
+              si na <code>"5" + "5"</code>?"
+            </p>
+          </div>
+          <p>
+            Potom ukáž riešený príklad z časti C ako súbor a zadaj rok 2050.
+            Vek vyjde záporný: „Počítač počítal správne, chybu urobil človek."
+            Je to ten istý chyták ako v prezentácii.
+          </p>
+          <div class="watch">
+            <span class="lbl">⚠️ Pozor</span>
+            <ul>
+              <li>
+                <code>vek + 10</code> bez <code>int()</code> →
+                <em>TypeError: can only concatenate str (not "int") to str</em>.
+              </li>
+              <li><code>int(input(…))</code> má na konci dve zátvorky, často jedna chýba.</li>
+              <li>
+                „Program nič nerobí": čaká na odpoveď. Kurzor bliká v Shelli pri
+                otázke.
+              </li>
+            </ul>
+          </div>
+          <div class="todo-kids">
+            <span class="lbl">✏️ Deti</span>
+            Úlohy 5 a 6.
+          </div>
+        </div>
+      </details>
+
+      <details class="blk" id="b6">
+        <summary>
+          <span class="time">65–85</span>
+          <span class="ttl">Projekt: Bláznivá rozprávka</span>
+          <span class="who kids">úloha 7</span>
+        </summary>
+        <div class="in">
+          <div class="say">
+            <span class="lbl">💬 Povedz</span>
+            <p>
+              „Napíšte program, ktorý sa vypýta pár slov a zloží z nich príbeh.
+              Kto slová zadáva, príbeh nevidí. Čím bláznivejší, tým lepší."
+            </p>
+          </div>
+          <div class="todo-kids">
+            <span class="lbl">✏️ Deti</span>
+            Úloha 7. Posledných 5 minút sa vymenia miestami a každý vyplní
+            rozprávku suseda.
+          </div>
+          <div class="watch">
+            <span class="lbl">⚠️ Pozor</span>
+            <ul>
+              <li>
+                Slovenčina má pády, takže gramatika nebude vždy sedieť („V
+                laviciach sedia mačka"). Aj to je súčasť zábavy. Kto chce, dá do
+                otázky príklad správneho tvaru, ako v ukážke.
+              </li>
+              <li>Čiarka v <code>print</code> robí medzeru, <code>+</code> nie, preto <code>jedlo + "!"</code>.</li>
+              <li>Rozprávky budú čítať spolužiaci, nech sú slušné.</li>
+            </ul>
+          </div>
+          <p>Ak ostane čas: 2–3 rozprávky na projektore, autor ich vyplní naživo.</p>
+        </div>
+      </details>
+
+      <details class="blk" id="b7">
+        <summary>
+          <span class="time">85–90</span>
+          <span class="ttl">Ochutnávka: korytnačka</span>
+          <span class="who show">ukazujem</span>
+        </summary>
+        <div class="in">
+          <div class="proj">
+            <span class="lbl">Na projektor</span>
+            Spusti pripravený súbor:
+            <div class="file">
+              <span class="name">ochutnavka.py</span>
+              <pre><code>import turtle as t
+
+t.bgcolor("black")
+t.speed(0)
+t.pensize(2)
+farby = ["red", "orange", "yellow", "green", "blue", "purple"]
+for i in range(200):
+    t.pencolor(farby[i % 6])
+    t.forward(i * 1.5)
+    t.left(59)
+t.done()</code></pre>
+              <button type="button" class="copy">Kopírovať</button>
+            </div>
+          </div>
+          <div class="say">
+            <span class="lbl">💬 Povedz</span>
+            <p>
+              „Toto je pár riadkov. Budúci týždeň budete kresliť vy a každý si
+              nakreslí svoje meno."
+            </p>
+          </div>
+          <p>
+            <code>for</code> ani zoznam farieb zatiaľ nevysvetľuj, nech to ostane
+            ako háčik na ďalšie hodiny.
+          </p>
+        </div>
+      </details>
+
+      <h2>Riešenia úloh</h2>
+
+      <details class="blk sol">
+        <summary>
+          <span class="time">✔</span>
+          <span class="ttl">Riešenia z pracovného listu</span>
+          <span></span>
+        </summary>
+        <div class="in">
+          <ol>
+            <li>
+              86 400 sekúnd · <code>2 ** 64 - 1</code> =
+              18446744073709551615, to je <strong>20 cifier</strong>.
+            </li>
+            <li>
+              <code>10</code> · <code>'55'</code> · <code>'555'</code> ·
+              <code>'hahahahahahahahahaha'</code> · <code>2.5</code>. Text sa
+              nesčítava, ale lepí sa za seba. Shell ukazuje text v apostrofoch.
+            </li>
+            <li>Vo všetkých troch riadkoch <code>print("Ahoj")</code>.</li>
+            <li>Vlastná vizitka, kontroluj len, či ide F5.</li>
+            <li>
+              <em>ValueError: invalid literal for int() with base 10: 'abc'</em>.
+              Z písmen sa číslo urobiť nedá.
+            </li>
+            <li>
+              <div class="file">
+                <pre><code>a = int(input("Prvé číslo: "))
+b = int(input("Druhé číslo: "))
+print("Súčet je", a + b)
+print("Súčin je", a * b)</code></pre>
+              </div>
+            </li>
+            <li>Vlastná rozprávka.</li>
+            <li>
+              <div class="file">
+                <pre><code>vek = int(input("Koľko máš rokov? "))
+print("Žiješ asi", vek * 365 * 24 * 60 * 60, "sekúnd.")</code></pre>
+              </div>
+            </li>
+            <li>
+              <div class="file">
+                <pre><code>cislo = int(input("Koľko hviezdičiek? "))
+print("*" * cislo)</code></pre>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </details>
+
+      <h2>Keď nestíhaš / keď ostane čas</h2>
+      <div class="cols">
+        <div class="card">
+          <h3>Nestíhaš</h3>
+          <ul>
+            <li>Vynechaj legendu o šachu a úlohu 6.</li>
+            <li>Rozprávku môžu dokončiť doma.</li>
+            <li>Ochutnávku nevynechávaj, je to háčik na ďalšiu hodinu.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Ostane čas</h3>
+          <ul>
+            <li>Bonusy 8 a 9.</li>
+            <li>Rozprávky na projektore.</li>
+            <li><code>import antigravity</code></li>
+          </ul>
+        </div>
+      </div>
+
+      <footer>
+        Súkromná základná škola waldorfská · Informatika 9. ročník 2026/2027 ·
+        Michal Puškel
+      </footer>
+    </div>
+
+    <script>
+      const blocks = document.querySelectorAll("details.blk");
+
+      document.querySelectorAll("[data-all]").forEach((btn) =>
+        btn.addEventListener("click", () => {
+          const open = btn.dataset.all === "open";
+          blocks.forEach((d) => (d.open = open));
+        })
+      );
+
+      // klik na časovú os rozbalí a ukáže príslušný blok
+      document.querySelectorAll(".timeline a").forEach((a) =>
+        a.addEventListener("click", () => {
+          const target = document.querySelector(a.getAttribute("href"));
+          if (target) target.open = true;
+        })
+      );
+
+      // pri tlači rozbaliť všetko, potom vrátiť pôvodný stav
+      let openBeforePrint = [];
+      window.addEventListener("beforeprint", () => {
+        openBeforePrint = [...blocks].map((d) => d.open);
+        blocks.forEach((d) => (d.open = true));
+      });
+      window.addEventListener("afterprint", () =>
+        blocks.forEach((d, i) => (d.open = openBeforePrint[i]))
+      );
+
+      document.querySelectorAll(".copy").forEach((btn) =>
+        btn.addEventListener("click", async () => {
+          const code = btn.parentElement.querySelector("code").innerText;
+          try {
+            await navigator.clipboard.writeText(code);
+            btn.textContent = "Skopírované ✓";
+          } catch {
+            btn.textContent = "Označ a skopíruj ručne";
+          }
+          setTimeout(() => (btn.textContent = "Kopírovať"), 2000);
+        })
+      );
+    </script>
+  </body>
+</html>

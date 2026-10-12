@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prvý program – pracovný list</title>
+    <style>
+      :root {
+        --ink: #1d232b;
+        --muted: #5b6573;
+        --line: #c9d1dc;
+        --accent: #1b5cb8;
+        --code-bg: #f4f6f9;
+        --desk: #eef1f5;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--desk);
+        color: var(--ink);
+        font: 11.5pt/1.45 "Segoe UI", Roboto, Arial, sans-serif;
+      }
+      .nav {
+        max-width: 210mm;
+        margin: 0 auto;
+        padding: 14px 16px 0;
+        font-size: 10.5pt;
+      }
+      .nav a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .sheet {
+        max-width: 210mm;
+        margin: 10px auto 40px;
+        background: #fff;
+        padding: 13mm 15mm;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+      }
+      header.ws {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 16px;
+        border-bottom: 2px solid var(--ink);
+        padding-bottom: 6px;
+        margin-bottom: 10px;
+      }
+      header.ws h1 {
+        margin: 0;
+        font-size: 20pt;
+        line-height: 1.1;
+      }
+      .meta {
+        font-size: 9.5pt;
+        color: var(--muted);
+        margin-top: 3px;
+      }
+      .name {
+        font-size: 10.5pt;
+        white-space: nowrap;
+      }
+      .name span {
+        display: inline-block;
+        width: 50mm;
+        border-bottom: 1px dotted var(--ink);
+      }
+      .lead {
+        margin: 0 0 10px;
+      }
+      h2 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12.5pt;
+        margin: 13px 0 6px;
+        padding-bottom: 3px;
+        border-bottom: 1px solid var(--line);
+        break-after: avoid;
+      }
+      h2 .k {
+        display: inline-grid;
+        place-items: center;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--ink);
+        color: #fff;
+        font-size: 10pt;
+      }
+      .task {
+        display: grid;
+        grid-template-columns: 24px 1fr;
+        gap: 0 8px;
+        margin: 8px 0;
+        break-inside: avoid;
+      }
+      .task > .n {
+        font-weight: 700;
+        text-align: center;
+        border: 1.5px solid var(--ink);
+        border-radius: 4px;
+        height: 22px;
+        line-height: 19px;
+        font-size: 10pt;
+      }
+      .task.bonus > .n {
+        border-style: dashed;
+      }
+      .task > *,
+      .pair > *,
+      .solved > .body > * {
+        min-width: 0;
+      }
+      .task p {
+        margin: 0 0 4px;
+      }
+      .task ul {
+        margin: 2px 0 4px;
+        padding-left: 18px;
+      }
+      pre,
+      code {
+        font-family: Consolas, "Fira Code", Menlo, monospace;
+      }
+      pre {
+        margin: 4px 0 6px;
+        padding: 6px 10px;
+        background: var(--code-bg);
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        font-size: 10pt;
+        line-height: 1.4;
+        white-space: pre;
+        overflow-x: auto;
+      }
+      code {
+        font-size: 0.92em;
+        background: var(--code-bg);
+        padding: 0 3px;
+        border-radius: 3px;
+        white-space: nowrap;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+        font-size: inherit;
+        white-space: inherit;
+      }
+      pre.out {
+        background: #fff;
+        border-style: dashed;
+      }
+      pre.out::before {
+        content: "výstup";
+        display: block;
+        font: 700 7.5pt "Segoe UI", Arial, sans-serif;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .hint {
+        font-size: 9.5pt;
+        color: var(--muted);
+      }
+      .blank {
+        display: inline-block;
+        min-width: 32mm;
+        border-bottom: 1px dotted var(--ink);
+      }
+      .blank.wide {
+        min-width: 90mm;
+      }
+
+      /* ťahák: dve okná IDLE */
+      .windows {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin: 8px 0 6px;
+      }
+      .win {
+        border: 1.5px solid var(--ink);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .win .bar {
+        padding: 3px 10px;
+        border-bottom: 1.5px solid var(--ink);
+        font-weight: 700;
+        font-size: 10pt;
+        background: var(--code-bg);
+      }
+      .win .body {
+        padding: 6px 10px;
+        font-size: 10pt;
+      }
+      .win pre {
+        margin: 0 0 5px;
+        padding: 3px 8px;
+      }
+      .win p {
+        margin: 2px 0;
+      }
+      .cmds {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 16px;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      /* tabuľka na tipovanie */
+      table.guess {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 4px 0;
+        font-size: 10.5pt;
+      }
+      table.guess th,
+      table.guess td {
+        border: 1px solid var(--line);
+        padding: 2px 8px;
+        text-align: left;
+      }
+      table.guess th {
+        font-size: 9pt;
+        color: var(--muted);
+        font-weight: 600;
+      }
+      table.guess td:first-child {
+        width: 34%;
+      }
+
+      /* riešený príklad */
+      .solved {
+        border: 1.5px solid var(--ink);
+        border-radius: 6px;
+        margin: 8px 0;
+        break-inside: avoid;
+      }
+      .solved > .bar {
+        padding: 3px 10px;
+        background: var(--ink);
+        color: #fff;
+        font-weight: 700;
+        font-size: 10pt;
+      }
+      .solved > .body {
+        padding: 8px 10px;
+      }
+      .tagged {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 3px 10px;
+        align-items: center;
+        background: var(--code-bg);
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        padding: 6px 10px;
+        font: 10pt/1.4 Consolas, "Fira Code", Menlo, monospace;
+      }
+      .tagged .code {
+        white-space: pre;
+      }
+      .tag {
+        font: 700 7.5pt "Segoe UI", Arial, sans-serif;
+        letter-spacing: 0.06em;
+        border: 1px solid var(--ink);
+        border-radius: 3px;
+        padding: 1px 6px;
+        text-align: center;
+        white-space: nowrap;
+        background: #fff;
+      }
+      .solved ul {
+        margin: 6px 0 0;
+        padding-left: 18px;
+        font-size: 10.5pt;
+      }
+      .solved .row,
+      .pair {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        align-items: start;
+      }
+
+
+      @media (max-width: 640px) {
+        .sheet {
+          padding: 18px 16px;
+        }
+        header.ws {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .windows,
+        .solved .row,
+        .pair {
+          grid-template-columns: 1fr;
+        }
+        .tagged {
+          grid-template-columns: 1fr;
+          overflow-x: auto;
+        }
+        .tag {
+          justify-self: start;
+          margin-bottom: 4px;
+        }
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 12mm 14mm;
+        }
+        body {
+          background: #fff;
+          font-size: 10.5pt;
+        }
+        .nav {
+          display: none;
+        }
+        .sheet {
+          box-shadow: none;
+          margin: 0;
+          padding: 0;
+          max-width: none;
+        }
+        pre,
+        code,
+        .tagged,
+        .win .bar {
+          background: #fff;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="nav"><a href="../index.html">← Späť na zoznam hodín</a></nav>
+
+    <main class="sheet">
+      <header class="ws">
+        <div>
+          <h1>Prvý program</h1>
+          <div class="meta">
+            Informatika 9. ročník · 1. hodina · Súkromná ZŠ waldorfská ·
+            2026/2027
+          </div>
+        </div>
+        <div class="name">Meno: <span>&nbsp;</span></div>
+      </header>
+
+      <p class="lead">
+        Minule ste v prezentácii videli bežať program, ktorý sa pýtal na meno a
+        rok. <strong>Dnes ho napíšete sami.</strong>
+      </p>
+
+      <div class="windows">
+        <div class="win">
+          <div class="bar">Shell – interaktívny režim</div>
+          <div class="body">
+            <pre>&gt;&gt;&gt; 2 + 3
+5</pre>
+            <p>Napíšeš príkaz, stlačíš Enter a Python hneď odpovie.</p>
+            <p><strong>Ako RAM:</strong> po zatvorení všetko zabudne.</p>
+          </div>
+        </div>
+        <div class="win">
+          <div class="bar">Súbor .py – program</div>
+          <div class="body">
+            <p>Otvoríš cez <strong>File → New File</strong>.</p>
+            <p>Uložíš <strong>Ctrl + S</strong>, spustíš <strong>F5</strong>.</p>
+            <p>
+              <strong>Ako disk:</strong> program ostane a spustíš ho, koľkokrát
+              chceš.
+            </p>
+          </div>
+        </div>
+      </div>
+      <ul class="cmds">
+        <li><code>print(…)</code> vypíše na obrazovku</li>
+        <li><code>input("otázka")</code> prečíta, čo napíše človek</li>
+        <li><code>int(…)</code> urobí z textu číslo</li>
+        <li>text je vždy v úvodzovkách <code>"Ahoj"</code></li>
+      </ul>
+
+      <h2><span class="k">A</span> Interaktívny režim (Shell, <code>&gt;&gt;&gt;</code>)</h2>
+
+      <div class="task">
+        <span class="n">1</span>
+        <div>
+          <p><strong>Python ako kalkulačka.</strong> Napíš za <code>&gt;&gt;&gt;</code> a stlač Enter.</p>
+          <ul>
+            <li>
+              Koľko sekúnd má jeden deň? <code>24 * 60 * 60</code> →
+              <span class="blank">&nbsp;</span>
+            </li>
+            <li>
+              Vynálezca šachu si vraj pýtal na políčka šachovnice 1, 2, 4, 8…
+              zrniek ryže. Spolu <code>2 ** 64 - 1</code> (<code>**</code> je
+              mocnina). Koľko cifier má to číslo?
+              <span class="blank" style="min-width: 15mm">&nbsp;</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="task">
+        <span class="n">2</span>
+        <div>
+          <p><strong>Najprv tipni, potom vyskúšaj.</strong></p>
+          <table class="guess">
+            <tr>
+              <th>Príkaz</th>
+              <th>Môj tip</th>
+              <th>Python vypísal</th>
+            </tr>
+            <tr><td><code>5 + 5</code></td><td></td><td></td></tr>
+            <tr><td><code>"5" + "5"</code></td><td></td><td></td></tr>
+            <tr><td><code>"5" * 3</code></td><td></td><td></td></tr>
+            <tr><td><code>"ha" * 10</code></td><td></td><td></td></tr>
+            <tr><td><code>10 / 4</code></td><td></td><td></td></tr>
+          </table>
+          <p>
+            Prečo <code>"5" + "5"</code> nie je 10?
+            <span class="blank wide">&nbsp;</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="task">
+        <span class="n">3</span>
+        <div>
+          <p>
+            <strong>Oprav chybu.</strong> V každom riadku je jedna chyba. Spusti
+            ho, prečítaj si <strong>posledný riadok</strong> červenej hlášky a
+            napíš opravený príkaz.
+          </p>
+          <table class="guess">
+            <tr><td><code>print(Ahoj)</code></td><td></td></tr>
+            <tr><td><code>Print("Ahoj")</code></td><td></td></tr>
+            <tr><td><code>print("Ahoj)</code></td><td></td></tr>
+          </table>
+        </div>
+      </div>
+
+      <h2><span class="k">B</span> Prvý súbor</h2>
+
+      <div class="task">
+        <span class="n">4</span>
+        <div>
+          <p>
+            <strong>Vizitka.</strong> Otvor <strong>File → New File</strong> a
+            napíš program, ktorý vypíše tvoju vizitku. Ulož ho ako
+            <code>vizitka.py</code> a spusti klávesom <strong>F5</strong>.
+          </p>
+          <div class="pair">
+            <pre><code>print("*" * 30)
+print("Volám sa Ema.")
+print("Najradšej mám palacinky.")
+print("*" * 30)</code></pre>
+            <pre class="out">******************************
+Volám sa Ema.
+Najradšej mám palacinky.
+******************************</pre>
+          </div>
+          <p>
+            Pridaj aspoň dva vlastné riadky. Potom niečo zmeň, ulož a spusti
+            znova.
+          </p>
+          <p class="hint">
+            Názov súboru píš bez diakritiky a medzier. Do súboru nepíš
+            <code>&gt;&gt;&gt;</code>, to patrí iba do Shellu.
+          </p>
+        </div>
+      </div>
+
+      <h2><span class="k">C</span> Vstup → pamäť → výpočet → výstup</h2>
+
+      <div class="solved">
+        <div class="bar">Riešený príklad – program z prezentácie</div>
+        <div class="body">
+          <div class="tagged">
+            <span class="code">meno = input("Ako sa voláš? ")</span>
+            <span class="tag">VSTUP → PAMÄŤ</span>
+            <span class="code">rok = int(input("Rok narodenia? "))</span>
+            <span class="tag">VSTUP → PAMÄŤ</span>
+            <span class="code">vek = 2026 - rok</span>
+            <span class="tag">ALU – PROCESOR POČÍTA</span>
+            <span class="code">print("Ahoj", meno, "- máš", vek, "rokov!")</span>
+            <span class="tag">VÝSTUP</span>
+          </div>
+          <div class="row">
+            <ul>
+              <li>
+                <code>meno = …</code> vytvorí v pamäti <strong>premennú</strong>,
+                šuflík s nálepkou <code>meno</code>.
+              </li>
+              <li>
+                Z klávesnice príde vždy <strong>text</strong>.
+                <code>int()</code> z neho urobí číslo.
+              </li>
+              <li>Čiarky v <code>print</code> vložia medzi časti medzeru.</li>
+            </ul>
+            <pre class="out">Ako sa voláš? Ema
+Rok narodenia? 2012
+Ahoj Ema - máš 14 rokov!</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="task">
+        <span class="n">5</span>
+        <div>
+          <p>
+            Prepíš príklad do súboru <code>vek.py</code> a spusti ho. Potom do
+            roku zadaj písmená. Čo sa stane a prečo?
+          </p>
+          <p><span class="blank wide">&nbsp;</span></p>
+        </div>
+      </div>
+
+      <div class="task">
+        <span class="n">6</span>
+        <div class="pair">
+          <p>
+            <strong>Kalkulačka.</strong> Program sa opýta na dve čísla a vypíše
+            ich súčet aj súčin.
+          </p>
+          <pre class="out">Prvé číslo: 6
+Druhé číslo: 7
+Súčet je 13
+Súčin je 42</pre>
+        </div>
+      </div>
+
+      <h2><span class="k">D</span> Projekt: Bláznivá rozprávka</h2>
+
+      <div class="task">
+        <span class="n">7</span>
+        <div>
+          <p>
+            Program sa vypýta pár slov a zloží z nich príbeh. Kto slová zadáva,
+            príbeh vopred nevidí, a práve preto je vtipný. Začni takto a
+            pokračuj vlastnými riadkami:
+          </p>
+          <pre><code>meno = input("Meno spolužiaka: ")
+zvierata = input("Zvieratá v množnom čísle (napr. tučniaky): ")
+jedlo = input("Jedlo: ")
+kam = input("Kam? (napr. do Paríža): ")
+
+print("Je pondelok ráno.", meno, "otvorí dvere triedy.")
+print("V laviciach sedia", zvierata + ".")
+print("Učiteľ povie: Dnes budeme variť", jedlo + "!")
+print("Všetci utekajú", kam + ".")</code></pre>
+          <p class="hint">
+            <code>+</code> spojí text bez medzery, preto <code>jedlo + "!"</code>.
+            Pamätáš si <code>"5" + "5"</code>?
+          </p>
+          <p>
+            Keď je hotová, vymeňte si miesta so susedom a vyplňte si rozprávky
+            navzájom.
+          </p>
+        </div>
+      </div>
+
+      <h2><span class="k">★</span> Bonus</h2>
+
+      <div class="task bonus">
+        <span class="n">8</span>
+        <div>
+          <p>
+            <strong>Koľko sekúnd už žiješ?</strong> Program sa opýta na vek v
+            rokoch a vypíše približný počet sekúnd.
+            <span class="hint">Tip: koľko sekúnd má rok?</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="task bonus">
+        <span class="n">9</span>
+        <div>
+          <p>
+            <strong>Hviezdičky na objednávku.</strong> Program sa opýta na číslo
+            a vypíše riadok s toľkými hviezdičkami.
+            <span class="hint">Tip: <code>"*" * cislo</code>, ale pozor, čo vráti
+            <code>input</code>?</span>
+          </p>
+        </div>
+      </div>
+
+    </main>
+  </body>
+</html>
