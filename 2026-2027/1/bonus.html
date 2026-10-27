@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Násobilka a vzory – bonus</title>
+    <style>
+      :root {
+        --ink: #1d232b;
+        --muted: #5b6573;
+        --line: #c9d1dc;
+        --accent: #1b5cb8;
+        --code-bg: #f4f6f9;
+        --desk: #eef1f5;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--desk);
+        color: var(--ink);
+        font: 11.5pt/1.45 "Segoe UI", Roboto, Arial, sans-serif;
+      }
+      .nav {
+        max-width: 210mm;
+        margin: 0 auto;
+        padding: 14px 16px 0;
+        font-size: 10.5pt;
+      }
+      .nav a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .sheet {
+        max-width: 210mm;
+        margin: 10px auto 40px;
+        background: #fff;
+        padding: 13mm 15mm;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+      }
+      header.ws {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 16px;
+        border-bottom: 2px solid var(--ink);
+        padding-bottom: 6px;
+        margin-bottom: 10px;
+      }
+      header.ws h1 {
+        margin: 0;
+        font-size: 20pt;
+        line-height: 1.1;
+      }
+      .meta {
+        font-size: 9.5pt;
+        color: var(--muted);
+        margin-top: 3px;
+      }
+      .name {
+        font-size: 10.5pt;
+        white-space: nowrap;
+      }
+      .name span {
+        display: inline-block;
+        width: 50mm;
+        border-bottom: 1px dotted var(--ink);
+      }
+      .lead {
+        margin: 0 0 8px;
+      }
+      h2 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12.5pt;
+        margin: 13px 0 6px;
+        padding-bottom: 3px;
+        border-bottom: 1px solid var(--line);
+        break-after: avoid;
+      }
+      h2 .k {
+        display: inline-grid;
+        place-items: center;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--ink);
+        color: #fff;
+        font-size: 10pt;
+      }
+      .task {
+        display: grid;
+        grid-template-columns: 24px 1fr;
+        gap: 0 8px;
+        margin: 8px 0;
+        break-inside: avoid;
+      }
+      .task > .n {
+        font-weight: 700;
+        text-align: center;
+        border: 1.5px solid var(--ink);
+        border-radius: 4px;
+        height: 22px;
+        line-height: 19px;
+        font-size: 10pt;
+      }
+      .task > *,
+      .pair > * {
+        min-width: 0;
+      }
+      .task p {
+        margin: 0 0 4px;
+      }
+      pre,
+      code {
+        font-family: Consolas, "Fira Code", Menlo, monospace;
+      }
+      pre {
+        margin: 4px 0 6px;
+        padding: 6px 10px;
+        background: var(--code-bg);
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        font-size: 10pt;
+        line-height: 1.4;
+        white-space: pre;
+        overflow-x: auto;
+      }
+      code {
+        font-size: 0.92em;
+        background: var(--code-bg);
+        padding: 0 3px;
+        border-radius: 3px;
+        white-space: nowrap;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+        font-size: inherit;
+        white-space: inherit;
+      }
+      pre.out {
+        background: #fff;
+        border-style: dashed;
+      }
+      pre.out::before {
+        content: "výstup";
+        display: block;
+        font: 700 7.5pt "Segoe UI", Arial, sans-serif;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .hint {
+        font-size: 9.5pt;
+        color: var(--muted);
+      }
+      .blank {
+        display: inline-block;
+        min-width: 32mm;
+        border-bottom: 1px dotted var(--ink);
+      }
+      .blank.wide {
+        min-width: 90mm;
+      }
+      .pair {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        align-items: start;
+      }
+      .cmds {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 16px;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .master {
+        border-left: 3px solid var(--ink);
+        padding-left: 8px;
+        margin: 4px 0;
+      }
+
+      /* riešenia: iba na obrazovke, netlačia sa */
+      details.solutions {
+        margin-top: 18px;
+        border: 1.5px solid var(--ink);
+        border-radius: 6px;
+      }
+      details.solutions > summary {
+        padding: 4px 10px;
+        background: var(--ink);
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      details.solutions .body {
+        padding: 8px 12px;
+      }
+      details.solutions h3 {
+        font-size: 11pt;
+        margin: 12px 0 2px;
+      }
+      details.solutions p {
+        margin: 2px 0 4px;
+        font-size: 10.5pt;
+      }
+
+      @media (max-width: 640px) {
+        .sheet {
+          padding: 18px 16px;
+        }
+        header.ws {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .pair {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 12mm 14mm;
+        }
+        body {
+          background: #fff;
+          font-size: 10.5pt;
+        }
+        .nav,
+        details.solutions {
+          display: none;
+        }
+        .sheet {
+          box-shadow: none;
+          margin: 0;
+          padding: 0;
+          max-width: none;
+        }
+        pre,
+        code {
+          background: #fff;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="nav"><a href="pracovny_list.html">← Pracovný list 1. hodiny</a></nav>
+
+    <main class="sheet">
+      <header class="ws">
+        <div>
+          <h1>Bonus: násobilka a vzory</h1>
+          <div class="meta">
+            Informatika 9. ročník · 1. hodina, bonus · Súkromná ZŠ
+            waldorfská · 2026/2027
+          </div>
+        </div>
+        <div class="name">Meno: <span>&nbsp;</span></div>
+      </header>
+
+      <p class="lead">
+        Máš hotovo? Tu sú ďalšie úlohy, od ľahších po ťažšie. Ku každej si
+        založ nový súbor (<strong>File → New File</strong>), ulož ho a spusti
+        <strong>F5</strong>. Nemusíš urobiť všetky. Všímaj si, koľko riadkov
+        v tvojich programoch je skoro rovnakých. Programátori to robiť nechcú,
+        a preto na to existuje skratka. Čoskoro sa ju naučíme.
+      </p>
+      <ul class="cmds">
+        <li><code>print(…)</code> vypíše</li>
+        <li><code>input("otázka")</code> prečíta text</li>
+        <li><code>int(…)</code> urobí z textu číslo</li>
+        <li><code>"*" * 5</code> zopakuje text</li>
+        <li><code>"a" + "b"</code> spojí text</li>
+      </ul>
+
+      <h2><span class="k">A</span> Násobilka inak</h2>
+
+      <div class="task">
+        <span class="n">1</span>
+        <div class="pair">
+          <div>
+            <p>
+              <strong>Násobilka ako v zošite.</strong> Program sa opýta na
+              číslo a vypíše jeho násobilku pod seba, aj s príkladmi.
+            </p>
+            <p class="hint">
+              Tip: <code>print(n, "x", 1, "=", n * 1)</code>. Riadok skopíruj
+              a v kópii zmeň len to, čo treba.
+            </p>
+          </div>
+          <pre class="out">Ktorú násobilku? 7
+7 x 1 = 7
+7 x 2 = 14
+7 x 3 = 21
+…
+7 x 10 = 70</pre>
+        </div>
+      </div>
+
+      <div class="task">
+        <span class="n">2</span>
+        <div>
+          <p>
+            <strong>Rovná tabuľka.</strong> Tvoja mriežka malej násobilky je
+            krivá, lebo čísla majú rôzny počet cifier. Nový trik:
+            <code>sep="\t"</code> na konci <code>print</code> vloží medzi čísla
+            tabulátor a stĺpce sa zarovnajú. Oprav celú mriežku.
+          </p>
+          <div class="pair">
+            <pre><code>print(1, 2, 3, 4, 5, sep="\t")
+print(2, 4, 6, 8, 10, sep="\t")</code></pre>
+            <pre class="out">1       2       3       4       5
+2       4       6       8       10</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="task">
+        <span class="n">3</span>
+        <div>
+          <p>
+            <strong>Uhlopriečka a schody.</strong>
+          </p>
+          <p>
+            a) V mriežke nájdi čísla na uhlopriečke, od ľavého horného rohu po
+            pravý dolný. Vypíš ich do jedného riadku. Ako sa volajú tieto
+            čísla? <span class="blank">&nbsp;</span>
+          </p>
+          <div class="pair">
+            <p>
+              b) Vypíš iba polovicu tabuľky, ako schody. Každý riadok končí na
+              uhlopriečke.<br />
+              Koľko čísel je v schodoch?
+              <span class="blank" style="min-width: 15mm">&nbsp;</span><br />
+              A v celej tabuľke?
+              <span class="blank" style="min-width: 15mm">&nbsp;</span><br />
+              Prečo to nie je presne polovica?
+            </p>
+            <pre class="out">1
+2 4
+3 6 9
+4 8 12 16
+…
+10 20 30 … 100</pre>
+          </div>
+        </div>
+      </div>
+
+      <h2><span class="k">B</span> Premenná, ktorá sa mení</h2>
+
+      <div class="task">
+        <span class="n">4</span>
+        <div>
+          <p>
+            <strong>Zrnká ryže.</strong> Pamätáš si legendu o šachu? Na každom
+            políčku je dvakrát viac zrniek ako na predchádzajúcom. Dokonči
+            program až po 10. políčko.
+          </p>
+          <div class="pair">
+            <pre><code>zrnka = 1
+print("Políčko 1:", zrnka)
+zrnka = zrnka * 2
+print("Políčko 2:", zrnka)
+zrnka = zrnka * 2
+print("Políčko 3:", zrnka)</code></pre>
+            <pre class="out">Políčko 1: 1
+Políčko 2: 2
+Políčko 3: 4
+…
+Políčko 10: 512</pre>
+          </div>
+          <p class="hint">
+            <code>zrnka = zrnka * 2</code> v matematike nedáva zmysel. V Pythone
+            znamená: zober, čo je v šuflíku <code>zrnka</code>, vynásob dvomi a
+            vlož to späť.
+          </p>
+          <p class="master">
+            <strong>Majster:</strong> pridaj premennú <code>spolu</code>, ktorá
+            ráta všetky zrnká doteraz (<code>spolu = spolu + zrnka</code>).
+            Koľko ich je po 10 políčkach?
+            <span class="blank" style="min-width: 15mm">&nbsp;</span>
+            Porovnaj to s <code>2 ** 10</code>. Čo vidíš?
+          </p>
+        </div>
+      </div>
+
+      <h2><span class="k">C</span> Obrázky z textu</h2>
+
+      <div class="task">
+        <span class="n">5</span>
+        <div>
+          <p>
+            <strong>Šachovnica.</strong> Nakresli šachovnicu 8 × 8. Stačia ti
+            dva druhy riadkov, ulož si ich do premenných.
+          </p>
+          <div class="pair">
+            <pre><code>a = "##  " * 4
+b = "  ##" * 4
+print(a)
+print(b)
+print(a)</code></pre>
+            <pre class="out">##  ##  ##  ##
+  ##  ##  ##  ##
+##  ##  ##  ##
+  ##  ##  ##  ##
+…</pre>
+          </div>
+          <p>
+            Potom nech sa program opýta, z akého znaku má byť šachovnica.
+            <span class="hint">Tip: <code>(znak * 2 + "  ") * 4</code></span>
+          </p>
+          <p class="master">
+            <strong>Majster:</strong> <code>"\n"</code> v texte znamená nový
+            riadok. Vieš vypísať celú šachovnicu jediným <code>print</code>?
+          </p>
+        </div>
+      </div>
+
+      <div class="task">
+        <span class="n">6</span>
+        <div>
+          <div class="pair">
+            <div>
+              <p>
+                <strong>Stromček.</strong> Vypíš stromček s kmeňom. Najprv
+                spočítaj na papieri, koľko medzier a hviezdičiek je v každom
+                riadku.
+              </p>
+              <p class="hint">
+                Tip: <code>" " * 4 + "*" * 1</code>. Každý riadok má o 1
+                medzeru menej a o 2 hviezdičky viac.
+              </p>
+            </div>
+            <pre class="out">    *
+   ***
+  *****
+ *******
+*********
+   |||</pre>
+          </div>
+          <p class="master">
+            <strong>Majster:</strong> použi premenné <code>medzery = 4</code> a
+            <code>hviezdy = 1</code> a za každým riadkom ich zmeň, ako zrnká v
+            úlohe 4. Potom budú všetky riadky stromčeka v programe rovnaké.
+          </p>
+        </div>
+      </div>
+
+      <div class="task">
+        <span class="n">7</span>
+        <div>
+          <p>
+            <strong>Meno v rámčeku.</strong>
+          </p>
+          <div class="pair">
+            <div>
+              <p>
+                a) Program sa opýta na šírku a nakreslí rámček takej šírky.
+                <span class="hint">Koľko medzier je v strednom riadku?</span>
+              </p>
+              <pre class="out">Šírka? 12
+************
+*          *
+*          *
+************</pre>
+            </div>
+            <div>
+              <p>
+                b) Program sa opýta na meno a vloží ho do rámčeka, ktorý mu
+                presne sedí.
+                <span class="hint">Nový trik: <code>len(meno)</code> vráti počet
+                písmen.</span>
+              </p>
+              <pre class="out">Meno: Ema
+*******
+*     *
+* Ema *
+*     *
+*******</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <details class="solutions">
+        <summary>Riešenia (pre učiteľa, netlačí sa)</summary>
+        <div class="body">
+          <h3>1 · Násobilka ako v zošite</h3>
+          <pre><code>n = int(input("Ktorú násobilku? "))
+print(n, "x", 1, "=", n * 1)
+print(n, "x", 2, "=", n * 2)
+…
+print(n, "x", 10, "=", n * 10)</code></pre>
+          <p>
+            Bez úvodzoviek okolo <code>x</code> príde NameError. Otázka do
+            pléna: koľko riadkov by mala násobilka do 100?
+          </p>
+
+          <h3>2 · Rovná tabuľka</h3>
+          <p>
+            Do každého z 10 riadkov mriežky doplniť <code>, sep="\t"</code>.
+            Ak sa riadky v Shelli zalamujú, stačí rozšíriť okno.
+          </p>
+
+          <h3>3 · Uhlopriečka a schody</h3>
+          <pre><code>print(1 * 1, 2 * 2, 3 * 3, 4 * 4, 5 * 5, 6 * 6, 7 * 7, 8 * 8, 9 * 9, 10 * 10)
+print(1)
+print(2, 4)
+print(3, 6, 9)
+…</code></pre>
+          <p>
+            Štvorce (druhé mocniny), 1 4 9 … 100. V schodoch je 1 + 2 + … + 10 =
+            55 čísel, v tabuľke 100. Viac ako polovica, lebo uhlopriečka (10
+            čísel) patrí do schodov celá. Kto chce, môže písať aj
+            <code>3 ** 2</code>.
+          </p>
+
+          <h3>4 · Zrnká ryže</h3>
+          <pre><code>zrnka = 1
+spolu = 1
+print("Políčko 1:", zrnka, "spolu", spolu)
+zrnka = zrnka * 2
+spolu = spolu + zrnka
+print("Políčko 2:", zrnka, "spolu", spolu)
+…</code></pre>
+          <p>
+            Po 10 políčkach je spolu 1023, teda <code>2 ** 10 - 1</code>.
+            Rovnaký vzorec ako <code>2 ** 64 - 1</code> z 1. hodiny. Kľúčová
+            myšlienka pre cyklus: premenná sa prepisuje podľa svojej starej
+            hodnoty a dva riadky sa opakujú stále rovnako.
+          </p>
+
+          <h3>5 · Šachovnica</h3>
+          <pre><code>znak = input("Aký znak? ")
+a = (znak * 2 + "  ") * 4
+b = ("  " + znak * 2) * 4
+print(a)
+print(b)
+…
+print((a + "\n" + b + "\n") * 4)</code></pre>
+          <p>
+            Políčko má 2 znaky na šírku, lebo písmená sú vyššie ako širšie.
+            Znak z dvoch symbolov (napr. <code>@#</code>) šachovnicu rozbije,
+            aj to je zaujímavé.
+          </p>
+
+          <h3>6 · Stromček</h3>
+          <pre><code>medzery = 4
+hviezdy = 1
+print(" " * medzery + "*" * hviezdy)
+medzery = medzery - 1
+hviezdy = hviezdy + 2
+print(" " * medzery + "*" * hviezdy)
+…
+print("   |||")</code></pre>
+          <p>
+            Ľahká verzia: 5 × <code>print</code> s textom napísaným rukou.
+            Verzia s premennými je ten istý trojriadkový blok stále dookola,
+            pripravené na <code>for</code>.
+          </p>
+
+          <h3>7 · Meno v rámčeku</h3>
+          <pre><code>sirka = int(input("Šírka? "))
+print("*" * sirka)
+print("*" + " " * (sirka - 2) + "*")
+print("*" + " " * (sirka - 2) + "*")
+print("*" * sirka)
+
+meno = input("Meno: ")
+sirka = len(meno) + 4
+print("*" * sirka)
+print("*" + " " * (sirka - 2) + "*")
+print("* " + meno + " *")
+print("*" + " " * (sirka - 2) + "*")
+print("*" * sirka)</code></pre>
+          <p>
+            Častá chyba: zabudnuté zátvorky v <code>" " * (sirka - 2)</code>.
+            Bez nich Python spraví <code>" " * sirka</code> a potom odčíta 2 od
+            textu, TypeError.
+          </p>
+        </div>
+      </details>
+    </main>
+  </body>
+</html>
