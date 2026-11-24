@@ -624,6 +624,11 @@ t.done()</code></pre>
               raz, na konci."
             </p>
             <p>
+              „Odsadzujte klávesom <strong>Tab</strong>. IDLE z neho urobí 4
+              medzery, takže Tab a 4 medzery sú to isté. Medzerníkom sa ľahko
+              pomýlite o jednu. Backspace zmaže celé odsadenie naraz."
+            </p>
+            <p>
               „<code>speed</code> poznáte: 1 je pomaly, 10 rýchlo, 0
               najrýchlejšie. Kto skúsi <code>speed(100)</code>, bude to tiež
               najrýchlejšie, všetko nad 10 berie korytnačka ako 0."
@@ -637,7 +642,8 @@ t.done()</code></pre>
                 <em>SyntaxError: expected ':'</em>.
               </li>
               <li>
-                Jeden riadok odsadený inak (3 medzery namiesto 4) →
+                Jeden riadok odsadený inak (3 medzery namiesto 4, typicky kto
+                ťuká medzerník) →
                 <em>IndentationError: unindent does not match any outer
                 indentation level</em> alebo <em>unexpected indent</em>.
               </li>
@@ -647,7 +653,13 @@ t.done()</code></pre>
               </li>
               <li>
                 IDLE po dvojbodke a Enteri odsadí sám. Na konci cyklu treba
-                Backspace, inak sa do cyklu dostane aj <code>t.done()</code>.
+                Backspace (zmaže všetky 4 medzery), inak sa do cyklu dostane aj
+                <code>t.done()</code>.
+              </li>
+              <li>
+                Tab = 4 medzery platí v IDLE. V Poznámkovom bloku je Tab
+                skutočný tabulátor a zmiešaný s medzerami dá
+                <em>TabError: inconsistent use of tabs and spaces</em>.
               </li>
             </ul>
           </div>
@@ -749,9 +761,9 @@ t.done()</code></pre>
                 sa až po cykle.
               </li>
               <li>
-                Odsadiť celý domček naraz: označiť a <code>Ctrl + ]</code>
-                (alebo <em>Format → Indent Region</em>). V IDLE odsadí
-                označené riadky aj Tab.
+                Odsadiť celý domček naraz: označiť a <code>Tab</code> (alebo
+                <code>Ctrl + ]</code>). Späť o úroveň: <code>Ctrl + [</code>
+                (<em>Format → Dedent Region</em>).
               </li>
               <li>
                 V cykle majú všetky domčeky rovnakú strechu. Inú farbu v
