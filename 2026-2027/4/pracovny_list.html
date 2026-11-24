@@ -1,0 +1,918 @@
+<!doctype html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Korytnačka opakuje – pracovný list</title>
+    <style>
+      :root {
+        --ink: #1d232b;
+        --muted: #5b6573;
+        --line: #c9d1dc;
+        --accent: #1b5cb8;
+        --code-bg: #f4f6f9;
+        --desk: #eef1f5;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--desk);
+        color: var(--ink);
+        font: 11.5pt/1.45 "Segoe UI", Roboto, Arial, sans-serif;
+      }
+      .nav {
+        max-width: 210mm;
+        margin: 0 auto;
+        padding: 14px 16px 0;
+        font-size: 10.5pt;
+      }
+      .nav a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .sheet {
+        max-width: 210mm;
+        margin: 10px auto 40px;
+        background: #fff;
+        padding: 13mm 15mm;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+      }
+      header.ws {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 16px;
+        border-bottom: 2px solid var(--ink);
+        padding-bottom: 6px;
+        margin-bottom: 10px;
+      }
+      header.ws h1 {
+        margin: 0;
+        font-size: 20pt;
+        line-height: 1.1;
+      }
+      .meta {
+        font-size: 9.5pt;
+        color: var(--muted);
+        margin-top: 3px;
+      }
+      .name {
+        font-size: 10.5pt;
+        white-space: nowrap;
+      }
+      .name span {
+        display: inline-block;
+        width: 50mm;
+        border-bottom: 1px dotted var(--ink);
+      }
+      .lead {
+        margin: 0 0 8px;
+      }
+      h2 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12.5pt;
+        margin: 13px 0 6px;
+        padding-bottom: 3px;
+        border-bottom: 1px solid var(--line);
+        break-after: avoid;
+      }
+      h2 .k {
+        display: inline-grid;
+        place-items: center;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--ink);
+        color: #fff;
+        font-size: 10pt;
+      }
+      .task {
+        display: grid;
+        grid-template-columns: 24px 1fr;
+        gap: 0 8px;
+        margin: 8px 0;
+        break-inside: avoid;
+      }
+      .task > .n {
+        font-weight: 700;
+        text-align: center;
+        border: 1.5px solid var(--ink);
+        border-radius: 4px;
+        height: 22px;
+        line-height: 19px;
+        font-size: 10pt;
+      }
+      .task > *,
+      .pair > *,
+      .solved > .body > * {
+        min-width: 0;
+      }
+      .task p {
+        margin: 0 0 4px;
+      }
+      pre,
+      code {
+        font-family: Consolas, "Fira Code", Menlo, monospace;
+      }
+      pre {
+        margin: 4px 0 6px;
+        padding: 6px 10px;
+        background: var(--code-bg);
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        font-size: 10pt;
+        line-height: 1.4;
+        white-space: pre;
+        overflow-x: auto;
+      }
+      code {
+        font-size: 0.92em;
+        background: var(--code-bg);
+        padding: 0 3px;
+        border-radius: 3px;
+        white-space: nowrap;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+        font-size: inherit;
+        white-space: inherit;
+      }
+      .pb {
+        break-before: page;
+      }
+      .hint {
+        font-size: 9.5pt;
+        color: var(--muted);
+      }
+      .blank {
+        display: inline-block;
+        min-width: 15mm;
+        border-bottom: 1px dotted var(--ink);
+      }
+      .pair {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        align-items: start;
+      }
+      svg {
+        display: block;
+        font-family: "Segoe UI", Arial, sans-serif;
+      }
+
+      /* ťahák */
+      .cheat {
+        border: 1.5px solid var(--ink);
+        border-radius: 6px;
+        padding: 6px 10px 8px;
+        margin: 6px 0;
+      }
+      .cheat > b {
+        font-size: 10pt;
+      }
+      .cmds {
+        display: grid;
+        grid-template-columns: auto 1fr auto 1fr;
+        gap: 2px 10px;
+        margin-top: 4px;
+        font-size: 10pt;
+        align-items: baseline;
+      }
+      .cmds code {
+        background: none;
+        padding: 0;
+        font-weight: 600;
+      }
+      .warn {
+        margin: 6px 0 0;
+        font-size: 10pt;
+      }
+
+      /* riešený príklad */
+      .solved {
+        border: 1.5px solid var(--ink);
+        border-radius: 6px;
+        margin: 8px 0;
+        break-inside: avoid;
+      }
+      .solved > .bar {
+        padding: 3px 10px;
+        background: var(--ink);
+        color: #fff;
+        font-weight: 700;
+        font-size: 10pt;
+      }
+      .solved > .body {
+        padding: 8px 10px;
+      }
+      .solved p {
+        margin: 4px 0 0;
+        font-size: 10.5pt;
+      }
+      .steps {
+        margin: 4px 0 0;
+        padding-left: 20px;
+        font-size: 10.5pt;
+      }
+      .tri {
+        display: grid;
+        grid-template-columns: auto auto 1fr;
+        gap: 10px;
+        align-items: start;
+      }
+      .tri > * {
+        min-width: 0;
+      }
+      .master {
+        border-left: 3px solid var(--ink);
+        padding-left: 8px;
+        margin: 6px 0 2px;
+      }
+      ul.check {
+        list-style: none;
+        padding: 0;
+        margin: 4px 0 0;
+      }
+      ul.check li {
+        margin: 2px 0;
+      }
+      ul.check li::before {
+        content: "☐ ";
+      }
+
+      /* nové pre 4. hodinu */
+      table.grid {
+        border-collapse: collapse;
+        margin: 4px 0;
+        font-size: 10pt;
+      }
+      table.grid th,
+      table.grid td {
+        border: 1px solid var(--ink);
+        padding: 2px 8px;
+        text-align: center;
+        min-width: 20mm;
+        height: 6.5mm;
+      }
+      table.grid th {
+        text-align: left;
+        font-weight: 600;
+        min-width: 0;
+      }
+      .three {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        align-items: start;
+      }
+      .three > * {
+        min-width: 0;
+      }
+      .three pre {
+        margin: 2px 0 4px;
+      }
+      .three p {
+        margin: 0;
+      }
+      .gal {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        margin: 4px 0 2px;
+      }
+      .gal figure {
+        margin: 0;
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        padding: 4px 6px 0;
+      }
+      .gal figcaption {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 4px;
+        font-weight: 700;
+        font-size: 10pt;
+      }
+      .gal svg {
+        height: 12mm;
+        width: auto;
+        max-width: 22mm;
+      }
+      .gal pre {
+        margin: 3px -6px 0;
+        border-width: 1px 0 0;
+        border-radius: 0 0 5px 5px;
+        font-size: 8.5pt;
+        line-height: 1.3;
+        padding: 3px 5px;
+      }
+      .box {
+        border: 1.5px solid var(--ink);
+        border-radius: 6px;
+        padding: 6px 10px;
+        margin: 6px 0;
+        font-size: 10.5pt;
+      }
+      .box p {
+        margin: 0 0 3px;
+      }
+      .tpl {
+        position: relative;
+      }
+      .tpl pre {
+        font-size: 9.5pt;
+        line-height: 1.3;
+        margin-top: 0;
+      }
+      .tplpair {
+        grid-template-columns: 1.15fr 1fr;
+      }
+      .tplpair .box {
+        margin-top: 0;
+      }
+      .planpair {
+        grid-template-columns: auto 1fr;
+        align-items: center;
+      }
+      .planpair svg {
+        width: 112mm;
+      }
+      .copy {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        font: inherit;
+        font-size: 9pt;
+        padding: 2px 10px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: #fff;
+        cursor: pointer;
+      }
+      .prt {
+        display: none;
+      }
+      ol.how {
+        margin: 4px 0 0;
+        padding-left: 18px;
+        font-size: 10.5pt;
+      }
+      ol.how li {
+        margin: 1px 0;
+      }
+      rect.night {
+        fill: #000;
+      }
+
+      @media (max-width: 640px) {
+        .sheet {
+          padding: 18px 16px;
+        }
+        header.ws {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .pair,
+        .tri,
+        .three {
+          grid-template-columns: 1fr;
+        }
+        .gal {
+          grid-template-columns: 1fr 1fr;
+        }
+        .cmds {
+          grid-template-columns: auto 1fr;
+        }
+        table.grid th,
+        table.grid td {
+          min-width: 0;
+          padding: 2px 4px;
+          font-size: 9pt;
+        }
+        .plan-wrap {
+          overflow-x: auto;
+        }
+        .plan-wrap svg {
+          min-width: 520px;
+        }
+      }
+
+      @media print {
+        @page {
+          size: A4;
+          margin: 12mm 14mm;
+        }
+        body {
+          background: #fff;
+          font-size: 10.5pt;
+        }
+        .nav,
+        .copy,
+        .scr {
+          display: none;
+        }
+        .prt {
+          display: inline;
+        }
+        .sheet {
+          box-shadow: none;
+          margin: 0;
+          padding: 0;
+          max-width: none;
+        }
+        pre,
+        code {
+          background: #fff;
+        }
+        pre {
+          line-height: 1.3;
+          overflow: visible;
+        }
+        rect.night {
+          fill: #fff;
+          stroke: #999;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="nav"><a href="../index.html">← Späť na zoznam hodín</a></nav>
+
+    <main class="sheet">
+      <header class="ws">
+        <div>
+          <h1>Korytnačka opakuje</h1>
+          <div class="meta">
+            Informatika 9. ročník · 4. hodina · Súkromná ZŠ waldorfská ·
+            2026/2027
+          </div>
+        </div>
+        <div class="name">Meno: <span>&nbsp;</span></div>
+      </header>
+
+      <p class="lead">
+        Pri štvorci aj pri ulici ste písali to isté stále dokola. Dnes
+        korytnačke povieme <strong>zopakuj</strong>. V druhej hodine nakreslíte
+        obrázok, ktorý vytlačíme a dáme na nástenku.
+      </p>
+
+      <div class="cheat">
+        <b>Ťahák – nové príkazy</b>
+        <div class="cmds">
+          <code>for i in range(4):</code><span>zopakuj 4-krát</span>
+          <code>t.pos()</code><span>kde korytnačka stojí</span>
+          <code>i</code><span>počítadlo kôl: 0, 1, 2, 3</span>
+          <code>t.heading()</code><span>kam pozerá (0 = doprava)</span>
+          <code>Ctrl + ]</code><span>odsaď označené riadky</span>
+          <code>t.speed(0)</code><span>najrýchlejšie (1 = pomaly)</span>
+        </div>
+      </div>
+
+      <h2><span class="k">A</span> Zopakuj!</h2>
+
+      <div class="solved">
+        <div class="bar">Riešený príklad – súbor stvorec_for.py</div>
+        <div class="body tri">
+          <pre><code>import turtle as t
+for i in range(4):
+    t.forward(100)
+    t.left(90)
+t.done()</code></pre>
+          <svg viewBox="-34 -126 168 150" width="84" role="img" aria-label="Štvorec nakreslený v 4 kolách, pri každej strane číslo kola">
+            <path d="M0 0h100v-100h-100z" fill="none" stroke="#1d232b" stroke-width="3" stroke-linejoin="round" />
+            <path d="M-9 -7L5 0L-9 7Z" fill="#1d232b" />
+            <g font-size="20" font-weight="700" text-anchor="middle" fill="#5b6573">
+              <text x="50" y="22">1</text>
+              <text x="118" y="-43">2</text>
+              <text x="50" y="-108">3</text>
+              <text x="-18" y="-43">4</text>
+            </g>
+          </svg>
+          <div>
+            <ol class="steps">
+              <li>
+                <code>for i in range(4):</code> = „zopakuj 4-krát“. Na konci
+                je <strong>dvojbodka</strong>. Minule 8 riadkov, teraz 3.
+              </li>
+              <li>
+                Opakuje sa všetko <strong>odsadené</strong> (4 medzery, IDLE
+                ich po dvojbodke dá sám).
+              </li>
+              <li>
+                <code>t.done()</code> nie je odsadené, príde až po 4. kole.
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="task">
+        <span class="n">1</span>
+        <div>
+          <p>
+            <strong>Mnohouholníky.</strong> Zmeň v príklade dve čísla. Za celý
+            tvar sa korytnačka otočí o 360°.
+          </p>
+          <table class="grid">
+            <tr>
+              <th>tvar</th>
+              <td>trojuholník</td>
+              <td>päťuholník</td>
+              <td>šesťuholník</td>
+              <td>36-uholník</td>
+            </tr>
+            <tr>
+              <th><code>range( )</code></th>
+              <td>3</td>
+              <td>5</td>
+              <td>6</td>
+              <td>36</td>
+            </tr>
+            <tr>
+              <th><code>left( )</code></th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </table>
+          <p>
+            36-uholník kresli so stranou 20. Čo pripomína?
+            <span class="blank" style="min-width: 22mm">&nbsp;</span>
+            Pred <code>t.done()</code> pridaj
+            <code>print(t.pos(), t.heading())</code>. Kde skončila a kam
+            pozerá? <span class="blank" style="min-width: 30mm">&nbsp;</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="task">
+        <span class="n">2</span>
+        <div>
+          <p>
+            <strong>Najprv tipni, potom vyskúšaj.</strong> Programy sa líšia
+            len odsadením.
+          </p>
+          <div class="three">
+            <div>
+              <pre><code>for i in range(4):
+    t.forward(100)
+    t.left(90)
+    t.dot(20)</code></pre>
+              <p>A: koľko bodiek? <span class="blank">&nbsp;</span></p>
+            </div>
+            <div>
+              <pre><code>for i in range(4):
+    t.forward(100)
+    t.left(90)
+t.dot(20)</code></pre>
+              <p>B: koľko bodiek? <span class="blank">&nbsp;</span></p>
+            </div>
+            <div>
+              <pre><code>for i in range(4):
+    t.forward(100)
+t.left(90)
+</code></pre>
+              <p>C: čo nakreslí? <span class="blank" style="min-width: 25mm">&nbsp;</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="task">
+        <span class="n">3</span>
+        <div>
+          <p>
+            <strong>Galéria cyklov.</strong> Vyber si aspoň dva, prepíš a
+            vyskúšaj. Potom meň čísla: počet kôl, uhol, dĺžku. Hodia sa do
+            projektu. <strong>Majster:</strong> vyfarbená hviezda
+            (<code>begin_fill()</code> pred cyklus, <code>end_fill()</code>
+            za).
+          </p>
+          <div class="gal">
+            <figure>
+              <figcaption>
+                Hviezda
+                <svg viewBox="-16 -128 232 214" role="img" aria-label="Päťcípa hviezda nakreslená jedným ťahom">
+                  <polyline points="0,0 200,0 38.2,-117.6 100,72.7 161.8,-117.6 0,0" fill="none" stroke="#1d232b" stroke-width="8" stroke-linejoin="round" />
+                  <path d="M-14 -11L8 0L-14 11Z" fill="#1d232b" />
+                </svg>
+              </figcaption>
+              <pre><code>t.pensize(3)
+for i in range(5):
+    t.forward(200)
+    t.left(144)</code></pre>
+            </figure>
+            <figure>
+              <figcaption>
+                Slnko
+                <svg viewBox="-92 -92 184 184" role="img" aria-label="Slnko: 12 lúčov a žltá bodka v strede">
+                  <path d="M0 0L80 0M0 0L69.3 -40M0 0L40 -69.3M0 0L0 -80M0 0L-40 -69.3M0 0L-69.3 -40M0 0L-80 0M0 0L-69.3 40M0 0L-40 69.3M0 0L0 80M0 0L40 69.3M0 0L69.3 40" stroke="#e8902c" stroke-width="8" stroke-linecap="round" />
+                  <circle r="50" fill="#f7d34a" />
+                </svg>
+              </figcaption>
+              <pre><code>t.pensize(4)
+t.pencolor("orange")
+for i in range(12):
+    t.forward(80)
+    t.back(80)
+    t.left(30)
+t.dot(100, "gold")</code></pre>
+            </figure>
+            <figure>
+              <figcaption>
+                Kvet z bodiek
+                <svg viewBox="-62 -62 124 124" role="img" aria-label="Kvet: 8 ružových bodiek dookola a žltá bodka v strede">
+                  <g fill="#f3a5c0">
+                    <circle cx="40" cy="0" r="18" />
+                    <circle cx="28.3" cy="-28.3" r="18" />
+                    <circle cx="0" cy="-40" r="18" />
+                    <circle cx="-28.3" cy="-28.3" r="18" />
+                    <circle cx="-40" cy="0" r="18" />
+                    <circle cx="-28.3" cy="28.3" r="18" />
+                    <circle cx="0" cy="40" r="18" />
+                    <circle cx="28.3" cy="28.3" r="18" />
+                  </g>
+                  <circle r="20" fill="#f7d34a" />
+                </svg>
+              </figcaption>
+              <pre><code>t.penup()
+for i in range(8):
+    t.forward(40)
+    t.dot(36, "pink")
+    t.back(40)
+    t.left(45)
+t.dot(40, "gold")</code></pre>
+            </figure>
+            <figure>
+              <figcaption>
+                Plot
+                <svg viewBox="-166 -96 312 112" role="img" aria-label="Plot z 8 zvislých dosiek vedľa seba">
+                  <path d="M-150 0V-80M-110 0V-80M-70 0V-80M-30 0V-80M10 0V-80M50 0V-80M90 0V-80M130 0V-80" stroke="#1d232b" stroke-width="16" stroke-linecap="round" />
+                </svg>
+              </figcaption>
+              <pre><code>t.pensize(8)
+x = -150
+for i in range(8):
+    t.penup()
+    t.goto(x, 0)
+    t.pendown()
+    t.goto(x, 80)
+    x = x + 40</code></pre>
+            </figure>
+          </div>
+        </div>
+      </div>
+
+      <div class="task">
+        <span class="n">4</span>
+        <p>
+          <strong>Ulica jedným cyklom.</strong> V ulici z minulej hodiny nechaj
+          1 domček a daj ho do cyklu <code>for i in range(4):</code>. Na koniec
+          cyklu patrí <code>x = x + 150</code>. Riadkov minule:
+          <span class="blank">&nbsp;</span> teraz: <span class="blank">&nbsp;</span>
+        </p>
+      </div>
+
+      <h2><span class="k">B</span> Farebná špirála</h2>
+
+      <div class="solved">
+        <div class="bar">Riešený príklad – súbor spirala.py</div>
+        <div class="body tri">
+          <pre><code>import turtle as t
+t.speed(0)
+t.bgcolor("black")
+t.colormode(255)
+t.pensize(2)
+for i in range(256):
+    t.pencolor(i, 0, 255 - i)
+    t.forward(i * 2)
+    t.left(91)
+t.done()</code></pre>
+          <svg viewBox="-334 -333 666 666" width="140" role="img" aria-label="Štvorcová špirála, ktorá sa stáča a mení farbu z modrej na červenú">
+            <rect class="night" x="-334" y="-333" width="666" height="666" />
+            <g fill="none" stroke-width="3" stroke-linejoin="round">
+              <polyline stroke="#0400fb" points="0,0 0,0 0,-2 -4,-2 -4,4 4,4 3,-6 -9,-5 -7,9" />
+              <polyline stroke="#0c00f3" points="-7,9 9,7 6,-11 -14,-8 -9,14 14,9 8,-16 -19,-10 -11,19" />
+              <polyline stroke="#1400eb" points="-11,19 20,10 10,-22 -25,-11 -12,25 25,11 10,-28 -30,-11 -12,31" />
+              <polyline stroke="#1c00e3" points="-12,31 31,11 10,-34 -36,-11 -12,37 38,11 9,-40 -43,-10 -11,43" />
+              <polyline stroke="#2400db" points="-11,43 44,9 8,-46 -49,-8 -9,49 50,7 5,-52 -55,-5 -6,55" />
+              <polyline stroke="#2c00d3" points="-6,55 56,4 2,-58 -61,-2 -2,61 61,0 -2,-64 -66,2 3,67" />
+              <polyline stroke="#3400cb" points="3,67 67,-5 -7,-69 -71,7 8,72 72,-10 -13,-74 -76,13 14,76" />
+              <polyline stroke="#3c00c3" points="14,76 77,-16 -19,-79 -81,20 21,81 81,-23 -26,-82 -84,27 28,84" />
+              <polyline stroke="#4400bb" points="28,84 84,-31 -34,-86 -87,35 36,87 87,-39 -42,-88 -90,43 44,89" />
+              <polyline stroke="#4c00b3" points="44,89 89,-48 -51,-90 -92,52 53,91 90,-57 -60,-91 -92,61 63,91" />
+              <polyline stroke="#5400ab" points="63,91 91,-66 -70,-91 -92,71 72,91 90,-76 -79,-91 -91,81 82,90" />
+              <polyline stroke="#5c00a3" points="82,90 89,-86 -89,-89 -89,91 93,88 86,-96 -100,-86 -87,101 103,85" />
+              <polyline stroke="#64009b" points="103,85 83,-106 -110,-83 -83,111 113,80 78,-117 -120,-78 -78,122 123,75" />
+              <polyline stroke="#6c0093" points="123,75 73,-127 -130,-72 -72,132 133,69 66,-136 -140,-65 -65,141 143,62" />
+              <polyline stroke="#74008b" points="143,62 59,-146 -149,-58 -57,151 152,53 50,-155 -158,-49 -48,159 161,44" />
+              <polyline stroke="#7c0083" points="161,44 41,-164 -167,-39 -37,168 169,34 30,-172 -175,-28 -27,176 176,23" />
+              <polyline stroke="#84007b" points="176,23 19,-179 -182,-17 -15,182 183,11 6,-186 -188,-4 -2,189 189,-2" />
+              <polyline stroke="#8c0073" points="189,-2 -7,-191 -194,9 12,194 194,-16 -21,-196 -198,23 26,198 198,-30" />
+              <polyline stroke="#94006b" points="198,-30 -35,-200 -201,38 41,201 201,-45 -50,-202 -204,53 56,203 202,-61" />
+              <polyline stroke="#9c0063" points="202,-61 -66,-204 -205,69 72,204 203,-77 -82,-204 -205,85 88,204 202,-93" />
+              <polyline stroke="#a4005b" points="202,-93 -98,-203 -203,102 105,202 200,-110 -115,-200 -201,118 122,199 197,-127" />
+              <polyline stroke="#ac0053" points="197,-127 -132,-197 -196,135 138,194 192,-144 -149,-191 -191,152 155,188 186,-160" />
+              <polyline stroke="#b4004b" points="186,-160 -165,-185 -184,169 172,181 178,-177 -182,-177 -176,185 188,172 169,-193" />
+              <polyline stroke="#bc0043" points="169,-193 -198,-167 -166,201 204,162 159,-209 -214,-157 -155,217 220,151 147,-224" />
+              <polyline stroke="#c4003b" points="147,-224 -229,-144 -142,232 234,138 133,-239 -243,-131 -128,246 248,124 119,-253" />
+              <polyline stroke="#cc0033" points="119,-253 -257,-116 -113,259 262,108 103,-266 -270,-100 -97,272 274,91 86,-278" />
+              <polyline stroke="#d4002b" points="86,-278 -281,-82 -79,283 285,73 68,-288 -292,-64 -60,293 295,54 48,-298" />
+              <polyline stroke="#dc0023" points="48,-298 -301,-44 -40,302 303,34 28,-306 -309,-24 -19,310 311,13 7,-313" />
+              <polyline stroke="#e4001b" points="7,-313 -316,-2 2,316 316,-9 -16,-319 -321,20 25,321 321,-32 -38,-322" />
+              <polyline stroke="#ec0013" points="-38,-322 -324,43 48,324 323,-55 -62,-325 -326,67 72,325 324,-79 -86,-325" />
+              <polyline stroke="#f4000b" points="-86,-325 -326,91 96,324 323,-103 -110,-324 -324,115 120,322 320,-127 -134,-320" />
+              <polyline stroke="#fc0003" points="-134,-320 -320,140 145,318 316,-152 -159,-315 -315,164 169,312 309,-176 -183,-308" />
+            </g>
+          </svg>
+          <div>
+            <ul class="steps">
+              <li>
+                <code>i</code> počíta kolá 0, 1, 2… 255, preto je každá čiara
+                dlhšia: <code>forward(i * 2)</code>.
+              </li>
+              <li>91° namiesto 90°: špirála sa stáča.</li>
+              <li>
+                Farba z troch čísel: <strong>červená, zelená, modrá</strong>,
+                každá 0 až 255. <code>(255, 255, 0)</code> je žltá.
+              </li>
+              <li>
+                <code>(i, 0, 255 - i)</code>: červenej pribúda, modrej
+                ubúda.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="task">
+        <span class="n">5</span>
+        <p>
+          Zmeň uhol 91 na 90, 89, 121 alebo 61. Skús iné farby, napríklad
+          <code>(255, i, 0)</code> alebo <code>(0, i, 255)</code>. Prečo
+          program spadne pri <code>range(300)</code>?
+          <span class="blank" style="min-width: 40mm">&nbsp;</span>
+        </p>
+      </div>
+
+      <h2><span class="k">C</span> Projekt: obrázok na nástenku</h2>
+
+      <p class="lead">
+        Obrázok vytlačíme na A4 naležato. Téma je tvoja: zima, vesmír, more,
+        mesto, kvety, špirály…
+      </p>
+
+      <div class="pair tplpair">
+        <div class="tpl">
+          <pre id="sablona"><code>import turtle as t
+# --- okno veľkosti A4 (nemeň) ---
+screen = t.Screen()
+screen.setup(width=1200, height=850)
+t.speed(0)
+
+# --- tvoje meno a dnešný dátum ---
+meno = "Jana"
+priezvisko = "Nováková"
+datum = "1. 12. 2026"
+
+# --- TU KRESLI ---
+# rámik: x od -580 do 580
+#        y od -410 do 410
+
+<span class="scr">
+# --- rámik a štítok (nemeň) ---
+t.hideturtle()
+t.pensize(2)
+t.pencolor("black")
+t.fillcolor("white")
+# rámik
+t.penup()
+t.goto(-580, -410)
+t.pendown()
+t.goto(580, -410)
+t.goto(580, 410)
+t.goto(-580, 410)
+t.goto(-580, -410)
+# štítok
+t.penup()
+t.goto(230, -400)
+t.pendown()
+t.begin_fill()
+t.goto(570, -400)
+t.goto(570, -340)
+t.goto(230, -340)
+t.goto(230, -400)
+t.end_fill()
+t.penup()
+t.goto(555, -370)
+t.write(meno + " " + priezvisko, align="right",
+        font=("Arial", 13, "bold"))
+t.goto(555, -394)
+t.write("Informatika 9. ročník · " + datum,
+        align="right", font=("Arial", 10, "normal"))
+
+</span><span class="prt"># --- rámik a štítok (nemeň) ---
+# asi 30 riadkov, celá šablóna je na webe
+</span>t.done()</code></pre>
+          <button type="button" class="copy">Kopírovať</button>
+        </div>
+        <div>
+          <div class="box">
+            <p>
+              <strong>Veľkosť okna.</strong> <code>screen = t.Screen()</code>
+              je okno korytnačky. <code>screen.setup(…)</code> mu nastaví
+              šírku 1200 a výšku 850 bodov. Papier A4 má 297 × 210 mm.
+              Vypočítaj 297 : 210 = <span class="blank">&nbsp;</span> a
+              1200 : 850 = <span class="blank">&nbsp;</span>. Rovnaký pomer:
+              obrázok vyplní celý papier.
+            </p>
+          </div>
+          <ol class="how">
+            <li>
+              Skopíruj šablónu z webu, ulož ako
+              <code>priezvisko_meno.py</code> a spusti. Uvidíš rámik so
+              štítkom.
+            </li>
+            <li>Prepíš meno, priezvisko a dátum.</li>
+            <li>Načrtni obrázok do mriežky.</li>
+            <li>
+              Kresli pod <code>TU KRESLI</code>, často spúšťaj.
+              <code>t.done()</code> ostáva posledný.
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="pair planpair">
+        <div class="plan-wrap">
+          <svg viewBox="-690 -434 1290 892" width="100%" style="max-width: 112mm" role="img" aria-label="Mriežka na náčrt: rámik od -580 do 580 a od -410 do 410, vpravo dole štítok">
+            <defs>
+              <pattern id="grid-p" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                <path d="M100 0H0V100" fill="none" stroke="#c3c9d2" stroke-width="2" />
+              </pattern>
+            </defs>
+            <rect x="-580" y="-410" width="1160" height="820" fill="url(#grid-p)" />
+            <path d="M-580 0H580M0 -410V410" stroke="#5b6573" stroke-width="3" />
+            <rect x="-580" y="-410" width="1160" height="820" fill="none" stroke="#1d232b" stroke-width="5" />
+            <rect x="230" y="340" width="340" height="60" fill="#fff" stroke="#1d232b" stroke-width="3" />
+            <text x="400" y="380" font-size="28" text-anchor="middle" fill="#5b6573">štítok</text>
+            <g font-size="28" fill="#1d232b" text-anchor="middle">
+              <text x="-580" y="446">-580</text>
+              <text x="-400" y="446">-400</text>
+              <text x="-200" y="446">-200</text>
+              <text x="0" y="446">0</text>
+              <text x="200" y="446">200</text>
+              <text x="400" y="446">400</text>
+              <text x="580" y="446">580</text>
+            </g>
+            <g font-size="28" fill="#1d232b" text-anchor="end">
+              <text x="-592" y="-400">410</text>
+              <text x="-592" y="-190">200</text>
+              <text x="-592" y="10">0</text>
+              <text x="-592" y="210">-200</text>
+              <text x="-592" y="420">-410</text>
+            </g>
+          </svg>
+        </div>
+        <div>
+          <p style="margin: 0"><strong>Na obrázku musí byť:</strong></p>
+          <ul class="check">
+            <li>pozadie (<code>bgcolor</code> alebo veľký tvar)</li>
+            <li>aspoň 2 rôzne cykly <code>for</code></li>
+            <li>vyfarbené tvary aj bodky</li>
+            <li>všetko v rámiku, štítok nezakrytý</li>
+            <li>program dobehne bez chyby</li>
+          </ul>
+          <p class="hint" style="margin-top: 6px">
+            Rámik a štítok kreslí šablóna až na konci, preto sú vždy navrchu.
+            Pozadie (<code>bgcolor</code>) môže ísť cez celé okno.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      document.querySelectorAll(".copy").forEach((btn) =>
+        btn.addEventListener("click", async () => {
+          const code = btn.parentElement.querySelector("code").innerText;
+          try {
+            await navigator.clipboard.writeText(code);
+            btn.textContent = "Skopírované ✓";
+          } catch {
+            btn.textContent = "Označ a skopíruj ručne";
+          }
+          setTimeout(() => (btn.textContent = "Kopírovať"), 2000);
+        })
+      );
+    </script>
+  </body>
+</html>
