@@ -1,0 +1,9 @@
+// Cloudflare Workers: serves this folder as a static website.
+// "name" must match the Worker name in the Cloudflare dashboard.
+{
+  "name": "waldorfska",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "."
+  }
+}

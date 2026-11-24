@@ -1,0 +1,9 @@
+# Files Cloudflare must not publish on the web
+.git
+.github
+.claude
+.wrangler
+node_modules
+.DS_Store
+.gitignore
+wrangler.jsonc
