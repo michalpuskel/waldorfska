@@ -176,8 +176,24 @@
         padding: 6px 10px 8px;
         margin: 6px 0;
       }
-      .cheat > b {
+      .chead {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 0 12px;
+      }
+      .chead b {
         font-size: 10pt;
+      }
+      .chead span {
+        font-size: 8.5pt;
+        color: var(--muted, #5b6573);
+      }
+      .chead code {
+        background: none;
+        padding: 0;
+        font-weight: 600;
       }
       .cmds {
         display: grid;
@@ -469,13 +485,17 @@
       </p>
 
       <div class="cheat">
-        <b>Ťahák – nové príkazy</b>
+        <div class="chead">
+          <b>Ťahák – nové príkazy</b>
+          <span>Viac riadkov naraz: označ ich a <code>Ctrl + ]</code>,
+            naspäť <code>Ctrl + [</code></span>
+        </div>
         <div class="cmds">
           <code>for i in range(4):</code><span>zopakuj 4-krát</span>
           <code>t.pos()</code><span>kde korytnačka stojí</span>
           <code>i</code><span>počítadlo kôl: 0, 1, 2, 3</span>
           <code>t.heading()</code><span>kam pozerá (0 = doprava)</span>
-          <code>Tab</code><span>odsaď (aj označené riadky)</span>
+          <code>Tab</code><span>odsaď o 4 medzery</span>
           <code>t.speed(0)</code><span>najrýchlejšie (1 = pomaly)</span>
         </div>
       </div>
