@@ -58,6 +58,45 @@
         padding: 15px 20px;
       }
 
+      /* bonusový list pod svojou hodinou, v tej istej karte */
+      ul.sub {
+        margin: -10px 0 0;
+        padding: 0 20px 12px 24px;
+      }
+
+      ul.sub li {
+        margin: 0;
+        background: none;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      ul.sub li:hover {
+        box-shadow: none;
+      }
+
+      ul.sub li a {
+        position: relative;
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 6px 0 6px 20px;
+      }
+
+      ul.sub li a:hover {
+        text-decoration: underline;
+      }
+
+      ul.sub li a::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 10px;
+        height: 50%;
+        border-left: 2px solid #b8c7da;
+        border-bottom: 2px solid #b8c7da;
+      }
+
       .back a {
         color: #1b5cb8;
         text-decoration: none;
@@ -90,6 +129,9 @@
           <a href="1/pracovny_list.html"
             >1. – Prvý program: print(), input(), súbor</a
           >
+          <ul class="sub">
+            <li><a href="1/bonus.html">★ Bonus: násobilka a vzory</a></li>
+          </ul>
         </li>
         <li>
           <a href="2/pracovny_list.html"
@@ -100,6 +142,9 @@
           <a href="3/pracovny_list.html"
             >3. – Korytnačka maľuje: výplne, bodky a premenné</a
           >
+          <ul class="sub">
+            <li><a href="3/bonus.html">★ Bonus: vlajky a kruhy</a></li>
+          </ul>
         </li>
         <!-- Tu môžeš postupne pridávať ďalšie hodiny -->
       </ul>
